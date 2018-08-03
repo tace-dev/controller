@@ -4,10 +4,6 @@
 Keyword=ST7Workspace-V0.7
 
 [Project0]
-Filename=motor_cpu\motor_cpu.stp
-Dependencies=
-
-[Project1]
 Filename=controller.conv\controller_conv.stp
 Dependencies=
 [Options]

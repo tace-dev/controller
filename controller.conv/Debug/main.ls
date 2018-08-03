@@ -6,7 +6,7 @@
   46                     	switch	.text
   47  0000               _main:
   51  0000               L12:
-  52                     ; 10 	while (1);
+  52                     ; 11 		;
   54  0000 20fe          	jra	L12
   67                     	xdef	_main
   86                     	end

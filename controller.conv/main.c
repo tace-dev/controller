@@ -7,5 +7,6 @@
 main()
 {
 	//	from atom99
-	while (1);
+	while (1)
+		;
 }
