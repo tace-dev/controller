@@ -1,0 +1,2742 @@
+   1                     ; C Compiler for STM8 (COSMIC Software)
+   2                     ; Parser V4.10.21 - 04 Feb 2014
+   3                     ; Generator (Limited) V4.3.12 - 11 Feb 2014
+  54                     ; 7 void	lcd_blink(uint8_t mode)
+  54                     ; 8 {
+  56                     	switch	.text
+  57  0000               _lcd_blink:
+  61                     ; 29 }
+  64  0000 81            	ret
+  67                     .const:	section	.text
+  68  0000               _bLF_DEF:
+  69  0000 01            	dc.b	1
+  70  0001 02            	dc.b	2
+  71  0002 04            	dc.b	4
+  72  0003 08            	dc.b	8
+  73  0004 10            	dc.b	16
+  74  0005 20            	dc.b	32
+  75  0006 40            	dc.b	64
+  76  0007 80            	dc.b	128
+  77  0008 02            	dc.b	2
+  78  0009 04            	dc.b	4
+  79  000a 08            	dc.b	8
+  80  000b 10            	dc.b	16
+  81  000c 20            	dc.b	32
+  82  000d 40            	dc.b	64
+  83  000e 80            	dc.b	128
+  84  000f 01            	dc.b	1
+  85  0010 10            	dc.b	16
+  86  0011 20            	dc.b	32
+  87  0012 40            	dc.b	64
+  88  0013 80            	dc.b	128
+  89  0014 01            	dc.b	1
+  90  0015 02            	dc.b	2
+  91  0016 04            	dc.b	4
+  92  0017 08            	dc.b	8
+  93  0018 20            	dc.b	32
+  94  0019 40            	dc.b	64
+  95  001a 80            	dc.b	128
+  96  001b 01            	dc.b	1
+  97  001c 02            	dc.b	2
+  98  001d 04            	dc.b	4
+  99  001e 08            	dc.b	8
+ 100  001f 10            	dc.b	16
+ 101  0020 01            	dc.b	1
+ 102  0021 02            	dc.b	2
+ 103  0022 04            	dc.b	4
+ 104  0023 08            	dc.b	8
+ 105  0024 10            	dc.b	16
+ 106  0025 20            	dc.b	32
+ 107  0026 40            	dc.b	64
+ 108  0027 80            	dc.b	128
+ 109  0028 02            	dc.b	2
+ 110  0029 04            	dc.b	4
+ 111  002a 08            	dc.b	8
+ 112  002b 10            	dc.b	16
+ 113  002c 20            	dc.b	32
+ 114  002d 40            	dc.b	64
+ 115  002e 80            	dc.b	128
+ 116  002f 01            	dc.b	1
+ 117  0030 10            	dc.b	16
+ 118  0031 20            	dc.b	32
+ 119  0032 40            	dc.b	64
+ 120  0033 80            	dc.b	128
+ 121  0034 01            	dc.b	1
+ 122  0035 02            	dc.b	2
+ 123  0036 04            	dc.b	4
+ 124  0037 08            	dc.b	8
+ 125  0038 20            	dc.b	32
+ 126  0039 40            	dc.b	64
+ 127  003a 80            	dc.b	128
+ 128  003b 01            	dc.b	1
+ 129  003c 02            	dc.b	2
+ 130  003d 04            	dc.b	4
+ 131  003e 08            	dc.b	8
+ 132  003f 10            	dc.b	16
+ 133  0040               _iLF_DEF:
+ 134  0040 00            	dc.b	0
+ 135  0041 00            	dc.b	0
+ 136  0042 00            	dc.b	0
+ 137  0043 00            	dc.b	0
+ 138  0044 00            	dc.b	0
+ 139  0045 00            	dc.b	0
+ 140  0046 00            	dc.b	0
+ 141  0047 00            	dc.b	0
+ 142  0048 01            	dc.b	1
+ 143  0049 01            	dc.b	1
+ 144  004a 01            	dc.b	1
+ 145  004b 01            	dc.b	1
+ 146  004c 01            	dc.b	1
+ 147  004d 01            	dc.b	1
+ 148  004e 01            	dc.b	1
+ 149  004f 02            	dc.b	2
+ 150  0050 03            	dc.b	3
+ 151  0051 03            	dc.b	3
+ 152  0052 03            	dc.b	3
+ 153  0053 03            	dc.b	3
+ 154  0054 04            	dc.b	4
+ 155  0055 04            	dc.b	4
+ 156  0056 04            	dc.b	4
+ 157  0057 04            	dc.b	4
+ 158  0058 04            	dc.b	4
+ 159  0059 04            	dc.b	4
+ 160  005a 04            	dc.b	4
+ 161  005b 05            	dc.b	5
+ 162  005c 05            	dc.b	5
+ 163  005d 05            	dc.b	5
+ 164  005e 05            	dc.b	5
+ 165  005f 05            	dc.b	5
+ 166  0060 07            	dc.b	7
+ 167  0061 07            	dc.b	7
+ 168  0062 07            	dc.b	7
+ 169  0063 07            	dc.b	7
+ 170  0064 07            	dc.b	7
+ 171  0065 07            	dc.b	7
+ 172  0066 07            	dc.b	7
+ 173  0067 07            	dc.b	7
+ 174  0068 08            	dc.b	8
+ 175  0069 08            	dc.b	8
+ 176  006a 08            	dc.b	8
+ 177  006b 08            	dc.b	8
+ 178  006c 08            	dc.b	8
+ 179  006d 08            	dc.b	8
+ 180  006e 08            	dc.b	8
+ 181  006f 09            	dc.b	9
+ 182  0070 0a            	dc.b	10
+ 183  0071 0a            	dc.b	10
+ 184  0072 0a            	dc.b	10
+ 185  0073 0a            	dc.b	10
+ 186  0074 0b            	dc.b	11
+ 187  0075 0b            	dc.b	11
+ 188  0076 0b            	dc.b	11
+ 189  0077 0b            	dc.b	11
+ 190  0078 0b            	dc.b	11
+ 191  0079 0b            	dc.b	11
+ 192  007a 0b            	dc.b	11
+ 193  007b 0c            	dc.b	12
+ 194  007c 0c            	dc.b	12
+ 195  007d 0c            	dc.b	12
+ 196  007e 0c            	dc.b	12
+ 197  007f 0c            	dc.b	12
+ 198  0080               __na:
+ 199  0080 02            	dc.b	2
+ 200  0081 13            	dc.b	19
+ 201  0082 33            	dc.b	51
+ 202  0083 32            	dc.b	50
+ 203  0084 22            	dc.b	34
+ 204  0085 12            	dc.b	18
+ 205  0086 00            	dc.b	0
+ 206  0087 13            	dc.b	19
+ 207  0088 33            	dc.b	51
+ 208  0089 00            	dc.b	0
+ 209  008a 00            	dc.b	0
+ 210  008b 00            	dc.b	0
+ 211  008c 00            	dc.b	0
+ 212  008d 00            	dc.b	0
+ 213  008e 02            	dc.b	2
+ 214  008f 13            	dc.b	19
+ 215  0090 23            	dc.b	35
+ 216  0091 22            	dc.b	34
+ 217  0092 32            	dc.b	50
+ 218  0093 00            	dc.b	0
+ 219  0094 00            	dc.b	0
+ 220  0095 02            	dc.b	2
+ 221  0096 13            	dc.b	19
+ 222  0097 23            	dc.b	35
+ 223  0098 33            	dc.b	51
+ 224  0099 32            	dc.b	50
+ 225  009a 00            	dc.b	0
+ 226  009b 00            	dc.b	0
+ 227  009c 12            	dc.b	18
+ 228  009d 23            	dc.b	35
+ 229  009e 13            	dc.b	19
+ 230  009f 33            	dc.b	51
+ 231  00a0 00            	dc.b	0
+ 232  00a1 00            	dc.b	0
+ 233  00a2 00            	dc.b	0
+ 234  00a3 02            	dc.b	2
+ 235  00a4 12            	dc.b	18
+ 236  00a5 23            	dc.b	35
+ 237  00a6 33            	dc.b	51
+ 238  00a7 32            	dc.b	50
+ 239  00a8 00            	dc.b	0
+ 240  00a9 00            	dc.b	0
+ 241  00aa 12            	dc.b	18
+ 242  00ab 23            	dc.b	35
+ 243  00ac 22            	dc.b	34
+ 244  00ad 32            	dc.b	50
+ 245  00ae 33            	dc.b	51
+ 246  00af 00            	dc.b	0
+ 247  00b0 00            	dc.b	0
+ 248  00b1 02            	dc.b	2
+ 249  00b2 13            	dc.b	19
+ 250  00b3 33            	dc.b	51
+ 251  00b4 00            	dc.b	0
+ 252  00b5 00            	dc.b	0
+ 253  00b6 00            	dc.b	0
+ 254  00b7 00            	dc.b	0
+ 255  00b8 02            	dc.b	2
+ 256  00b9 13            	dc.b	19
+ 257  00ba 33            	dc.b	51
+ 258  00bb 32            	dc.b	50
+ 259  00bc 22            	dc.b	34
+ 260  00bd 12            	dc.b	18
+ 261  00be 23            	dc.b	35
+ 262  00bf 02            	dc.b	2
+ 263  00c0 12            	dc.b	18
+ 264  00c1 23            	dc.b	35
+ 265  00c2 13            	dc.b	19
+ 266  00c3 33            	dc.b	51
+ 267  00c4 00            	dc.b	0
+ 268  00c5 00            	dc.b	0
+ 269  00c6               __nb:
+ 270  00c6 04            	dc.b	4
+ 271  00c7 15            	dc.b	21
+ 272  00c8 35            	dc.b	53
+ 273  00c9 34            	dc.b	52
+ 274  00ca 24            	dc.b	36
+ 275  00cb 14            	dc.b	20
+ 276  00cc 00            	dc.b	0
+ 277  00cd 15            	dc.b	21
+ 278  00ce 35            	dc.b	53
+ 279  00cf 00            	dc.b	0
+ 280  00d0 00            	dc.b	0
+ 281  00d1 00            	dc.b	0
+ 282  00d2 00            	dc.b	0
+ 283  00d3 00            	dc.b	0
+ 284  00d4 04            	dc.b	4
+ 285  00d5 15            	dc.b	21
+ 286  00d6 25            	dc.b	37
+ 287  00d7 24            	dc.b	36
+ 288  00d8 34            	dc.b	52
+ 289  00d9 00            	dc.b	0
+ 290  00da 00            	dc.b	0
+ 291  00db 04            	dc.b	4
+ 292  00dc 15            	dc.b	21
+ 293  00dd 25            	dc.b	37
+ 294  00de 35            	dc.b	53
+ 295  00df 34            	dc.b	52
+ 296  00e0 00            	dc.b	0
+ 297  00e1 00            	dc.b	0
+ 298  00e2 14            	dc.b	20
+ 299  00e3 25            	dc.b	37
+ 300  00e4 15            	dc.b	21
+ 301  00e5 35            	dc.b	53
+ 302  00e6 00            	dc.b	0
+ 303  00e7 00            	dc.b	0
+ 304  00e8 00            	dc.b	0
+ 305  00e9 04            	dc.b	4
+ 306  00ea 14            	dc.b	20
+ 307  00eb 25            	dc.b	37
+ 308  00ec 35            	dc.b	53
+ 309  00ed 34            	dc.b	52
+ 310  00ee 00            	dc.b	0
+ 311  00ef 00            	dc.b	0
+ 312  00f0 14            	dc.b	20
+ 313  00f1 25            	dc.b	37
+ 314  00f2 24            	dc.b	36
+ 315  00f3 34            	dc.b	52
+ 316  00f4 35            	dc.b	53
+ 317  00f5 00            	dc.b	0
+ 318  00f6 00            	dc.b	0
+ 319  00f7 04            	dc.b	4
+ 320  00f8 15            	dc.b	21
+ 321  00f9 35            	dc.b	53
+ 322  00fa 00            	dc.b	0
+ 323  00fb 00            	dc.b	0
+ 324  00fc 00            	dc.b	0
+ 325  00fd 00            	dc.b	0
+ 326  00fe 04            	dc.b	4
+ 327  00ff 15            	dc.b	21
+ 328  0100 35            	dc.b	53
+ 329  0101 34            	dc.b	52
+ 330  0102 24            	dc.b	36
+ 331  0103 14            	dc.b	20
+ 332  0104 25            	dc.b	37
+ 333  0105 04            	dc.b	4
+ 334  0106 14            	dc.b	20
+ 335  0107 25            	dc.b	37
+ 336  0108 15            	dc.b	21
+ 337  0109 35            	dc.b	53
+ 338  010a 00            	dc.b	0
+ 339  010b 00            	dc.b	0
+ 340  010c               __nc:
+ 341  010c 07            	dc.b	7
+ 342  010d 18            	dc.b	24
+ 343  010e 38            	dc.b	56
+ 344  010f 37            	dc.b	55
+ 345  0110 27            	dc.b	39
+ 346  0111 17            	dc.b	23
+ 347  0112 00            	dc.b	0
+ 348  0113 18            	dc.b	24
+ 349  0114 38            	dc.b	56
+ 350  0115 00            	dc.b	0
+ 351  0116 00            	dc.b	0
+ 352  0117 00            	dc.b	0
+ 353  0118 00            	dc.b	0
+ 354  0119 00            	dc.b	0
+ 355  011a 07            	dc.b	7
+ 356  011b 18            	dc.b	24
+ 357  011c 28            	dc.b	40
+ 358  011d 27            	dc.b	39
+ 359  011e 37            	dc.b	55
+ 360  011f 00            	dc.b	0
+ 361  0120 00            	dc.b	0
+ 362  0121 07            	dc.b	7
+ 363  0122 18            	dc.b	24
+ 364  0123 28            	dc.b	40
+ 365  0124 38            	dc.b	56
+ 366  0125 37            	dc.b	55
+ 367  0126 00            	dc.b	0
+ 368  0127 00            	dc.b	0
+ 369  0128 17            	dc.b	23
+ 370  0129 28            	dc.b	40
+ 371  012a 18            	dc.b	24
+ 372  012b 38            	dc.b	56
+ 373  012c 00            	dc.b	0
+ 374  012d 00            	dc.b	0
+ 375  012e 00            	dc.b	0
+ 376  012f 07            	dc.b	7
+ 377  0130 17            	dc.b	23
+ 378  0131 28            	dc.b	40
+ 379  0132 38            	dc.b	56
+ 380  0133 37            	dc.b	55
+ 381  0134 00            	dc.b	0
+ 382  0135 00            	dc.b	0
+ 383  0136 17            	dc.b	23
+ 384  0137 28            	dc.b	40
+ 385  0138 27            	dc.b	39
+ 386  0139 37            	dc.b	55
+ 387  013a 38            	dc.b	56
+ 388  013b 00            	dc.b	0
+ 389  013c 00            	dc.b	0
+ 390  013d 07            	dc.b	7
+ 391  013e 18            	dc.b	24
+ 392  013f 38            	dc.b	56
+ 393  0140 00            	dc.b	0
+ 394  0141 00            	dc.b	0
+ 395  0142 00            	dc.b	0
+ 396  0143 00            	dc.b	0
+ 397  0144 07            	dc.b	7
+ 398  0145 18            	dc.b	24
+ 399  0146 38            	dc.b	56
+ 400  0147 37            	dc.b	55
+ 401  0148 27            	dc.b	39
+ 402  0149 17            	dc.b	23
+ 403  014a 28            	dc.b	40
+ 404  014b 07            	dc.b	7
+ 405  014c 17            	dc.b	23
+ 406  014d 28            	dc.b	40
+ 407  014e 18            	dc.b	24
+ 408  014f 38            	dc.b	56
+ 409  0150 00            	dc.b	0
+ 410  0151 00            	dc.b	0
+ 411  0152               __nd:
+ 412  0152 09            	dc.b	9
+ 413  0153 1a            	dc.b	26
+ 414  0154 3a            	dc.b	58
+ 415  0155 39            	dc.b	57
+ 416  0156 29            	dc.b	41
+ 417  0157 19            	dc.b	25
+ 418  0158 00            	dc.b	0
+ 419  0159 1a            	dc.b	26
+ 420  015a 3a            	dc.b	58
+ 421  015b 00            	dc.b	0
+ 422  015c 00            	dc.b	0
+ 423  015d 00            	dc.b	0
+ 424  015e 00            	dc.b	0
+ 425  015f 00            	dc.b	0
+ 426  0160 09            	dc.b	9
+ 427  0161 1a            	dc.b	26
+ 428  0162 2a            	dc.b	42
+ 429  0163 29            	dc.b	41
+ 430  0164 39            	dc.b	57
+ 431  0165 00            	dc.b	0
+ 432  0166 00            	dc.b	0
+ 433  0167 09            	dc.b	9
+ 434  0168 1a            	dc.b	26
+ 435  0169 2a            	dc.b	42
+ 436  016a 3a            	dc.b	58
+ 437  016b 39            	dc.b	57
+ 438  016c 00            	dc.b	0
+ 439  016d 00            	dc.b	0
+ 440  016e 19            	dc.b	25
+ 441  016f 2a            	dc.b	42
+ 442  0170 1a            	dc.b	26
+ 443  0171 3a            	dc.b	58
+ 444  0172 00            	dc.b	0
+ 445  0173 00            	dc.b	0
+ 446  0174 00            	dc.b	0
+ 447  0175 09            	dc.b	9
+ 448  0176 19            	dc.b	25
+ 449  0177 2a            	dc.b	42
+ 450  0178 3a            	dc.b	58
+ 451  0179 39            	dc.b	57
+ 452  017a 00            	dc.b	0
+ 453  017b 00            	dc.b	0
+ 454  017c 19            	dc.b	25
+ 455  017d 2a            	dc.b	42
+ 456  017e 29            	dc.b	41
+ 457  017f 39            	dc.b	57
+ 458  0180 3a            	dc.b	58
+ 459  0181 00            	dc.b	0
+ 460  0182 00            	dc.b	0
+ 461  0183 09            	dc.b	9
+ 462  0184 1a            	dc.b	26
+ 463  0185 3a            	dc.b	58
+ 464  0186 00            	dc.b	0
+ 465  0187 00            	dc.b	0
+ 466  0188 00            	dc.b	0
+ 467  0189 00            	dc.b	0
+ 468  018a 09            	dc.b	9
+ 469  018b 1a            	dc.b	26
+ 470  018c 3a            	dc.b	58
+ 471  018d 39            	dc.b	57
+ 472  018e 29            	dc.b	41
+ 473  018f 19            	dc.b	25
+ 474  0190 2a            	dc.b	42
+ 475  0191 09            	dc.b	9
+ 476  0192 19            	dc.b	25
+ 477  0193 2a            	dc.b	42
+ 478  0194 1a            	dc.b	26
+ 479  0195 3a            	dc.b	58
+ 480  0196 00            	dc.b	0
+ 481  0197 00            	dc.b	0
+ 482  0198               __nerr:
+ 483  0198 02            	dc.b	2
+ 484  0199 12            	dc.b	18
+ 485  019a 22            	dc.b	34
+ 486  019b 32            	dc.b	50
+ 487  019c 23            	dc.b	35
+ 488  019d 24            	dc.b	36
+ 489  019e 25            	dc.b	37
+ 490  019f 16            	dc.b	22
+ 491  01a0               __nm:
+ 492  01a0 22            	dc.b	34
+ 493  01a1 23            	dc.b	35
+ 494  01a2 33            	dc.b	51
+ 495  01a3               __ncnt:
+ 496  01a3 23            	dc.b	35
+ 497  01a4 22            	dc.b	34
+ 498  01a5 32            	dc.b	50
+ 499  01a6 24            	dc.b	36
+ 500  01a7 25            	dc.b	37
+ 501  01a8 35            	dc.b	53
+ 502  01a9               __n:
+ 503  01a9 02            	dc.b	2
+ 504  01aa 13            	dc.b	19
+ 505  01ab 33            	dc.b	51
+ 506  01ac 32            	dc.b	50
+ 507  01ad 22            	dc.b	34
+ 508  01ae 12            	dc.b	18
+ 509  01af 23            	dc.b	35
+ 510  01b0 04            	dc.b	4
+ 511  01b1 15            	dc.b	21
+ 512  01b2 35            	dc.b	53
+ 513  01b3 34            	dc.b	52
+ 514  01b4 24            	dc.b	36
+ 515  01b5 14            	dc.b	20
+ 516  01b6 25            	dc.b	37
+ 517  01b7 07            	dc.b	7
+ 518  01b8 18            	dc.b	24
+ 519  01b9 38            	dc.b	56
+ 520  01ba 37            	dc.b	55
+ 521  01bb 27            	dc.b	39
+ 522  01bc 17            	dc.b	23
+ 523  01bd 28            	dc.b	40
+ 524  01be 09            	dc.b	9
+ 525  01bf 1a            	dc.b	26
+ 526  01c0 3a            	dc.b	58
+ 527  01c1 39            	dc.b	57
+ 528  01c2 29            	dc.b	41
+ 529  01c3 19            	dc.b	25
+ 530  01c4 2a            	dc.b	42
+ 531  01c5 06            	dc.b	6
+ 532  01c6 1b            	dc.b	27
+ 533  01c7 36            	dc.b	54
+ 534  01c8 3b            	dc.b	59
+ 535  01c9 26            	dc.b	38
+ 536  01ca 2b            	dc.b	43
+ 537  01cb 16            	dc.b	22
+ 538  01cc               __nid:
+ 539  01cc 33            	dc.b	51
+ 540  01cd 15            	dc.b	21
+ 541  01ce 35            	dc.b	53
+ 542  01cf 25            	dc.b	37
+ 543  01d0 24            	dc.b	36
+ 544  01d1 34            	dc.b	52
+ 545  01d2               __info:
+ 546  01d2 05            	dc.b	5
+ 547  01d3 0a            	dc.b	10
+ 548  01d4 0b            	dc.b	11
+ 549  01d5               __rid:
+ 550  01d5 0e            	dc.b	14
+ 551  01d6 0f            	dc.b	15
+ 552  01d7 1e            	dc.b	30
+ 553  01d8 1f            	dc.b	31
+ 554  01d9 2e            	dc.b	46
+ 555  01da 2f            	dc.b	47
+ 556  01db 3e            	dc.b	62
+ 557  01dc 3f            	dc.b	63
+ 558  01dd 3d            	dc.b	61
+ 559  01de 3c            	dc.b	60
+ 560  01df 2d            	dc.b	45
+ 561  01e0 2c            	dc.b	44
+ 562  01e1 1d            	dc.b	29
+ 563  01e2 1c            	dc.b	28
+ 564  01e3 0d            	dc.b	13
+ 565  01e4 0c            	dc.b	12
+ 566  01e5               __btn:
+ 567  01e5 11            	dc.b	17
+ 568  01e6 21            	dc.b	33
+ 569  01e7 31            	dc.b	49
+ 570  01e8 10            	dc.b	16
+ 571  01e9 20            	dc.b	32
+ 572  01ea               __cmd:
+ 573  01ea 11            	dc.b	17
+ 574  01eb 21            	dc.b	33
+ 575  01ec 31            	dc.b	49
+ 576  01ed 10            	dc.b	16
+ 577  01ee 20            	dc.b	32
+ 578  01ef 30            	dc.b	48
+ 579  01f0               __run:
+ 580  01f0 22            	dc.b	34
+ 581  01f1 23            	dc.b	35
+ 582  01f2 24            	dc.b	36
+ 583  01f3 34            	dc.b	52
+ 584  01f4 35            	dc.b	53
+ 585  01f5 27            	dc.b	39
+ 586  01f6 28            	dc.b	40
+ 587  01f7 38            	dc.b	56
+ 588  01f8               __hc:
+ 589  01f8 12            	dc.b	18
+ 590  01f9 22            	dc.b	34
+ 591  01fa 23            	dc.b	35
+ 592  01fb 32            	dc.b	50
+ 593  01fc 25            	dc.b	37
+ 594  01fd 14            	dc.b	20
+ 595  01fe 15            	dc.b	21
+ 596  01ff 35            	dc.b	53
+ 597  0200               __hcLocal:
+ 598  0200 17            	dc.b	23
+ 599  0201 27            	dc.b	39
+ 600  0202 37            	dc.b	55
+ 601  0203 2a            	dc.b	42
+ 602  0204 29            	dc.b	41
+ 603  0205 39            	dc.b	57
+ 604  0206 3a            	dc.b	58
+ 605  0207               __hcEach:
+ 606  0207 07            	dc.b	7
+ 607  0208 17            	dc.b	23
+ 608  0209 28            	dc.b	40
+ 609  020a 27            	dc.b	39
+ 610  020b 37            	dc.b	55
+ 611  020c 09            	dc.b	9
+ 612  020d 19            	dc.b	25
+ 613  020e 29            	dc.b	41
+ 614  020f 1a            	dc.b	26
+ 615  0210 2a            	dc.b	42
+ 616  0211 3a            	dc.b	58
+ 617  0212               __cc:
+ 618  0212 23            	dc.b	35
+ 619  0213 22            	dc.b	34
+ 620  0214 32            	dc.b	50
+ 621  0215 1b            	dc.b	27
+ 622  0216               __maxValue:
+ 623  0216 12            	dc.b	18
+ 624  0217 22            	dc.b	34
+ 625  0218 23            	dc.b	35
+ 626  0219 33            	dc.b	51
+ 627  021a 32            	dc.b	50
+ 628  021b               __link:
+ 629  021b 12            	dc.b	18
+ 630  021c 22            	dc.b	34
+ 631  021d 32            	dc.b	50
+ 632  021e 24            	dc.b	36
+ 633  021f 25            	dc.b	37
+ 634  0220 35            	dc.b	53
+ 635  0221               __cntl_op:
+ 636  0221 23            	dc.b	35
+ 637  0222 22            	dc.b	34
+ 638  0223 33            	dc.b	51
+ 639  0224 32            	dc.b	50
+ 640  0225 04            	dc.b	4
+ 641  0226 15            	dc.b	21
+ 642  0227 14            	dc.b	20
+ 643  0228 25            	dc.b	37
+ 644  0229 24            	dc.b	36
+ 645  022a               __cntl_on:
+ 646  022a 28            	dc.b	40
+ 647  022b 27            	dc.b	39
+ 648  022c 38            	dc.b	56
+ 649  022d 37            	dc.b	55
+ 650  022e 29            	dc.b	41
+ 651  022f 2a            	dc.b	42
+ 652  0230 3a            	dc.b	58
+ 653  0231               __cntl_po:
+ 654  0231 07            	dc.b	7
+ 655  0232 18            	dc.b	24
+ 656  0233 17            	dc.b	23
+ 657  0234 28            	dc.b	40
+ 658  0235 27            	dc.b	39
+ 659  0236 2a            	dc.b	42
+ 660  0237 29            	dc.b	41
+ 661  0238 3a            	dc.b	58
+ 662  0239 39            	dc.b	57
+ 663  023a               __len:
+ 664  023a 12            	dc.b	18
+ 665  023b 22            	dc.b	34
+ 666  023c 32            	dc.b	50
+ 667  023d               __po_type:
+ 668  023d 25            	dc.b	37
+ 669  023e 24            	dc.b	36
+ 670  023f 35            	dc.b	53
+ 671  0240 34            	dc.b	52
+ 672  0241 02            	dc.b	2
+ 673  0242 13            	dc.b	19
+ 674  0243 12            	dc.b	18
+ 675  0244 23            	dc.b	35
+ 676  0245 22            	dc.b	34
+ 677  0246               __po_type_xl:
+ 678  0246 19            	dc.b	25
+ 679  0247 29            	dc.b	41
+ 680  0248 39            	dc.b	57
+ 681  0249 17            	dc.b	23
+ 682  024a 18            	dc.b	24
+ 683  024b 38            	dc.b	56
+ 684  024c 28            	dc.b	40
+ 685  024d 27            	dc.b	39
+ 686  024e               __po_type_pb:
+ 687  024e 2a            	dc.b	42
+ 688  024f 29            	dc.b	41
+ 689  0250 3a            	dc.b	58
+ 690  0251 39            	dc.b	57
+ 691  0252 19            	dc.b	25
+ 692  0253 07            	dc.b	7
+ 693  0254 18            	dc.b	24
+ 694  0255 17            	dc.b	23
+ 695  0256 28            	dc.b	40
+ 696  0257 27            	dc.b	39
+ 697  0258               __po_type_pe:
+ 698  0258 2a            	dc.b	42
+ 699  0259 29            	dc.b	41
+ 700  025a 09            	dc.b	9
+ 701  025b 39            	dc.b	57
+ 702  025c 19            	dc.b	25
+ 703  025d 07            	dc.b	7
+ 704  025e 18            	dc.b	24
+ 705  025f 17            	dc.b	23
+ 706  0260 28            	dc.b	40
+ 707  0261 27            	dc.b	39
+ 708  0262               __temp_offset:
+ 709  0262 23            	dc.b	35
+ 710  0263 22            	dc.b	34
+ 711  0264 32            	dc.b	50
+ 712  0265 12            	dc.b	18
+ 713  0266               __lpm:
+ 714  0266 12            	dc.b	18
+ 715  0267 22            	dc.b	34
+ 716  0268 32            	dc.b	50
+ 717  0269 24            	dc.b	36
+ 718  026a 25            	dc.b	37
+ 719  026b 04            	dc.b	4
+ 720  026c 14            	dc.b	20
+ 721  026d 15            	dc.b	21
+ 762                     ; 156 LCD_DISP_FUNC(lcd_disp_setup_lpm, 8, _lpm)
+ 763                     	switch	.text
+ 764  0001               _lcd_disp_setup_lpm:
+ 766  0001 89            	pushw	x
+ 767       00000002      OFST:	set	2
+ 772  0002 cd0494        	call	_lcd_clear_n
+ 775  0005 0f02          	clr	(OFST+0,sp)
+ 776  0007               L34:
+ 779  0007 7b02          	ld	a,(OFST+0,sp)
+ 780  0009 5f            	clrw	x
+ 781  000a 97            	ld	xl,a
+ 782  000b d60266        	ld	a,(__lpm,x)
+ 783  000e 6b01          	ld	(OFST-1,sp),a
+ 786  0010 7b01          	ld	a,(OFST-1,sp)
+ 787  0012 5f            	clrw	x
+ 788  0013 97            	ld	xl,a
+ 789  0014 d60040        	ld	a,(_iLF_DEF,x)
+ 790  0017 5f            	clrw	x
+ 791  0018 97            	ld	xl,a
+ 792  0019 7b01          	ld	a,(OFST-1,sp)
+ 793  001b 905f          	clrw	y
+ 794  001d 9097          	ld	yl,a
+ 795  001f d6540c        	ld	a,(21516,x)
+ 796  0022 90da0000      	or	a,(_bLF_DEF,y)
+ 797  0026 d7540c        	ld	(21516,x),a
+ 800  0029 0c02          	inc	(OFST+0,sp)
+ 803  002b 7b02          	ld	a,(OFST+0,sp)
+ 804  002d a108          	cp	a,#8
+ 805  002f 25d6          	jrult	L34
+ 809  0031 85            	popw	x
+ 810  0032 81            	ret
+ 854                     ; 157 LCD_DISP_FUNC(lcd_disp_setup_temp_offset, 4, _temp_offset)
+ 855                     	switch	.text
+ 856  0033               _lcd_disp_setup_temp_offset:
+ 858  0033 89            	pushw	x
+ 859       00000002      OFST:	set	2
+ 864  0034 cd0494        	call	_lcd_clear_n
+ 867  0037 0f02          	clr	(OFST+0,sp)
+ 868  0039               L76:
+ 871  0039 7b02          	ld	a,(OFST+0,sp)
+ 872  003b 5f            	clrw	x
+ 873  003c 97            	ld	xl,a
+ 874  003d d60262        	ld	a,(__temp_offset,x)
+ 875  0040 6b01          	ld	(OFST-1,sp),a
+ 878  0042 7b01          	ld	a,(OFST-1,sp)
+ 879  0044 5f            	clrw	x
+ 880  0045 97            	ld	xl,a
+ 881  0046 d60040        	ld	a,(_iLF_DEF,x)
+ 882  0049 5f            	clrw	x
+ 883  004a 97            	ld	xl,a
+ 884  004b 7b01          	ld	a,(OFST-1,sp)
+ 885  004d 905f          	clrw	y
+ 886  004f 9097          	ld	yl,a
+ 887  0051 d6540c        	ld	a,(21516,x)
+ 888  0054 90da0000      	or	a,(_bLF_DEF,y)
+ 889  0058 d7540c        	ld	(21516,x),a
+ 892  005b 0c02          	inc	(OFST+0,sp)
+ 895  005d 7b02          	ld	a,(OFST+0,sp)
+ 896  005f a104          	cp	a,#4
+ 897  0061 25d6          	jrult	L76
+ 901  0063 85            	popw	x
+ 902  0064 81            	ret
+ 946                     ; 159 LCD_DISP_FUNC(lcd_disp_setup_po_type, 9, _po_type)
+ 947                     	switch	.text
+ 948  0065               _lcd_disp_setup_po_type:
+ 950  0065 89            	pushw	x
+ 951       00000002      OFST:	set	2
+ 956  0066 cd0494        	call	_lcd_clear_n
+ 959  0069 0f02          	clr	(OFST+0,sp)
+ 960  006b               L311:
+ 963  006b 7b02          	ld	a,(OFST+0,sp)
+ 964  006d 5f            	clrw	x
+ 965  006e 97            	ld	xl,a
+ 966  006f d6023d        	ld	a,(__po_type,x)
+ 967  0072 6b01          	ld	(OFST-1,sp),a
+ 970  0074 7b01          	ld	a,(OFST-1,sp)
+ 971  0076 5f            	clrw	x
+ 972  0077 97            	ld	xl,a
+ 973  0078 d60040        	ld	a,(_iLF_DEF,x)
+ 974  007b 5f            	clrw	x
+ 975  007c 97            	ld	xl,a
+ 976  007d 7b01          	ld	a,(OFST-1,sp)
+ 977  007f 905f          	clrw	y
+ 978  0081 9097          	ld	yl,a
+ 979  0083 d6540c        	ld	a,(21516,x)
+ 980  0086 90da0000      	or	a,(_bLF_DEF,y)
+ 981  008a d7540c        	ld	(21516,x),a
+ 984  008d 0c02          	inc	(OFST+0,sp)
+ 987  008f 7b02          	ld	a,(OFST+0,sp)
+ 988  0091 a109          	cp	a,#9
+ 989  0093 25d6          	jrult	L311
+ 993  0095 85            	popw	x
+ 994  0096 81            	ret
+1037                     ; 160 LCD_DISP_FUNC_1(lcd_disp_setup_po_type_xl, 8, _po_type_xl)
+1038                     	switch	.text
+1039  0097               _lcd_disp_setup_po_type_xl:
+1041  0097 89            	pushw	x
+1042       00000002      OFST:	set	2
+1045  0098 0f02          	clr	(OFST+0,sp)
+1046  009a               L731:
+1049  009a 7b02          	ld	a,(OFST+0,sp)
+1050  009c 5f            	clrw	x
+1051  009d 97            	ld	xl,a
+1052  009e d60246        	ld	a,(__po_type_xl,x)
+1053  00a1 6b01          	ld	(OFST-1,sp),a
+1056  00a3 7b01          	ld	a,(OFST-1,sp)
+1057  00a5 5f            	clrw	x
+1058  00a6 97            	ld	xl,a
+1059  00a7 d60040        	ld	a,(_iLF_DEF,x)
+1060  00aa 5f            	clrw	x
+1061  00ab 97            	ld	xl,a
+1062  00ac 7b01          	ld	a,(OFST-1,sp)
+1063  00ae 905f          	clrw	y
+1064  00b0 9097          	ld	yl,a
+1065  00b2 d6540c        	ld	a,(21516,x)
+1066  00b5 90da0000      	or	a,(_bLF_DEF,y)
+1067  00b9 d7540c        	ld	(21516,x),a
+1070  00bc 0c02          	inc	(OFST+0,sp)
+1073  00be 7b02          	ld	a,(OFST+0,sp)
+1074  00c0 a108          	cp	a,#8
+1075  00c2 25d6          	jrult	L731
+1079  00c4 85            	popw	x
+1080  00c5 81            	ret
+1123                     ; 161 LCD_DISP_FUNC_1(lcd_disp_setup_po_type_pb, 10, _po_type_pb)
+1124                     	switch	.text
+1125  00c6               _lcd_disp_setup_po_type_pb:
+1127  00c6 89            	pushw	x
+1128       00000002      OFST:	set	2
+1131  00c7 0f02          	clr	(OFST+0,sp)
+1132  00c9               L361:
+1135  00c9 7b02          	ld	a,(OFST+0,sp)
+1136  00cb 5f            	clrw	x
+1137  00cc 97            	ld	xl,a
+1138  00cd d6024e        	ld	a,(__po_type_pb,x)
+1139  00d0 6b01          	ld	(OFST-1,sp),a
+1142  00d2 7b01          	ld	a,(OFST-1,sp)
+1143  00d4 5f            	clrw	x
+1144  00d5 97            	ld	xl,a
+1145  00d6 d60040        	ld	a,(_iLF_DEF,x)
+1146  00d9 5f            	clrw	x
+1147  00da 97            	ld	xl,a
+1148  00db 7b01          	ld	a,(OFST-1,sp)
+1149  00dd 905f          	clrw	y
+1150  00df 9097          	ld	yl,a
+1151  00e1 d6540c        	ld	a,(21516,x)
+1152  00e4 90da0000      	or	a,(_bLF_DEF,y)
+1153  00e8 d7540c        	ld	(21516,x),a
+1156  00eb 0c02          	inc	(OFST+0,sp)
+1159  00ed 7b02          	ld	a,(OFST+0,sp)
+1160  00ef a10a          	cp	a,#10
+1161  00f1 25d6          	jrult	L361
+1165  00f3 85            	popw	x
+1166  00f4 81            	ret
+1209                     ; 162 LCD_DISP_FUNC_1(lcd_disp_setup_po_type_pe, 10, _po_type_pe)
+1210                     	switch	.text
+1211  00f5               _lcd_disp_setup_po_type_pe:
+1213  00f5 89            	pushw	x
+1214       00000002      OFST:	set	2
+1217  00f6 0f02          	clr	(OFST+0,sp)
+1218  00f8               L702:
+1221  00f8 7b02          	ld	a,(OFST+0,sp)
+1222  00fa 5f            	clrw	x
+1223  00fb 97            	ld	xl,a
+1224  00fc d60258        	ld	a,(__po_type_pe,x)
+1225  00ff 6b01          	ld	(OFST-1,sp),a
+1228  0101 7b01          	ld	a,(OFST-1,sp)
+1229  0103 5f            	clrw	x
+1230  0104 97            	ld	xl,a
+1231  0105 d60040        	ld	a,(_iLF_DEF,x)
+1232  0108 5f            	clrw	x
+1233  0109 97            	ld	xl,a
+1234  010a 7b01          	ld	a,(OFST-1,sp)
+1235  010c 905f          	clrw	y
+1236  010e 9097          	ld	yl,a
+1237  0110 d6540c        	ld	a,(21516,x)
+1238  0113 90da0000      	or	a,(_bLF_DEF,y)
+1239  0117 d7540c        	ld	(21516,x),a
+1242  011a 0c02          	inc	(OFST+0,sp)
+1245  011c 7b02          	ld	a,(OFST+0,sp)
+1246  011e a10a          	cp	a,#10
+1247  0120 25d6          	jrult	L702
+1251  0122 85            	popw	x
+1252  0123 81            	ret
+1295                     ; 164 LCD_DISP_FUNC(lcd_disp_setup_len, 3, _len)
+1296                     	switch	.text
+1297  0124               _lcd_disp_setup_len:
+1299  0124 89            	pushw	x
+1300       00000002      OFST:	set	2
+1305  0125 cd0494        	call	_lcd_clear_n
+1308  0128 0f02          	clr	(OFST+0,sp)
+1309  012a               L332:
+1312  012a 7b02          	ld	a,(OFST+0,sp)
+1313  012c 5f            	clrw	x
+1314  012d 97            	ld	xl,a
+1315  012e d6023a        	ld	a,(__len,x)
+1316  0131 6b01          	ld	(OFST-1,sp),a
+1319  0133 7b01          	ld	a,(OFST-1,sp)
+1320  0135 5f            	clrw	x
+1321  0136 97            	ld	xl,a
+1322  0137 d60040        	ld	a,(_iLF_DEF,x)
+1323  013a 5f            	clrw	x
+1324  013b 97            	ld	xl,a
+1325  013c 7b01          	ld	a,(OFST-1,sp)
+1326  013e 905f          	clrw	y
+1327  0140 9097          	ld	yl,a
+1328  0142 d6540c        	ld	a,(21516,x)
+1329  0145 90da0000      	or	a,(_bLF_DEF,y)
+1330  0149 d7540c        	ld	(21516,x),a
+1333  014c 0c02          	inc	(OFST+0,sp)
+1336  014e 7b02          	ld	a,(OFST+0,sp)
+1337  0150 a103          	cp	a,#3
+1338  0152 25d6          	jrult	L332
+1342  0154 85            	popw	x
+1343  0155 81            	ret
+1387                     ; 165 LCD_DISP_FUNC(lcd_disp_setup_cntl_op, 9, _cntl_op)
+1388                     	switch	.text
+1389  0156               _lcd_disp_setup_cntl_op:
+1391  0156 89            	pushw	x
+1392       00000002      OFST:	set	2
+1397  0157 cd0494        	call	_lcd_clear_n
+1400  015a 0f02          	clr	(OFST+0,sp)
+1401  015c               L752:
+1404  015c 7b02          	ld	a,(OFST+0,sp)
+1405  015e 5f            	clrw	x
+1406  015f 97            	ld	xl,a
+1407  0160 d60221        	ld	a,(__cntl_op,x)
+1408  0163 6b01          	ld	(OFST-1,sp),a
+1411  0165 7b01          	ld	a,(OFST-1,sp)
+1412  0167 5f            	clrw	x
+1413  0168 97            	ld	xl,a
+1414  0169 d60040        	ld	a,(_iLF_DEF,x)
+1415  016c 5f            	clrw	x
+1416  016d 97            	ld	xl,a
+1417  016e 7b01          	ld	a,(OFST-1,sp)
+1418  0170 905f          	clrw	y
+1419  0172 9097          	ld	yl,a
+1420  0174 d6540c        	ld	a,(21516,x)
+1421  0177 90da0000      	or	a,(_bLF_DEF,y)
+1422  017b d7540c        	ld	(21516,x),a
+1425  017e 0c02          	inc	(OFST+0,sp)
+1428  0180 7b02          	ld	a,(OFST+0,sp)
+1429  0182 a109          	cp	a,#9
+1430  0184 25d6          	jrult	L752
+1434  0186 85            	popw	x
+1435  0187 81            	ret
+1478                     ; 166 LCD_DISP_FUNC_1(lcd_disp_setup_cntl_on, 7, _cntl_on)
+1479                     	switch	.text
+1480  0188               _lcd_disp_setup_cntl_on:
+1482  0188 89            	pushw	x
+1483       00000002      OFST:	set	2
+1486  0189 0f02          	clr	(OFST+0,sp)
+1487  018b               L303:
+1490  018b 7b02          	ld	a,(OFST+0,sp)
+1491  018d 5f            	clrw	x
+1492  018e 97            	ld	xl,a
+1493  018f d6022a        	ld	a,(__cntl_on,x)
+1494  0192 6b01          	ld	(OFST-1,sp),a
+1497  0194 7b01          	ld	a,(OFST-1,sp)
+1498  0196 5f            	clrw	x
+1499  0197 97            	ld	xl,a
+1500  0198 d60040        	ld	a,(_iLF_DEF,x)
+1501  019b 5f            	clrw	x
+1502  019c 97            	ld	xl,a
+1503  019d 7b01          	ld	a,(OFST-1,sp)
+1504  019f 905f          	clrw	y
+1505  01a1 9097          	ld	yl,a
+1506  01a3 d6540c        	ld	a,(21516,x)
+1507  01a6 90da0000      	or	a,(_bLF_DEF,y)
+1508  01aa d7540c        	ld	(21516,x),a
+1511  01ad 0c02          	inc	(OFST+0,sp)
+1514  01af 7b02          	ld	a,(OFST+0,sp)
+1515  01b1 a107          	cp	a,#7
+1516  01b3 25d6          	jrult	L303
+1520  01b5 85            	popw	x
+1521  01b6 81            	ret
+1564                     ; 167 LCD_DISP_FUNC_1(lcd_disp_setup_cntl_po, 9, _cntl_po)
+1565                     	switch	.text
+1566  01b7               _lcd_disp_setup_cntl_po:
+1568  01b7 89            	pushw	x
+1569       00000002      OFST:	set	2
+1572  01b8 0f02          	clr	(OFST+0,sp)
+1573  01ba               L723:
+1576  01ba 7b02          	ld	a,(OFST+0,sp)
+1577  01bc 5f            	clrw	x
+1578  01bd 97            	ld	xl,a
+1579  01be d60231        	ld	a,(__cntl_po,x)
+1580  01c1 6b01          	ld	(OFST-1,sp),a
+1583  01c3 7b01          	ld	a,(OFST-1,sp)
+1584  01c5 5f            	clrw	x
+1585  01c6 97            	ld	xl,a
+1586  01c7 d60040        	ld	a,(_iLF_DEF,x)
+1587  01ca 5f            	clrw	x
+1588  01cb 97            	ld	xl,a
+1589  01cc 7b01          	ld	a,(OFST-1,sp)
+1590  01ce 905f          	clrw	y
+1591  01d0 9097          	ld	yl,a
+1592  01d2 d6540c        	ld	a,(21516,x)
+1593  01d5 90da0000      	or	a,(_bLF_DEF,y)
+1594  01d9 d7540c        	ld	(21516,x),a
+1597  01dc 0c02          	inc	(OFST+0,sp)
+1600  01de 7b02          	ld	a,(OFST+0,sp)
+1601  01e0 a109          	cp	a,#9
+1602  01e2 25d6          	jrult	L723
+1606  01e4 85            	popw	x
+1607  01e5 81            	ret
+1650                     ; 169 LCD_DISP_FUNC(lcd_disp_setup_c, 4, _cc)
+1651                     	switch	.text
+1652  01e6               _lcd_disp_setup_c:
+1654  01e6 89            	pushw	x
+1655       00000002      OFST:	set	2
+1660  01e7 cd0494        	call	_lcd_clear_n
+1663  01ea 0f02          	clr	(OFST+0,sp)
+1664  01ec               L353:
+1667  01ec 7b02          	ld	a,(OFST+0,sp)
+1668  01ee 5f            	clrw	x
+1669  01ef 97            	ld	xl,a
+1670  01f0 d60212        	ld	a,(__cc,x)
+1671  01f3 6b01          	ld	(OFST-1,sp),a
+1674  01f5 7b01          	ld	a,(OFST-1,sp)
+1675  01f7 5f            	clrw	x
+1676  01f8 97            	ld	xl,a
+1677  01f9 d60040        	ld	a,(_iLF_DEF,x)
+1678  01fc 5f            	clrw	x
+1679  01fd 97            	ld	xl,a
+1680  01fe 7b01          	ld	a,(OFST-1,sp)
+1681  0200 905f          	clrw	y
+1682  0202 9097          	ld	yl,a
+1683  0204 d6540c        	ld	a,(21516,x)
+1684  0207 90da0000      	or	a,(_bLF_DEF,y)
+1685  020b d7540c        	ld	(21516,x),a
+1688  020e 0c02          	inc	(OFST+0,sp)
+1691  0210 7b02          	ld	a,(OFST+0,sp)
+1692  0212 a104          	cp	a,#4
+1693  0214 25d6          	jrult	L353
+1697  0216 85            	popw	x
+1698  0217 81            	ret
+1742                     ; 170 LCD_DISP_FUNC(lcd_disp_setup_maxValue, 5, _maxValue)
+1743                     	switch	.text
+1744  0218               _lcd_disp_setup_maxValue:
+1746  0218 89            	pushw	x
+1747       00000002      OFST:	set	2
+1752  0219 cd0494        	call	_lcd_clear_n
+1755  021c 0f02          	clr	(OFST+0,sp)
+1756  021e               L773:
+1759  021e 7b02          	ld	a,(OFST+0,sp)
+1760  0220 5f            	clrw	x
+1761  0221 97            	ld	xl,a
+1762  0222 d60216        	ld	a,(__maxValue,x)
+1763  0225 6b01          	ld	(OFST-1,sp),a
+1766  0227 7b01          	ld	a,(OFST-1,sp)
+1767  0229 5f            	clrw	x
+1768  022a 97            	ld	xl,a
+1769  022b d60040        	ld	a,(_iLF_DEF,x)
+1770  022e 5f            	clrw	x
+1771  022f 97            	ld	xl,a
+1772  0230 7b01          	ld	a,(OFST-1,sp)
+1773  0232 905f          	clrw	y
+1774  0234 9097          	ld	yl,a
+1775  0236 d6540c        	ld	a,(21516,x)
+1776  0239 90da0000      	or	a,(_bLF_DEF,y)
+1777  023d d7540c        	ld	(21516,x),a
+1780  0240 0c02          	inc	(OFST+0,sp)
+1783  0242 7b02          	ld	a,(OFST+0,sp)
+1784  0244 a105          	cp	a,#5
+1785  0246 25d6          	jrult	L773
+1789  0248 85            	popw	x
+1790  0249 81            	ret
+1834                     ; 171 LCD_DISP_FUNC(lcd_disp_setup_link, 6, _link)
+1835                     	switch	.text
+1836  024a               _lcd_disp_setup_link:
+1838  024a 89            	pushw	x
+1839       00000002      OFST:	set	2
+1844  024b cd0494        	call	_lcd_clear_n
+1847  024e 0f02          	clr	(OFST+0,sp)
+1848  0250               L324:
+1851  0250 7b02          	ld	a,(OFST+0,sp)
+1852  0252 5f            	clrw	x
+1853  0253 97            	ld	xl,a
+1854  0254 d6021b        	ld	a,(__link,x)
+1855  0257 6b01          	ld	(OFST-1,sp),a
+1858  0259 7b01          	ld	a,(OFST-1,sp)
+1859  025b 5f            	clrw	x
+1860  025c 97            	ld	xl,a
+1861  025d d60040        	ld	a,(_iLF_DEF,x)
+1862  0260 5f            	clrw	x
+1863  0261 97            	ld	xl,a
+1864  0262 7b01          	ld	a,(OFST-1,sp)
+1865  0264 905f          	clrw	y
+1866  0266 9097          	ld	yl,a
+1867  0268 d6540c        	ld	a,(21516,x)
+1868  026b 90da0000      	or	a,(_bLF_DEF,y)
+1869  026f d7540c        	ld	(21516,x),a
+1872  0272 0c02          	inc	(OFST+0,sp)
+1875  0274 7b02          	ld	a,(OFST+0,sp)
+1876  0276 a106          	cp	a,#6
+1877  0278 25d6          	jrult	L324
+1881  027a 85            	popw	x
+1882  027b 81            	ret
+1925                     ; 173 LCD_DISP_FUNC(lcd_disp_setup_run, 8, _run)
+1926                     	switch	.text
+1927  027c               _lcd_disp_setup_run:
+1929  027c 89            	pushw	x
+1930       00000002      OFST:	set	2
+1935  027d cd0494        	call	_lcd_clear_n
+1938  0280 0f02          	clr	(OFST+0,sp)
+1939  0282               L744:
+1942  0282 7b02          	ld	a,(OFST+0,sp)
+1943  0284 5f            	clrw	x
+1944  0285 97            	ld	xl,a
+1945  0286 d601f0        	ld	a,(__run,x)
+1946  0289 6b01          	ld	(OFST-1,sp),a
+1949  028b 7b01          	ld	a,(OFST-1,sp)
+1950  028d 5f            	clrw	x
+1951  028e 97            	ld	xl,a
+1952  028f d60040        	ld	a,(_iLF_DEF,x)
+1953  0292 5f            	clrw	x
+1954  0293 97            	ld	xl,a
+1955  0294 7b01          	ld	a,(OFST-1,sp)
+1956  0296 905f          	clrw	y
+1957  0298 9097          	ld	yl,a
+1958  029a d6540c        	ld	a,(21516,x)
+1959  029d 90da0000      	or	a,(_bLF_DEF,y)
+1960  02a1 d7540c        	ld	(21516,x),a
+1963  02a4 0c02          	inc	(OFST+0,sp)
+1966  02a6 7b02          	ld	a,(OFST+0,sp)
+1967  02a8 a108          	cp	a,#8
+1968  02aa 25d6          	jrult	L744
+1972  02ac 85            	popw	x
+1973  02ad 81            	ret
+2016                     ; 174 LCD_DISP_FUNC_1(lcd_disp_setup_mode_local, 7, _hcLocal)
+2017                     	switch	.text
+2018  02ae               _lcd_disp_setup_mode_local:
+2020  02ae 89            	pushw	x
+2021       00000002      OFST:	set	2
+2024  02af 0f02          	clr	(OFST+0,sp)
+2025  02b1               L374:
+2028  02b1 7b02          	ld	a,(OFST+0,sp)
+2029  02b3 5f            	clrw	x
+2030  02b4 97            	ld	xl,a
+2031  02b5 d60200        	ld	a,(__hcLocal,x)
+2032  02b8 6b01          	ld	(OFST-1,sp),a
+2035  02ba 7b01          	ld	a,(OFST-1,sp)
+2036  02bc 5f            	clrw	x
+2037  02bd 97            	ld	xl,a
+2038  02be d60040        	ld	a,(_iLF_DEF,x)
+2039  02c1 5f            	clrw	x
+2040  02c2 97            	ld	xl,a
+2041  02c3 7b01          	ld	a,(OFST-1,sp)
+2042  02c5 905f          	clrw	y
+2043  02c7 9097          	ld	yl,a
+2044  02c9 d6540c        	ld	a,(21516,x)
+2045  02cc 90da0000      	or	a,(_bLF_DEF,y)
+2046  02d0 d7540c        	ld	(21516,x),a
+2049  02d3 0c02          	inc	(OFST+0,sp)
+2052  02d5 7b02          	ld	a,(OFST+0,sp)
+2053  02d7 a107          	cp	a,#7
+2054  02d9 25d6          	jrult	L374
+2058  02db 85            	popw	x
+2059  02dc 81            	ret
+2102                     ; 175 LCD_DISP_FUNC_1(lcd_disp_setup_mode_each, 11, _hcEach)
+2103                     	switch	.text
+2104  02dd               _lcd_disp_setup_mode_each:
+2106  02dd 89            	pushw	x
+2107       00000002      OFST:	set	2
+2110  02de 0f02          	clr	(OFST+0,sp)
+2111  02e0               L715:
+2114  02e0 7b02          	ld	a,(OFST+0,sp)
+2115  02e2 5f            	clrw	x
+2116  02e3 97            	ld	xl,a
+2117  02e4 d60207        	ld	a,(__hcEach,x)
+2118  02e7 6b01          	ld	(OFST-1,sp),a
+2121  02e9 7b01          	ld	a,(OFST-1,sp)
+2122  02eb 5f            	clrw	x
+2123  02ec 97            	ld	xl,a
+2124  02ed d60040        	ld	a,(_iLF_DEF,x)
+2125  02f0 5f            	clrw	x
+2126  02f1 97            	ld	xl,a
+2127  02f2 7b01          	ld	a,(OFST-1,sp)
+2128  02f4 905f          	clrw	y
+2129  02f6 9097          	ld	yl,a
+2130  02f8 d6540c        	ld	a,(21516,x)
+2131  02fb 90da0000      	or	a,(_bLF_DEF,y)
+2132  02ff d7540c        	ld	(21516,x),a
+2135  0302 0c02          	inc	(OFST+0,sp)
+2138  0304 7b02          	ld	a,(OFST+0,sp)
+2139  0306 a10b          	cp	a,#11
+2140  0308 25d6          	jrult	L715
+2144  030a 85            	popw	x
+2145  030b 81            	ret
+2189                     ; 176 LCD_DISP_FUNC(lcd_disp_setup_mode, 8, _hc)
+2190                     	switch	.text
+2191  030c               _lcd_disp_setup_mode:
+2193  030c 89            	pushw	x
+2194       00000002      OFST:	set	2
+2199  030d cd0494        	call	_lcd_clear_n
+2202  0310 0f02          	clr	(OFST+0,sp)
+2203  0312               L345:
+2206  0312 7b02          	ld	a,(OFST+0,sp)
+2207  0314 5f            	clrw	x
+2208  0315 97            	ld	xl,a
+2209  0316 d601f8        	ld	a,(__hc,x)
+2210  0319 6b01          	ld	(OFST-1,sp),a
+2213  031b 7b01          	ld	a,(OFST-1,sp)
+2214  031d 5f            	clrw	x
+2215  031e 97            	ld	xl,a
+2216  031f d60040        	ld	a,(_iLF_DEF,x)
+2217  0322 5f            	clrw	x
+2218  0323 97            	ld	xl,a
+2219  0324 7b01          	ld	a,(OFST-1,sp)
+2220  0326 905f          	clrw	y
+2221  0328 9097          	ld	yl,a
+2222  032a d6540c        	ld	a,(21516,x)
+2223  032d 90da0000      	or	a,(_bLF_DEF,y)
+2224  0331 d7540c        	ld	(21516,x),a
+2227  0334 0c02          	inc	(OFST+0,sp)
+2230  0336 7b02          	ld	a,(OFST+0,sp)
+2231  0338 a108          	cp	a,#8
+2232  033a 25d6          	jrult	L345
+2236  033c 85            	popw	x
+2237  033d 81            	ret
+2280                     ; 177 LCD_DISP_FUNC(lcd_disp_setup_id, 6, _nid)
+2281                     	switch	.text
+2282  033e               _lcd_disp_setup_id:
+2284  033e 89            	pushw	x
+2285       00000002      OFST:	set	2
+2290  033f cd0494        	call	_lcd_clear_n
+2293  0342 0f02          	clr	(OFST+0,sp)
+2294  0344               L765:
+2297  0344 7b02          	ld	a,(OFST+0,sp)
+2298  0346 5f            	clrw	x
+2299  0347 97            	ld	xl,a
+2300  0348 d601cc        	ld	a,(__nid,x)
+2301  034b 6b01          	ld	(OFST-1,sp),a
+2304  034d 7b01          	ld	a,(OFST-1,sp)
+2305  034f 5f            	clrw	x
+2306  0350 97            	ld	xl,a
+2307  0351 d60040        	ld	a,(_iLF_DEF,x)
+2308  0354 5f            	clrw	x
+2309  0355 97            	ld	xl,a
+2310  0356 7b01          	ld	a,(OFST-1,sp)
+2311  0358 905f          	clrw	y
+2312  035a 9097          	ld	yl,a
+2313  035c d6540c        	ld	a,(21516,x)
+2314  035f 90da0000      	or	a,(_bLF_DEF,y)
+2315  0363 d7540c        	ld	(21516,x),a
+2318  0366 0c02          	inc	(OFST+0,sp)
+2321  0368 7b02          	ld	a,(OFST+0,sp)
+2322  036a a106          	cp	a,#6
+2323  036c 25d6          	jrult	L765
+2327  036e 85            	popw	x
+2328  036f 81            	ret
+2371                     ; 178 LCD_DISP_FUNC(lcd_disp_setup_m, 3, _nm)
+2372                     	switch	.text
+2373  0370               _lcd_disp_setup_m:
+2375  0370 89            	pushw	x
+2376       00000002      OFST:	set	2
+2381  0371 cd0494        	call	_lcd_clear_n
+2384  0374 0f02          	clr	(OFST+0,sp)
+2385  0376               L316:
+2388  0376 7b02          	ld	a,(OFST+0,sp)
+2389  0378 5f            	clrw	x
+2390  0379 97            	ld	xl,a
+2391  037a d601a0        	ld	a,(__nm,x)
+2392  037d 6b01          	ld	(OFST-1,sp),a
+2395  037f 7b01          	ld	a,(OFST-1,sp)
+2396  0381 5f            	clrw	x
+2397  0382 97            	ld	xl,a
+2398  0383 d60040        	ld	a,(_iLF_DEF,x)
+2399  0386 5f            	clrw	x
+2400  0387 97            	ld	xl,a
+2401  0388 7b01          	ld	a,(OFST-1,sp)
+2402  038a 905f          	clrw	y
+2403  038c 9097          	ld	yl,a
+2404  038e d6540c        	ld	a,(21516,x)
+2405  0391 90da0000      	or	a,(_bLF_DEF,y)
+2406  0395 d7540c        	ld	(21516,x),a
+2409  0398 0c02          	inc	(OFST+0,sp)
+2412  039a 7b02          	ld	a,(OFST+0,sp)
+2413  039c a103          	cp	a,#3
+2414  039e 25d6          	jrult	L316
+2418  03a0 85            	popw	x
+2419  03a1 81            	ret
+2462                     ; 179 LCD_DISP_FUNC(lcd_disp_setup_cnt, 6, _ncnt)
+2463                     	switch	.text
+2464  03a2               _lcd_disp_setup_cnt:
+2466  03a2 89            	pushw	x
+2467       00000002      OFST:	set	2
+2472  03a3 cd0494        	call	_lcd_clear_n
+2475  03a6 0f02          	clr	(OFST+0,sp)
+2476  03a8               L736:
+2479  03a8 7b02          	ld	a,(OFST+0,sp)
+2480  03aa 5f            	clrw	x
+2481  03ab 97            	ld	xl,a
+2482  03ac d601a3        	ld	a,(__ncnt,x)
+2483  03af 6b01          	ld	(OFST-1,sp),a
+2486  03b1 7b01          	ld	a,(OFST-1,sp)
+2487  03b3 5f            	clrw	x
+2488  03b4 97            	ld	xl,a
+2489  03b5 d60040        	ld	a,(_iLF_DEF,x)
+2490  03b8 5f            	clrw	x
+2491  03b9 97            	ld	xl,a
+2492  03ba 7b01          	ld	a,(OFST-1,sp)
+2493  03bc 905f          	clrw	y
+2494  03be 9097          	ld	yl,a
+2495  03c0 d6540c        	ld	a,(21516,x)
+2496  03c3 90da0000      	or	a,(_bLF_DEF,y)
+2497  03c7 d7540c        	ld	(21516,x),a
+2500  03ca 0c02          	inc	(OFST+0,sp)
+2503  03cc 7b02          	ld	a,(OFST+0,sp)
+2504  03ce a106          	cp	a,#6
+2505  03d0 25d6          	jrult	L736
+2509  03d2 85            	popw	x
+2510  03d3 81            	ret
+2552                     ; 181 LCD_CLEAR_FUNC(lcd_clear_c, 4, _cc)
+2553                     	switch	.text
+2554  03d4               _lcd_clear_c:
+2556  03d4 89            	pushw	x
+2557       00000002      OFST:	set	2
+2560  03d5 0f02          	clr	(OFST+0,sp)
+2561  03d7               L366:
+2564  03d7 7b02          	ld	a,(OFST+0,sp)
+2565  03d9 5f            	clrw	x
+2566  03da 97            	ld	xl,a
+2567  03db d60212        	ld	a,(__cc,x)
+2568  03de 6b01          	ld	(OFST-1,sp),a
+2571  03e0 7b01          	ld	a,(OFST-1,sp)
+2572  03e2 5f            	clrw	x
+2573  03e3 97            	ld	xl,a
+2574  03e4 d60040        	ld	a,(_iLF_DEF,x)
+2575  03e7 5f            	clrw	x
+2576  03e8 97            	ld	xl,a
+2577  03e9 7b01          	ld	a,(OFST-1,sp)
+2578  03eb 905f          	clrw	y
+2579  03ed 9097          	ld	yl,a
+2580  03ef 90d60000      	ld	a,(_bLF_DEF,y)
+2581  03f3 43            	cpl	a
+2582  03f4 d4540c        	and	a,(21516,x)
+2583  03f7 d7540c        	ld	(21516,x),a
+2586  03fa 0c02          	inc	(OFST+0,sp)
+2589  03fc 7b02          	ld	a,(OFST+0,sp)
+2590  03fe a104          	cp	a,#4
+2591  0400 25d5          	jrult	L366
+2595  0402 85            	popw	x
+2596  0403 81            	ret
+2638                     ; 183 LCD_CLEAR_FUNC(lcd_clear_btn, 5, _btn)
+2639                     	switch	.text
+2640  0404               _lcd_clear_btn:
+2642  0404 89            	pushw	x
+2643       00000002      OFST:	set	2
+2646  0405 0f02          	clr	(OFST+0,sp)
+2647  0407               L707:
+2650  0407 7b02          	ld	a,(OFST+0,sp)
+2651  0409 5f            	clrw	x
+2652  040a 97            	ld	xl,a
+2653  040b d601e5        	ld	a,(__btn,x)
+2654  040e 6b01          	ld	(OFST-1,sp),a
+2657  0410 7b01          	ld	a,(OFST-1,sp)
+2658  0412 5f            	clrw	x
+2659  0413 97            	ld	xl,a
+2660  0414 d60040        	ld	a,(_iLF_DEF,x)
+2661  0417 5f            	clrw	x
+2662  0418 97            	ld	xl,a
+2663  0419 7b01          	ld	a,(OFST-1,sp)
+2664  041b 905f          	clrw	y
+2665  041d 9097          	ld	yl,a
+2666  041f 90d60000      	ld	a,(_bLF_DEF,y)
+2667  0423 43            	cpl	a
+2668  0424 d4540c        	and	a,(21516,x)
+2669  0427 d7540c        	ld	(21516,x),a
+2672  042a 0c02          	inc	(OFST+0,sp)
+2675  042c 7b02          	ld	a,(OFST+0,sp)
+2676  042e a105          	cp	a,#5
+2677  0430 25d5          	jrult	L707
+2681  0432 85            	popw	x
+2682  0433 81            	ret
+2724                     ; 184 LCD_CLEAR_FUNC(lcd_clear_run, 8, _run)
+2725                     	switch	.text
+2726  0434               _lcd_clear_run:
+2728  0434 89            	pushw	x
+2729       00000002      OFST:	set	2
+2732  0435 0f02          	clr	(OFST+0,sp)
+2733  0437               L337:
+2736  0437 7b02          	ld	a,(OFST+0,sp)
+2737  0439 5f            	clrw	x
+2738  043a 97            	ld	xl,a
+2739  043b d601f0        	ld	a,(__run,x)
+2740  043e 6b01          	ld	(OFST-1,sp),a
+2743  0440 7b01          	ld	a,(OFST-1,sp)
+2744  0442 5f            	clrw	x
+2745  0443 97            	ld	xl,a
+2746  0444 d60040        	ld	a,(_iLF_DEF,x)
+2747  0447 5f            	clrw	x
+2748  0448 97            	ld	xl,a
+2749  0449 7b01          	ld	a,(OFST-1,sp)
+2750  044b 905f          	clrw	y
+2751  044d 9097          	ld	yl,a
+2752  044f 90d60000      	ld	a,(_bLF_DEF,y)
+2753  0453 43            	cpl	a
+2754  0454 d4540c        	and	a,(21516,x)
+2755  0457 d7540c        	ld	(21516,x),a
+2758  045a 0c02          	inc	(OFST+0,sp)
+2761  045c 7b02          	ld	a,(OFST+0,sp)
+2762  045e a108          	cp	a,#8
+2763  0460 25d5          	jrult	L337
+2767  0462 85            	popw	x
+2768  0463 81            	ret
+2810                     ; 185 LCD_CLEAR_FUNC(lcd_clear_mode, 8, _hc)
+2811                     	switch	.text
+2812  0464               _lcd_clear_mode:
+2814  0464 89            	pushw	x
+2815       00000002      OFST:	set	2
+2818  0465 0f02          	clr	(OFST+0,sp)
+2819  0467               L757:
+2822  0467 7b02          	ld	a,(OFST+0,sp)
+2823  0469 5f            	clrw	x
+2824  046a 97            	ld	xl,a
+2825  046b d601f8        	ld	a,(__hc,x)
+2826  046e 6b01          	ld	(OFST-1,sp),a
+2829  0470 7b01          	ld	a,(OFST-1,sp)
+2830  0472 5f            	clrw	x
+2831  0473 97            	ld	xl,a
+2832  0474 d60040        	ld	a,(_iLF_DEF,x)
+2833  0477 5f            	clrw	x
+2834  0478 97            	ld	xl,a
+2835  0479 7b01          	ld	a,(OFST-1,sp)
+2836  047b 905f          	clrw	y
+2837  047d 9097          	ld	yl,a
+2838  047f 90d60000      	ld	a,(_bLF_DEF,y)
+2839  0483 43            	cpl	a
+2840  0484 d4540c        	and	a,(21516,x)
+2841  0487 d7540c        	ld	(21516,x),a
+2844  048a 0c02          	inc	(OFST+0,sp)
+2847  048c 7b02          	ld	a,(OFST+0,sp)
+2848  048e a108          	cp	a,#8
+2849  0490 25d5          	jrult	L757
+2853  0492 85            	popw	x
+2854  0493 81            	ret
+2896                     ; 186 LCD_CLEAR_FUNC(lcd_clear_n, 35, _n)
+2897                     	switch	.text
+2898  0494               _lcd_clear_n:
+2900  0494 89            	pushw	x
+2901       00000002      OFST:	set	2
+2904  0495 0f02          	clr	(OFST+0,sp)
+2905  0497               L3001:
+2908  0497 7b02          	ld	a,(OFST+0,sp)
+2909  0499 5f            	clrw	x
+2910  049a 97            	ld	xl,a
+2911  049b d601a9        	ld	a,(__n,x)
+2912  049e 6b01          	ld	(OFST-1,sp),a
+2915  04a0 7b01          	ld	a,(OFST-1,sp)
+2916  04a2 5f            	clrw	x
+2917  04a3 97            	ld	xl,a
+2918  04a4 d60040        	ld	a,(_iLF_DEF,x)
+2919  04a7 5f            	clrw	x
+2920  04a8 97            	ld	xl,a
+2921  04a9 7b01          	ld	a,(OFST-1,sp)
+2922  04ab 905f          	clrw	y
+2923  04ad 9097          	ld	yl,a
+2924  04af 90d60000      	ld	a,(_bLF_DEF,y)
+2925  04b3 43            	cpl	a
+2926  04b4 d4540c        	and	a,(21516,x)
+2927  04b7 d7540c        	ld	(21516,x),a
+2930  04ba 0c02          	inc	(OFST+0,sp)
+2933  04bc 7b02          	ld	a,(OFST+0,sp)
+2934  04be a123          	cp	a,#35
+2935  04c0 25d5          	jrult	L3001
+2939  04c2 85            	popw	x
+2940  04c3 81            	ret
+2982                     ; 187 LCD_CLEAR_FUNC(lcd_clear_cmd, 6, _cmd)
+2983                     	switch	.text
+2984  04c4               _lcd_clear_cmd:
+2986  04c4 89            	pushw	x
+2987       00000002      OFST:	set	2
+2990  04c5 0f02          	clr	(OFST+0,sp)
+2991  04c7               L7201:
+2994  04c7 7b02          	ld	a,(OFST+0,sp)
+2995  04c9 5f            	clrw	x
+2996  04ca 97            	ld	xl,a
+2997  04cb d601ea        	ld	a,(__cmd,x)
+2998  04ce 6b01          	ld	(OFST-1,sp),a
+3001  04d0 7b01          	ld	a,(OFST-1,sp)
+3002  04d2 5f            	clrw	x
+3003  04d3 97            	ld	xl,a
+3004  04d4 d60040        	ld	a,(_iLF_DEF,x)
+3005  04d7 5f            	clrw	x
+3006  04d8 97            	ld	xl,a
+3007  04d9 7b01          	ld	a,(OFST-1,sp)
+3008  04db 905f          	clrw	y
+3009  04dd 9097          	ld	yl,a
+3010  04df 90d60000      	ld	a,(_bLF_DEF,y)
+3011  04e3 43            	cpl	a
+3012  04e4 d4540c        	and	a,(21516,x)
+3013  04e7 d7540c        	ld	(21516,x),a
+3016  04ea 0c02          	inc	(OFST+0,sp)
+3019  04ec 7b02          	ld	a,(OFST+0,sp)
+3020  04ee a106          	cp	a,#6
+3021  04f0 25d5          	jrult	L7201
+3025  04f2 85            	popw	x
+3026  04f3 81            	ret
+3068                     ; 188 LCD_CLEAR_FUNC(lcd_clear_info, 3, _info)
+3069                     	switch	.text
+3070  04f4               _lcd_clear_info:
+3072  04f4 89            	pushw	x
+3073       00000002      OFST:	set	2
+3076  04f5 0f02          	clr	(OFST+0,sp)
+3077  04f7               L3501:
+3080  04f7 7b02          	ld	a,(OFST+0,sp)
+3081  04f9 5f            	clrw	x
+3082  04fa 97            	ld	xl,a
+3083  04fb d601d2        	ld	a,(__info,x)
+3084  04fe 6b01          	ld	(OFST-1,sp),a
+3087  0500 7b01          	ld	a,(OFST-1,sp)
+3088  0502 5f            	clrw	x
+3089  0503 97            	ld	xl,a
+3090  0504 d60040        	ld	a,(_iLF_DEF,x)
+3091  0507 5f            	clrw	x
+3092  0508 97            	ld	xl,a
+3093  0509 7b01          	ld	a,(OFST-1,sp)
+3094  050b 905f          	clrw	y
+3095  050d 9097          	ld	yl,a
+3096  050f 90d60000      	ld	a,(_bLF_DEF,y)
+3097  0513 43            	cpl	a
+3098  0514 d4540c        	and	a,(21516,x)
+3099  0517 d7540c        	ld	(21516,x),a
+3102  051a 0c02          	inc	(OFST+0,sp)
+3105  051c 7b02          	ld	a,(OFST+0,sp)
+3106  051e a103          	cp	a,#3
+3107  0520 25d5          	jrult	L3501
+3111  0522 85            	popw	x
+3112  0523 81            	ret
+3154                     ; 189 LCD_CLEAR_FUNC(lcd_clear_rid, 16, _rid)
+3155                     	switch	.text
+3156  0524               _lcd_clear_rid:
+3158  0524 89            	pushw	x
+3159       00000002      OFST:	set	2
+3162  0525 0f02          	clr	(OFST+0,sp)
+3163  0527               L7701:
+3166  0527 7b02          	ld	a,(OFST+0,sp)
+3167  0529 5f            	clrw	x
+3168  052a 97            	ld	xl,a
+3169  052b d601d5        	ld	a,(__rid,x)
+3170  052e 6b01          	ld	(OFST-1,sp),a
+3173  0530 7b01          	ld	a,(OFST-1,sp)
+3174  0532 5f            	clrw	x
+3175  0533 97            	ld	xl,a
+3176  0534 d60040        	ld	a,(_iLF_DEF,x)
+3177  0537 5f            	clrw	x
+3178  0538 97            	ld	xl,a
+3179  0539 7b01          	ld	a,(OFST-1,sp)
+3180  053b 905f          	clrw	y
+3181  053d 9097          	ld	yl,a
+3182  053f 90d60000      	ld	a,(_bLF_DEF,y)
+3183  0543 43            	cpl	a
+3184  0544 d4540c        	and	a,(21516,x)
+3185  0547 d7540c        	ld	(21516,x),a
+3188  054a 0c02          	inc	(OFST+0,sp)
+3191  054c 7b02          	ld	a,(OFST+0,sp)
+3192  054e a110          	cp	a,#16
+3193  0550 25d5          	jrult	L7701
+3197  0552 85            	popw	x
+3198  0553 81            	ret
+3240                     ; 190 LCD_CLEAR_FUNC(lcd_clear_m, 3, _nm)
+3241                     	switch	.text
+3242  0554               _lcd_clear_m:
+3244  0554 89            	pushw	x
+3245       00000002      OFST:	set	2
+3248  0555 0f02          	clr	(OFST+0,sp)
+3249  0557               L3211:
+3252  0557 7b02          	ld	a,(OFST+0,sp)
+3253  0559 5f            	clrw	x
+3254  055a 97            	ld	xl,a
+3255  055b d601a0        	ld	a,(__nm,x)
+3256  055e 6b01          	ld	(OFST-1,sp),a
+3259  0560 7b01          	ld	a,(OFST-1,sp)
+3260  0562 5f            	clrw	x
+3261  0563 97            	ld	xl,a
+3262  0564 d60040        	ld	a,(_iLF_DEF,x)
+3263  0567 5f            	clrw	x
+3264  0568 97            	ld	xl,a
+3265  0569 7b01          	ld	a,(OFST-1,sp)
+3266  056b 905f          	clrw	y
+3267  056d 9097          	ld	yl,a
+3268  056f 90d60000      	ld	a,(_bLF_DEF,y)
+3269  0573 43            	cpl	a
+3270  0574 d4540c        	and	a,(21516,x)
+3271  0577 d7540c        	ld	(21516,x),a
+3274  057a 0c02          	inc	(OFST+0,sp)
+3277  057c 7b02          	ld	a,(OFST+0,sp)
+3278  057e a103          	cp	a,#3
+3279  0580 25d5          	jrult	L3211
+3283  0582 85            	popw	x
+3284  0583 81            	ret
+3326                     ; 191 LCD_CLEAR_FUNC(lcd_clear_cnt, 6, _ncnt)
+3327                     	switch	.text
+3328  0584               _lcd_clear_cnt:
+3330  0584 89            	pushw	x
+3331       00000002      OFST:	set	2
+3334  0585 0f02          	clr	(OFST+0,sp)
+3335  0587               L7411:
+3338  0587 7b02          	ld	a,(OFST+0,sp)
+3339  0589 5f            	clrw	x
+3340  058a 97            	ld	xl,a
+3341  058b d601a3        	ld	a,(__ncnt,x)
+3342  058e 6b01          	ld	(OFST-1,sp),a
+3345  0590 7b01          	ld	a,(OFST-1,sp)
+3346  0592 5f            	clrw	x
+3347  0593 97            	ld	xl,a
+3348  0594 d60040        	ld	a,(_iLF_DEF,x)
+3349  0597 5f            	clrw	x
+3350  0598 97            	ld	xl,a
+3351  0599 7b01          	ld	a,(OFST-1,sp)
+3352  059b 905f          	clrw	y
+3353  059d 9097          	ld	yl,a
+3354  059f 90d60000      	ld	a,(_bLF_DEF,y)
+3355  05a3 43            	cpl	a
+3356  05a4 d4540c        	and	a,(21516,x)
+3357  05a7 d7540c        	ld	(21516,x),a
+3360  05aa 0c02          	inc	(OFST+0,sp)
+3363  05ac 7b02          	ld	a,(OFST+0,sp)
+3364  05ae a106          	cp	a,#6
+3365  05b0 25d5          	jrult	L7411
+3369  05b2 85            	popw	x
+3370  05b3 81            	ret
+3419                     ; 193 void	lcd_clear_npos(uint8_t pos, uint8_t type)
+3419                     ; 194 {
+3420                     	switch	.text
+3421  05b4               _lcd_clear_npos:
+3423  05b4 89            	pushw	x
+3424  05b5 89            	pushw	x
+3425       00000002      OFST:	set	2
+3428                     ; 196 	pos = pos*7;
+3430  05b6 ae0007        	ldw	x,#7
+3431  05b9 7b03          	ld	a,(OFST+1,sp)
+3432  05bb 42            	mul	x,a
+3433  05bc 9f            	ld	a,xl
+3434  05bd 6b03          	ld	(OFST+1,sp),a
+3435                     ; 197 	for( i=0; i<7; i++ )
+3437  05bf 0f01          	clr	(OFST-1,sp)
+3438  05c1               L5711:
+3439                     ; 199 		j = _n[pos++];
+3441  05c1 7b03          	ld	a,(OFST+1,sp)
+3442  05c3 97            	ld	xl,a
+3443  05c4 0c03          	inc	(OFST+1,sp)
+3444  05c6 9f            	ld	a,xl
+3445  05c7 5f            	clrw	x
+3446  05c8 97            	ld	xl,a
+3447  05c9 d601a9        	ld	a,(__n,x)
+3448  05cc 6b02          	ld	(OFST+0,sp),a
+3449                     ; 200 		LCD_BIT_CLEAR(j);
+3451  05ce 7b02          	ld	a,(OFST+0,sp)
+3452  05d0 5f            	clrw	x
+3453  05d1 97            	ld	xl,a
+3454  05d2 d60040        	ld	a,(_iLF_DEF,x)
+3455  05d5 5f            	clrw	x
+3456  05d6 97            	ld	xl,a
+3457  05d7 7b02          	ld	a,(OFST+0,sp)
+3458  05d9 905f          	clrw	y
+3459  05db 9097          	ld	yl,a
+3460  05dd 90d60000      	ld	a,(_bLF_DEF,y)
+3461  05e1 43            	cpl	a
+3462  05e2 d4540c        	and	a,(21516,x)
+3463  05e5 d7540c        	ld	(21516,x),a
+3464                     ; 197 	for( i=0; i<7; i++ )
+3466  05e8 0c01          	inc	(OFST-1,sp)
+3469  05ea 7b01          	ld	a,(OFST-1,sp)
+3470  05ec a107          	cp	a,#7
+3471  05ee 25d1          	jrult	L5711
+3472                     ; 202 }
+3475  05f0 5b04          	addw	sp,#4
+3476  05f2 81            	ret
+3515                     ; 204 void	lcd_clear(uint8_t type)
+3515                     ; 205 {
+3516                     	switch	.text
+3517  05f3               _lcd_clear:
+3519  05f3 88            	push	a
+3520       00000001      OFST:	set	1
+3523                     ; 207 	for( i=0; i<15; i++ )
+3525  05f4 0f01          	clr	(OFST+0,sp)
+3526  05f6               L1221:
+3527                     ; 208 		LCD->RAM[i] = 0;
+3529  05f6 7b01          	ld	a,(OFST+0,sp)
+3530  05f8 5f            	clrw	x
+3531  05f9 97            	ld	xl,a
+3532  05fa 724f540c      	clr	(21516,x)
+3533                     ; 207 	for( i=0; i<15; i++ )
+3535  05fe 0c01          	inc	(OFST+0,sp)
+3538  0600 7b01          	ld	a,(OFST+0,sp)
+3539  0602 a10f          	cp	a,#15
+3540  0604 25f0          	jrult	L1221
+3541                     ; 209 }
+3544  0606 84            	pop	a
+3545  0607 81            	ret
+3592                     ; 211 uint8_t	*lcd_get_npos(uint8_t i)
+3592                     ; 212 {
+3593                     	switch	.text
+3594  0608               _lcd_get_npos:
+3596  0608 89            	pushw	x
+3597       00000002      OFST:	set	2
+3600                     ; 214 	switch( i )
+3603                     ; 219 	case 3:	p = _nd;	break;
+3604  0609 4d            	tnz	a
+3605  060a 270b          	jreq	L7221
+3606  060c 4a            	dec	a
+3607  060d 270f          	jreq	L1321
+3608  060f 4a            	dec	a
+3609  0610 2713          	jreq	L3321
+3610  0612 4a            	dec	a
+3611  0613 2717          	jreq	L5321
+3612  0615 201a          	jra	L1621
+3613  0617               L7221:
+3614                     ; 216 	case 0:	p = _na;	break;
+3616  0617 ae0080        	ldw	x,#__na
+3617  061a 1f01          	ldw	(OFST-1,sp),x
+3620  061c 2013          	jra	L1621
+3621  061e               L1321:
+3622                     ; 217 	case 1:	p = _nb;	break;
+3624  061e ae00c6        	ldw	x,#__nb
+3625  0621 1f01          	ldw	(OFST-1,sp),x
+3628  0623 200c          	jra	L1621
+3629  0625               L3321:
+3630                     ; 218 	case 2:	p = _nc;	break;
+3632  0625 ae010c        	ldw	x,#__nc
+3633  0628 1f01          	ldw	(OFST-1,sp),x
+3636  062a 2005          	jra	L1621
+3637  062c               L5321:
+3638                     ; 219 	case 3:	p = _nd;	break;
+3640  062c ae0152        	ldw	x,#__nd
+3641  062f 1f01          	ldw	(OFST-1,sp),x
+3644  0631               L1621:
+3645                     ; 221 	return p;
+3647  0631 1e01          	ldw	x,(OFST-1,sp)
+3650  0633 5b02          	addw	sp,#2
+3651  0635 81            	ret
+3718                     ; 224 void	lcd_disp_n(uint8_t pos, uint8_t n)
+3718                     ; 225 {
+3719                     	switch	.text
+3720  0636               _lcd_disp_n:
+3722  0636 89            	pushw	x
+3723  0637 5204          	subw	sp,#4
+3724       00000004      OFST:	set	4
+3727                     ; 229 	lcd_clear_npos(pos, 0);
+3729  0639 5f            	clrw	x
+3730  063a 7b05          	ld	a,(OFST+1,sp)
+3731  063c 95            	ld	xh,a
+3732  063d cd05b4        	call	_lcd_clear_npos
+3734                     ; 230 	p = lcd_get_npos(pos);
+3736  0640 7b05          	ld	a,(OFST+1,sp)
+3737  0642 adc4          	call	_lcd_get_npos
+3739  0644 1f02          	ldw	(OFST-2,sp),x
+3740                     ; 231 	p = p+n*7;
+3742  0646 7b06          	ld	a,(OFST+2,sp)
+3743  0648 97            	ld	xl,a
+3744  0649 a607          	ld	a,#7
+3745  064b 42            	mul	x,a
+3746  064c 72fb02        	addw	x,(OFST-2,sp)
+3747  064f 1f02          	ldw	(OFST-2,sp),x
+3748                     ; 232 	for( i=0; i<7; i++ )
+3750  0651 0f04          	clr	(OFST+0,sp)
+3751  0653               L1131:
+3752                     ; 234 		if( p[i] != 0 )
+3754  0653 7b02          	ld	a,(OFST-2,sp)
+3755  0655 97            	ld	xl,a
+3756  0656 7b03          	ld	a,(OFST-1,sp)
+3757  0658 1b04          	add	a,(OFST+0,sp)
+3758  065a 2401          	jrnc	L211
+3759  065c 5c            	incw	x
+3760  065d               L211:
+3761  065d 02            	rlwa	x,a
+3762  065e 7d            	tnz	(x)
+3763  065f 2727          	jreq	L7131
+3764                     ; 236 			j = p[i];
+3766  0661 7b02          	ld	a,(OFST-2,sp)
+3767  0663 97            	ld	xl,a
+3768  0664 7b03          	ld	a,(OFST-1,sp)
+3769  0666 1b04          	add	a,(OFST+0,sp)
+3770  0668 2401          	jrnc	L411
+3771  066a 5c            	incw	x
+3772  066b               L411:
+3773  066b 02            	rlwa	x,a
+3774  066c f6            	ld	a,(x)
+3775  066d 6b01          	ld	(OFST-3,sp),a
+3776                     ; 237 			LCD_BIT_SET(j);
+3778  066f 7b01          	ld	a,(OFST-3,sp)
+3779  0671 5f            	clrw	x
+3780  0672 97            	ld	xl,a
+3781  0673 d60040        	ld	a,(_iLF_DEF,x)
+3782  0676 5f            	clrw	x
+3783  0677 97            	ld	xl,a
+3784  0678 7b01          	ld	a,(OFST-3,sp)
+3785  067a 905f          	clrw	y
+3786  067c 9097          	ld	yl,a
+3787  067e d6540c        	ld	a,(21516,x)
+3788  0681 90da0000      	or	a,(_bLF_DEF,y)
+3789  0685 d7540c        	ld	(21516,x),a
+3790  0688               L7131:
+3791                     ; 232 	for( i=0; i<7; i++ )
+3793  0688 0c04          	inc	(OFST+0,sp)
+3796  068a 7b04          	ld	a,(OFST+0,sp)
+3797  068c a107          	cp	a,#7
+3798  068e 25c3          	jrult	L1131
+3799                     ; 240 }
+3802  0690 5b06          	addw	sp,#6
+3803  0692 81            	ret
+3854                     ; 242 void	lcd_disp_err(uint8_t n)
+3854                     ; 243 {
+3855                     	switch	.text
+3856  0693               _lcd_disp_err:
+3858  0693 88            	push	a
+3859  0694 89            	pushw	x
+3860       00000002      OFST:	set	2
+3863                     ; 245 	LCD_CE;
+3865  0695 72165402      	bset	21506,#3
+3866                     ; 246 	lcd_clear_n();
+3868  0699 cd0494        	call	_lcd_clear_n
+3870                     ; 247 	for( i=0; i<8; i++ )
+3872  069c 0f02          	clr	(OFST+0,sp)
+3873  069e               L1431:
+3874                     ; 249 		j = _nerr[i];
+3876  069e 7b02          	ld	a,(OFST+0,sp)
+3877  06a0 5f            	clrw	x
+3878  06a1 97            	ld	xl,a
+3879  06a2 d60198        	ld	a,(__nerr,x)
+3880  06a5 6b01          	ld	(OFST-1,sp),a
+3881                     ; 250 		LCD_BIT_SET(j);
+3883  06a7 7b01          	ld	a,(OFST-1,sp)
+3884  06a9 5f            	clrw	x
+3885  06aa 97            	ld	xl,a
+3886  06ab d60040        	ld	a,(_iLF_DEF,x)
+3887  06ae 5f            	clrw	x
+3888  06af 97            	ld	xl,a
+3889  06b0 7b01          	ld	a,(OFST-1,sp)
+3890  06b2 905f          	clrw	y
+3891  06b4 9097          	ld	yl,a
+3892  06b6 d6540c        	ld	a,(21516,x)
+3893  06b9 90da0000      	or	a,(_bLF_DEF,y)
+3894  06bd d7540c        	ld	(21516,x),a
+3895                     ; 247 	for( i=0; i<8; i++ )
+3897  06c0 0c02          	inc	(OFST+0,sp)
+3900  06c2 7b02          	ld	a,(OFST+0,sp)
+3901  06c4 a108          	cp	a,#8
+3902  06c6 25d6          	jrult	L1431
+3903                     ; 253 	lcd_disp_n(2, n/10);
+3905  06c8 7b03          	ld	a,(OFST+1,sp)
+3906  06ca 5f            	clrw	x
+3907  06cb 97            	ld	xl,a
+3908  06cc a60a          	ld	a,#10
+3909  06ce 62            	div	x,a
+3910  06cf 9f            	ld	a,xl
+3911  06d0 97            	ld	xl,a
+3912  06d1 a602          	ld	a,#2
+3913  06d3 95            	ld	xh,a
+3914  06d4 cd0636        	call	_lcd_disp_n
+3916                     ; 254 	lcd_disp_n(3, n%10);
+3918  06d7 7b03          	ld	a,(OFST+1,sp)
+3919  06d9 5f            	clrw	x
+3920  06da 97            	ld	xl,a
+3921  06db a60a          	ld	a,#10
+3922  06dd 62            	div	x,a
+3923  06de 5f            	clrw	x
+3924  06df 97            	ld	xl,a
+3925  06e0 9f            	ld	a,xl
+3926  06e1 97            	ld	xl,a
+3927  06e2 a603          	ld	a,#3
+3928  06e4 95            	ld	xh,a
+3929  06e5 cd0636        	call	_lcd_disp_n
+3931                     ; 255 }
+3934  06e8 5b03          	addw	sp,#3
+3935  06ea 81            	ret
+3992                     ; 257 void	lcd_disp_rid(uint8_t id, uint8_t mode, uint8_t multi)
+3992                     ; 258 {
+3993                     	switch	.text
+3994  06eb               _lcd_disp_rid:
+3996  06eb 89            	pushw	x
+3997  06ec 88            	push	a
+3998       00000001      OFST:	set	1
+4001                     ; 260 	LCD_CE;
+4003  06ed 72165402      	bset	21506,#3
+4004                     ; 261 	if( multi == 0 )
+4006  06f1 0d06          	tnz	(OFST+5,sp)
+4007  06f3 2603          	jrne	L1731
+4008                     ; 262 		lcd_clear_rid();
+4010  06f5 cd0524        	call	_lcd_clear_rid
+4012  06f8               L1731:
+4013                     ; 263 	if( mode != 0 )
+4015  06f8 0d03          	tnz	(OFST+2,sp)
+4016  06fa 2723          	jreq	L3731
+4017                     ; 265 		j = _rid[id*2+1];
+4019  06fc 7b02          	ld	a,(OFST+1,sp)
+4020  06fe 5f            	clrw	x
+4021  06ff 97            	ld	xl,a
+4022  0700 58            	sllw	x
+4023  0701 d601d6        	ld	a,(__rid+1,x)
+4024  0704 6b01          	ld	(OFST+0,sp),a
+4025                     ; 266 		LCD_BIT_SET(j);
+4027  0706 7b01          	ld	a,(OFST+0,sp)
+4028  0708 5f            	clrw	x
+4029  0709 97            	ld	xl,a
+4030  070a d60040        	ld	a,(_iLF_DEF,x)
+4031  070d 5f            	clrw	x
+4032  070e 97            	ld	xl,a
+4033  070f 7b01          	ld	a,(OFST+0,sp)
+4034  0711 905f          	clrw	y
+4035  0713 9097          	ld	yl,a
+4036  0715 d6540c        	ld	a,(21516,x)
+4037  0718 90da0000      	or	a,(_bLF_DEF,y)
+4038  071c d7540c        	ld	(21516,x),a
+4039  071f               L3731:
+4040                     ; 268 	j = _rid[id*2];
+4042  071f 7b02          	ld	a,(OFST+1,sp)
+4043  0721 5f            	clrw	x
+4044  0722 97            	ld	xl,a
+4045  0723 58            	sllw	x
+4046  0724 d601d5        	ld	a,(__rid,x)
+4047  0727 6b01          	ld	(OFST+0,sp),a
+4048                     ; 269 	LCD_BIT_SET(j);
+4050  0729 7b01          	ld	a,(OFST+0,sp)
+4051  072b 5f            	clrw	x
+4052  072c 97            	ld	xl,a
+4053  072d d60040        	ld	a,(_iLF_DEF,x)
+4054  0730 5f            	clrw	x
+4055  0731 97            	ld	xl,a
+4056  0732 7b01          	ld	a,(OFST+0,sp)
+4057  0734 905f          	clrw	y
+4058  0736 9097          	ld	yl,a
+4059  0738 d6540c        	ld	a,(21516,x)
+4060  073b 90da0000      	or	a,(_bLF_DEF,y)
+4061  073f d7540c        	ld	(21516,x),a
+4062                     ; 270 }
+4065  0742 5b03          	addw	sp,#3
+4066  0744 81            	ret
+4116                     ; 272 void	lcd_disp_cmd(uint8_t cmd, uint8_t mode, uint8_t multi)
+4116                     ; 273 {
+4117                     	switch	.text
+4118  0745               _lcd_disp_cmd:
+4120  0745 89            	pushw	x
+4121  0746 88            	push	a
+4122       00000001      OFST:	set	1
+4125                     ; 275 	LCD_CE;
+4127  0747 72165402      	bset	21506,#3
+4128                     ; 276 	if( multi == 0 )
+4130  074b 0d06          	tnz	(OFST+5,sp)
+4131  074d 2603          	jrne	L5141
+4132                     ; 277 		lcd_clear_cmd();
+4134  074f cd04c4        	call	_lcd_clear_cmd
+4136  0752               L5141:
+4137                     ; 282 	j = _cmd[cmd];
+4139  0752 7b02          	ld	a,(OFST+1,sp)
+4140  0754 5f            	clrw	x
+4141  0755 97            	ld	xl,a
+4142  0756 d601ea        	ld	a,(__cmd,x)
+4143  0759 6b01          	ld	(OFST+0,sp),a
+4144                     ; 283 	LCD_BIT_SET(j);
+4146  075b 7b01          	ld	a,(OFST+0,sp)
+4147  075d 5f            	clrw	x
+4148  075e 97            	ld	xl,a
+4149  075f d60040        	ld	a,(_iLF_DEF,x)
+4150  0762 5f            	clrw	x
+4151  0763 97            	ld	xl,a
+4152  0764 7b01          	ld	a,(OFST+0,sp)
+4153  0766 905f          	clrw	y
+4154  0768 9097          	ld	yl,a
+4155  076a d6540c        	ld	a,(21516,x)
+4156  076d 90da0000      	or	a,(_bLF_DEF,y)
+4157  0771 d7540c        	ld	(21516,x),a
+4158                     ; 284 }
+4161  0774 5b03          	addw	sp,#3
+4162  0776 81            	ret
+4197                     ; 286 void	lcd_disp_info_fire(uint8_t mode)
+4197                     ; 287 {
+4198                     	switch	.text
+4199  0777               _lcd_disp_info_fire:
+4203                     ; 288 	if( mode == 0 )
+4205  0777 4d            	tnz	a
+4206  0778 2606          	jrne	L3341
+4207                     ; 289 		LCD_BIT_CLEAR(_info[0]);
+4209  077a 721b540c      	bres	21516,#5
+4211  077e 2004          	jra	L5341
+4212  0780               L3341:
+4213                     ; 291 		LCD_BIT_SET(_info[0]);
+4215  0780 721a540c      	bset	21516,#5
+4216  0784               L5341:
+4217                     ; 292 }
+4220  0784 81            	ret
+4270                     ; 294 void	lcd_disp_info(uint8_t info, uint8_t mode, uint8_t multi)
+4270                     ; 295 {
+4271                     	switch	.text
+4272  0785               _lcd_disp_info:
+4274  0785 89            	pushw	x
+4275  0786 88            	push	a
+4276       00000001      OFST:	set	1
+4279                     ; 297 	LCD_CE;
+4281  0787 72165402      	bset	21506,#3
+4282                     ; 298 	if( multi == 0 )
+4284  078b 0d06          	tnz	(OFST+5,sp)
+4285  078d 2603          	jrne	L7541
+4286                     ; 299 		lcd_clear_info();
+4288  078f cd04f4        	call	_lcd_clear_info
+4290  0792               L7541:
+4291                     ; 304 	j = _info[info];
+4293  0792 7b02          	ld	a,(OFST+1,sp)
+4294  0794 5f            	clrw	x
+4295  0795 97            	ld	xl,a
+4296  0796 d601d2        	ld	a,(__info,x)
+4297  0799 6b01          	ld	(OFST+0,sp),a
+4298                     ; 305 	LCD_BIT_SET(j);
+4300  079b 7b01          	ld	a,(OFST+0,sp)
+4301  079d 5f            	clrw	x
+4302  079e 97            	ld	xl,a
+4303  079f d60040        	ld	a,(_iLF_DEF,x)
+4304  07a2 5f            	clrw	x
+4305  07a3 97            	ld	xl,a
+4306  07a4 7b01          	ld	a,(OFST+0,sp)
+4307  07a6 905f          	clrw	y
+4308  07a8 9097          	ld	yl,a
+4309  07aa d6540c        	ld	a,(21516,x)
+4310  07ad 90da0000      	or	a,(_bLF_DEF,y)
+4311  07b1 d7540c        	ld	(21516,x),a
+4312                     ; 306 }
+4315  07b4 5b03          	addw	sp,#3
+4316  07b6 81            	ret
+4352                     ; 308 void	lcd_disp_setup_mode_type(uint8_t mode)
+4352                     ; 309 {
+4353                     	switch	.text
+4354  07b7               _lcd_disp_setup_mode_type:
+4356  07b7 88            	push	a
+4357       00000000      OFST:	set	0
+4360                     ; 310 	lcd_clear_npos(2, 0);
+4362  07b8 ae0200        	ldw	x,#512
+4363  07bb cd05b4        	call	_lcd_clear_npos
+4365                     ; 311 	lcd_clear_npos(3, 0);
+4367  07be ae0300        	ldw	x,#768
+4368  07c1 cd05b4        	call	_lcd_clear_npos
+4370                     ; 312 	if( mode == 0 )
+4372  07c4 0d01          	tnz	(OFST+1,sp)
+4373  07c6 2605          	jrne	L5741
+4374                     ; 313 		lcd_disp_setup_mode_local();
+4376  07c8 cd02ae        	call	_lcd_disp_setup_mode_local
+4379  07cb 2003          	jra	L7741
+4380  07cd               L5741:
+4381                     ; 315 		lcd_disp_setup_mode_each();
+4383  07cd cd02dd        	call	_lcd_disp_setup_mode_each
+4385  07d0               L7741:
+4386                     ; 316 }
+4389  07d0 84            	pop	a
+4390  07d1 81            	ret
+4393                     	switch	.data
+4394  0000               ___i:
+4395  0000 00            	dc.b	0
+4435                     ; 320 void	lcd_disp(uint8_t id, uint8_t enable)
+4435                     ; 321 {
+4436                     	switch	.text
+4437  07d2               _lcd_disp:
+4439  07d2 89            	pushw	x
+4440       00000000      OFST:	set	0
+4443                     ; 325 	LCD_CE;
+4445  07d3 72165402      	bset	21506,#3
+4446                     ; 326 	if( enable == 1 )
+4448  07d7 9f            	ld	a,xl
+4449  07d8 a101          	cp	a,#1
+4450  07da 263d          	jrne	L7151
+4451                     ; 328 		lcd_clear(0);
+4453  07dc 4f            	clr	a
+4454  07dd cd05f3        	call	_lcd_clear
+4456                     ; 329 		__i = (__i+1) % 10;
+4458  07e0 c60000        	ld	a,___i
+4459  07e3 5f            	clrw	x
+4460  07e4 97            	ld	xl,a
+4461  07e5 5c            	incw	x
+4462  07e6 a60a          	ld	a,#10
+4463  07e8 cd0000        	call	c_smodx
+4465  07eb 01            	rrwa	x,a
+4466  07ec c70000        	ld	___i,a
+4467  07ef 02            	rlwa	x,a
+4468                     ; 350 		lcd_disp_n(0, __i);
+4470  07f0 c60000        	ld	a,___i
+4471  07f3 97            	ld	xl,a
+4472  07f4 4f            	clr	a
+4473  07f5 95            	ld	xh,a
+4474  07f6 cd0636        	call	_lcd_disp_n
+4476                     ; 351 		lcd_disp_n(1, __i);
+4478  07f9 c60000        	ld	a,___i
+4479  07fc 97            	ld	xl,a
+4480  07fd a601          	ld	a,#1
+4481  07ff 95            	ld	xh,a
+4482  0800 cd0636        	call	_lcd_disp_n
+4484                     ; 352 		lcd_disp_n(2, __i);
+4486  0803 c60000        	ld	a,___i
+4487  0806 97            	ld	xl,a
+4488  0807 a602          	ld	a,#2
+4489  0809 95            	ld	xh,a
+4490  080a cd0636        	call	_lcd_disp_n
+4492                     ; 353 		lcd_disp_n(3, __i);
+4494  080d c60000        	ld	a,___i
+4495  0810 97            	ld	xl,a
+4496  0811 a603          	ld	a,#3
+4497  0813 95            	ld	xh,a
+4498  0814 cd0636        	call	_lcd_disp_n
+4501  0817 2009          	jra	L1251
+4502  0819               L7151:
+4503                     ; 357 		LCD->RAM[LCD_RAMRegister_1] &= (uint8_t)(~id);
+4505  0819 7b01          	ld	a,(OFST+1,sp)
+4506  081b 43            	cpl	a
+4507  081c c4540d        	and	a,21517
+4508  081f c7540d        	ld	21517,a
+4509  0822               L1251:
+4510                     ; 359 }
+4513  0822 85            	popw	x
+4514  0823 81            	ret
+4546                     ; 361 void	lcd_init(void)
+4546                     ; 362 {
+4547                     	switch	.text
+4548  0824               _lcd_init:
+4550  0824 88            	push	a
+4551       00000001      OFST:	set	1
+4554                     ; 364 	LCD_CE;
+4556  0825 72165402      	bset	21506,#3
+4557                     ; 365 	for( i=0; i<15; i++ )
+4559  0829 0f01          	clr	(OFST+0,sp)
+4560  082b               L7351:
+4561                     ; 366 		LCD->RAM[i] = 0xff;
+4563  082b 7b01          	ld	a,(OFST+0,sp)
+4564  082d 5f            	clrw	x
+4565  082e 97            	ld	xl,a
+4566  082f a6ff          	ld	a,#255
+4567  0831 d7540c        	ld	(21516,x),a
+4568                     ; 365 	for( i=0; i<15; i++ )
+4570  0834 0c01          	inc	(OFST+0,sp)
+4573  0836 7b01          	ld	a,(OFST+0,sp)
+4574  0838 a10f          	cp	a,#15
+4575  083a 25ef          	jrult	L7351
+4576                     ; 367 }
+4579  083c 84            	pop	a
+4580  083d 81            	ret
+4624                     ; 371 void	lcd_cntl(uint8_t cmd, uint8_t param)
+4624                     ; 372 {
+4625                     	switch	.text
+4626  083e               _lcd_cntl:
+4628  083e 5208          	subw	sp,#8
+4629       00000008      OFST:	set	8
+4632                     ; 375 	if( cmd == 101 )
+4634  0840 9e            	ld	a,xh
+4635  0841 a165          	cp	a,#101
+4636  0843 2641          	jrne	L5651
+4637                     ; 377 		lcd_pwmCount++;
+4639  0845 725c0000      	inc	_lcd_pwmCount
+4640                     ; 378 		if( lcd_pwmCount == 10 )
+4642  0849 c60000        	ld	a,_lcd_pwmCount
+4643  084c a10a          	cp	a,#10
+4644  084e 2604          	jrne	L7651
+4645                     ; 379 			lcd_pwmCount = 1;
+4647  0850 35010000      	mov	_lcd_pwmCount,#1
+4648  0854               L7651:
+4649                     ; 381 		buf[1] = '0' + lcd_pwmCount/10;
+4651  0854 c60000        	ld	a,_lcd_pwmCount
+4652  0857 5f            	clrw	x
+4653  0858 97            	ld	xl,a
+4654  0859 a60a          	ld	a,#10
+4655  085b 62            	div	x,a
+4656  085c 9f            	ld	a,xl
+4657  085d ab30          	add	a,#48
+4658  085f 6b02          	ld	(OFST-6,sp),a
+4659                     ; 382 		buf[2] = '0' + lcd_pwmCount%10;
+4661  0861 c60000        	ld	a,_lcd_pwmCount
+4662  0864 5f            	clrw	x
+4663  0865 97            	ld	xl,a
+4664  0866 a60a          	ld	a,#10
+4665  0868 62            	div	x,a
+4666  0869 5f            	clrw	x
+4667  086a 97            	ld	xl,a
+4668  086b 9f            	ld	a,xl
+4669  086c ab30          	add	a,#48
+4670  086e 6b03          	ld	(OFST-5,sp),a
+4671                     ; 383 		buf[3] = 'P';
+4673  0870 a650          	ld	a,#80
+4674  0872 6b04          	ld	(OFST-4,sp),a
+4675                     ; 384 		buf[0] = 'w';
+4677  0874 a677          	ld	a,#119
+4678  0876 6b01          	ld	(OFST-7,sp),a
+4679                     ; 385 		buf[4] = ' ';
+4681  0878 a620          	ld	a,#32
+4682  087a 6b05          	ld	(OFST-3,sp),a
+4683                     ; 386 		uart1_tx_put(buf, 5);
+4685  087c 4b05          	push	#5
+4686  087e 96            	ldw	x,sp
+4687  087f 1c0002        	addw	x,#OFST-6
+4688  0882 cd0000        	call	_uart1_tx_put
+4690  0885 84            	pop	a
+4691  0886               L5651:
+4692                     ; 389 }
+4695  0886 5b08          	addw	sp,#8
+4696  0888 81            	ret
+4719                     ; 391 void	systemLcdClear(void)
+4719                     ; 392 {
+4720                     	switch	.text
+4721  0889               _systemLcdClear:
+4725                     ; 393 	LCD->CR1 = LCD_CR1_RESET_VALUE;
+4727  0889 725f5400      	clr	21504
+4728                     ; 394 	LCD->CR2 = LCD_CR2_RESET_VALUE;
+4730  088d 725f5401      	clr	21505
+4731                     ; 395 	LCD->CR3 = LCD_CR3_RESET_VALUE;
+4733  0891 725f5402      	clr	21506
+4734                     ; 396 	LCD->FRQ = LCD_FRQ_RESET_VALUE;
+4736  0895 725f5403      	clr	21507
+4737                     ; 398 	LCD->CR4 = LCD_CR4_RESET_VALUE;
+4739  0899 725f542f      	clr	21551
+4740                     ; 399 }
+4743  089d 81            	ret
+4776                     ; 436 void	systemLcd(void)
+4776                     ; 437 {
+4777                     	switch	.text
+4778  089e               _systemLcd:
+4782                     ; 438 	CLK_PeripheralClockConfig(CLK_Peripheral_LCD, ENABLE);
+4784  089e ae1301        	ldw	x,#4865
+4785  08a1 cd0000        	call	_CLK_PeripheralClockConfig
+4787                     ; 439 	CLK_RTCClockConfig(CLK_RTCCLKSource_LSI, CLK_RTCCLKDiv_1);
+4789  08a4 ae0400        	ldw	x,#1024
+4790  08a7 cd0000        	call	_CLK_RTCClockConfig
+4792                     ; 440 	CLK_PeripheralClockConfig(CLK_Peripheral_RTC, ENABLE);
+4794  08aa ae1201        	ldw	x,#4609
+4795  08ad cd0000        	call	_CLK_PeripheralClockConfig
+4797                     ; 442 	systemLcdClear();
+4799  08b0 add7          	call	_systemLcdClear
+4801                     ; 444 	LCD_Init(
+4801                     ; 445 		LCD_Prescaler_2, 
+4801                     ; 446 		LCD_Divider_18, 
+4801                     ; 447 		LCD_Duty_1_4,
+4801                     ; 448 		LCD_Bias_1_3, 
+4801                     ; 449 		LCD_VoltageSource_Internal
+4801                     ; 450 		);
+4803  08b2 4b00          	push	#0
+4804  08b4 4b00          	push	#0
+4805  08b6 4b06          	push	#6
+4806  08b8 ae1002        	ldw	x,#4098
+4807  08bb cd0000        	call	_LCD_Init
+4809  08be 5b03          	addw	sp,#3
+4810                     ; 453 	LCD_PortMaskConfig(LCD_PortMaskRegister_0, 0xFF);
+4812  08c0 ae00ff        	ldw	x,#255
+4813  08c3 cd0000        	call	_LCD_PortMaskConfig
+4815                     ; 454 	LCD_PortMaskConfig(LCD_PortMaskRegister_1, 0xFE);	//	s8 Skip
+4817  08c6 ae01fe        	ldw	x,#510
+4818  08c9 cd0000        	call	_LCD_PortMaskConfig
+4820                     ; 455 	LCD_PortMaskConfig(LCD_PortMaskRegister_2, 0x01);
+4822  08cc ae0201        	ldw	x,#513
+4823  08cf cd0000        	call	_LCD_PortMaskConfig
+4825                     ; 456 	LCD_PortMaskConfig(LCD_PortMaskRegister_3, 0x00);
+4827  08d2 ae0300        	ldw	x,#768
+4828  08d5 cd0000        	call	_LCD_PortMaskConfig
+4830                     ; 458 	LCD_ContrastConfig(LCD_Contrast_Level_4);
+4832  08d8 a608          	ld	a,#8
+4833  08da cd0000        	call	_LCD_ContrastConfig
+4835                     ; 459 	LCD_DeadTimeConfig(LCD_DeadTime_0);
+4837  08dd 4f            	clr	a
+4838  08de cd0000        	call	_LCD_DeadTimeConfig
+4840                     ; 460 	LCD_PulseOnDurationConfig(LCD_PulseOnDuration_1);
+4842  08e1 a620          	ld	a,#32
+4843  08e3 cd0000        	call	_LCD_PulseOnDurationConfig
+4845                     ; 464 	lcd_init();
+4847  08e6 cd0824        	call	_lcd_init
+4849                     ; 466 	LCD_Cmd(ENABLE); 
+4851  08e9 a601          	ld	a,#1
+4852  08eb cd0000        	call	_LCD_Cmd
+4854                     ; 467 }
+4857  08ee 81            	ret
+4860                     	switch	.data
+4861  0001               __blink_timer:
+4862  0001 05            	dc.b	5
+4863  0002               __blinkFlag:
+4864  0002 00            	dc.b	0
+4865  0003               __blinkId:
+4866  0003 ff            	dc.b	255
+4867  0004               __blink:
+4868  0004 00            	dc.b	0
+4869  0005               __blinkFlag2:
+4870  0005 00            	dc.b	0
+4871  0006               __blinkId2:
+4872  0006 ff            	dc.b	255
+4873  0007               __blinkId2b:
+4874  0007 ff            	dc.b	255
+4875  0008               __blink2:
+4876  0008 00            	dc.b	0
+4877  0009               __blinkNpos:
+4878  0009 00            	dc.b	0
+4879  000a               __blinkFlag3:
+4880  000a 00            	dc.b	0
+4881  000b               __blinkId3:
+4882  000b ff            	dc.b	255
+4883  000c               __blink3:
+4884  000c 00            	dc.b	0
+4907                     ; 484 void	lcd_blink_npos_clear(void)
+4907                     ; 485 {
+4908                     	switch	.text
+4909  08ef               _lcd_blink_npos_clear:
+4913                     ; 486 	_blinkNpos = 0;
+4915  08ef 725f0009      	clr	__blinkNpos
+4916                     ; 487 }
+4919  08f3 81            	ret
+4952                     ; 489 void	lcd_blink_npos(uint8_t i)
+4952                     ; 490 {
+4953                     	switch	.text
+4954  08f4               _lcd_blink_npos:
+4958                     ; 491 	_blinkNpos = i + 1;
+4960  08f4 4c            	inc	a
+4961  08f5 c70009        	ld	__blinkNpos,a
+4962                     ; 492 }
+4965  08f8 81            	ret
+4991                     ; 494 void	lcd_blink_clear(void)
+4991                     ; 495 {
+4992                     	switch	.text
+4993  08f9               _lcd_blink_clear:
+4997                     ; 496 	_blinkId = 0;
+4999  08f9 725f0003      	clr	__blinkId
+5000                     ; 497 	_blinkId2 = 0;
+5002  08fd 725f0006      	clr	__blinkId2
+5003                     ; 498 	_blinkId2b = 0;
+5005  0901 725f0007      	clr	__blinkId2b
+5006                     ; 499 }
+5009  0905 81            	ret
+5043                     ; 501 void	lcd_blink_item(uint8_t i)
+5043                     ; 502 {
+5044                     	switch	.text
+5045  0906               _lcd_blink_item:
+5049                     ; 503 	_blinkId = i;
+5051  0906 c70003        	ld	__blinkId,a
+5052                     ; 504 	_blink = 0;
+5054  0909 725f0004      	clr	__blink
+5055                     ; 505 }
+5058  090d 81            	ret
+5084                     ; 507 void	lcd_blink_clearRoom(void)
+5084                     ; 508 {
+5085                     	switch	.text
+5086  090e               _lcd_blink_clearRoom:
+5090                     ; 509 	_blinkId2 = 0;
+5092  090e 725f0006      	clr	__blinkId2
+5093                     ; 510 	_blinkId2b = 0;
+5095  0912 725f0007      	clr	__blinkId2b
+5096                     ; 511 }
+5099  0916 81            	ret
+5142                     ; 513 void	lcd_blink_itemRoom(uint8_t i, uint8_t imode)
+5142                     ; 514 {
+5143                     	switch	.text
+5144  0917               _lcd_blink_itemRoom:
+5146  0917 89            	pushw	x
+5147       00000000      OFST:	set	0
+5150                     ; 515 	_blinkId2 = _rid[i*2];
+5152  0918 9e            	ld	a,xh
+5153  0919 5f            	clrw	x
+5154  091a 97            	ld	xl,a
+5155  091b 58            	sllw	x
+5156  091c d601d5        	ld	a,(__rid,x)
+5157  091f c70006        	ld	__blinkId2,a
+5158                     ; 516 	if( imode != 0 )
+5160  0922 0d02          	tnz	(OFST+2,sp)
+5161  0924 270b          	jreq	L7071
+5162                     ; 517 		_blinkId2b = _rid[i*2+1];
+5164  0926 7b01          	ld	a,(OFST+1,sp)
+5165  0928 5f            	clrw	x
+5166  0929 97            	ld	xl,a
+5167  092a 58            	sllw	x
+5168  092b d601d6        	ld	a,(__rid+1,x)
+5169  092e c70007        	ld	__blinkId2b,a
+5170  0931               L7071:
+5171                     ; 518 	_blink2 = 0;
+5173  0931 725f0008      	clr	__blink2
+5174                     ; 519 }
+5177  0935 85            	popw	x
+5178  0936 81            	ret
+5235                     ; 521 void	lcd_blinkCb(void)
+5235                     ; 522 {
+5236                     	switch	.text
+5237  0937               _lcd_blinkCb:
+5239  0937 5204          	subw	sp,#4
+5240       00000004      OFST:	set	4
+5243                     ; 525 	if( _blink_timer == 0 )
+5245  0939 725d0001      	tnz	__blink_timer
+5246  093d 2603          	jrne	L002
+5247  093f cc0b22        	jp	L671
+5248  0942               L002:
+5249                     ; 526 		return;
+5251                     ; 528 	if( (__timer100ms%_blink_timer) == 0 )
+5253  0942 c60000        	ld	a,___timer100ms
+5254  0945 5f            	clrw	x
+5255  0946 97            	ld	xl,a
+5256  0947 c60001        	ld	a,__blink_timer
+5257  094a 905f          	clrw	y
+5258  094c 9097          	ld	yl,a
+5259  094e cd0000        	call	c_idiv
+5261  0951 51            	exgw	x,y
+5262  0952 a30000        	cpw	x,#0
+5263  0955 2703          	jreq	L202
+5264  0957 cc0b16        	jp	L3371
+5265  095a               L202:
+5266                     ; 530 		if( _blinkFlag == 0 )
+5268  095a 725d0002      	tnz	__blinkFlag
+5269  095e 2651          	jrne	L5371
+5270                     ; 532 			_blinkFlag = 1;
+5272  0960 35010002      	mov	__blinkFlag,#1
+5273                     ; 533 			if( _blinkId != 0 )
+5275  0964 725d0003      	tnz	__blinkId
+5276  0968 2747          	jreq	L5371
+5277                     ; 535 				if( _blink != 0 )
+5279  096a 725d0004      	tnz	__blink
+5280  096e 2722          	jreq	L1471
+5281                     ; 537 					LCD_BIT_CLEAR(_blinkId);
+5283  0970 c60003        	ld	a,__blinkId
+5284  0973 5f            	clrw	x
+5285  0974 97            	ld	xl,a
+5286  0975 d60040        	ld	a,(_iLF_DEF,x)
+5287  0978 5f            	clrw	x
+5288  0979 97            	ld	xl,a
+5289  097a c60003        	ld	a,__blinkId
+5290  097d 905f          	clrw	y
+5291  097f 9097          	ld	yl,a
+5292  0981 90d60000      	ld	a,(_bLF_DEF,y)
+5293  0985 43            	cpl	a
+5294  0986 d4540c        	and	a,(21516,x)
+5295  0989 d7540c        	ld	(21516,x),a
+5296                     ; 538 					_blink = 0;
+5298  098c 725f0004      	clr	__blink
+5300  0990 201f          	jra	L5371
+5301  0992               L1471:
+5302                     ; 542 					LCD_BIT_SET(_blinkId);
+5304  0992 c60003        	ld	a,__blinkId
+5305  0995 5f            	clrw	x
+5306  0996 97            	ld	xl,a
+5307  0997 d60040        	ld	a,(_iLF_DEF,x)
+5308  099a 5f            	clrw	x
+5309  099b 97            	ld	xl,a
+5310  099c c60003        	ld	a,__blinkId
+5311  099f 905f          	clrw	y
+5312  09a1 9097          	ld	yl,a
+5313  09a3 d6540c        	ld	a,(21516,x)
+5314  09a6 90da0000      	or	a,(_bLF_DEF,y)
+5315  09aa d7540c        	ld	(21516,x),a
+5316                     ; 543 					_blink = 1;
+5318  09ad 35010004      	mov	__blink,#1
+5319  09b1               L5371:
+5320                     ; 547 		if( _blinkFlag2 == 0 )
+5322  09b1 725d0005      	tnz	__blinkFlag2
+5323  09b5 2703cc0a4e    	jrne	L5471
+5324                     ; 549 			_blinkFlag2 = 1;
+5326  09ba 35010005      	mov	__blinkFlag2,#1
+5327                     ; 550 			if( _blinkId2 != 0 )
+5329  09be 725d0006      	tnz	__blinkId2
+5330  09c2 27f3          	jreq	L5471
+5331                     ; 552 				if( _blink2 != 0 )
+5333  09c4 725d0008      	tnz	__blink2
+5334  09c8 2744          	jreq	L1571
+5335                     ; 554 					if( _blinkId2b != 0 )
+5337  09ca 725d0007      	tnz	__blinkId2b
+5338  09ce 271c          	jreq	L3571
+5339                     ; 555 						LCD_BIT_CLEAR(_blinkId2b);
+5341  09d0 c60007        	ld	a,__blinkId2b
+5342  09d3 5f            	clrw	x
+5343  09d4 97            	ld	xl,a
+5344  09d5 d60040        	ld	a,(_iLF_DEF,x)
+5345  09d8 5f            	clrw	x
+5346  09d9 97            	ld	xl,a
+5347  09da c60007        	ld	a,__blinkId2b
+5348  09dd 905f          	clrw	y
+5349  09df 9097          	ld	yl,a
+5350  09e1 90d60000      	ld	a,(_bLF_DEF,y)
+5351  09e5 43            	cpl	a
+5352  09e6 d4540c        	and	a,(21516,x)
+5353  09e9 d7540c        	ld	(21516,x),a
+5354  09ec               L3571:
+5355                     ; 556 					LCD_BIT_CLEAR(_blinkId2);
+5357  09ec c60006        	ld	a,__blinkId2
+5358  09ef 5f            	clrw	x
+5359  09f0 97            	ld	xl,a
+5360  09f1 d60040        	ld	a,(_iLF_DEF,x)
+5361  09f4 5f            	clrw	x
+5362  09f5 97            	ld	xl,a
+5363  09f6 c60006        	ld	a,__blinkId2
+5364  09f9 905f          	clrw	y
+5365  09fb 9097          	ld	yl,a
+5366  09fd 90d60000      	ld	a,(_bLF_DEF,y)
+5367  0a01 43            	cpl	a
+5368  0a02 d4540c        	and	a,(21516,x)
+5369  0a05 d7540c        	ld	(21516,x),a
+5370                     ; 557 					_blink2 = 0;
+5372  0a08 725f0008      	clr	__blink2
+5374  0a0c 2040          	jra	L5471
+5375  0a0e               L1571:
+5376                     ; 561 					if( _blinkId2b != 0 )
+5378  0a0e 725d0007      	tnz	__blinkId2b
+5379  0a12 271b          	jreq	L7571
+5380                     ; 562 						LCD_BIT_SET(_blinkId2b);
+5382  0a14 c60007        	ld	a,__blinkId2b
+5383  0a17 5f            	clrw	x
+5384  0a18 97            	ld	xl,a
+5385  0a19 d60040        	ld	a,(_iLF_DEF,x)
+5386  0a1c 5f            	clrw	x
+5387  0a1d 97            	ld	xl,a
+5388  0a1e c60007        	ld	a,__blinkId2b
+5389  0a21 905f          	clrw	y
+5390  0a23 9097          	ld	yl,a
+5391  0a25 d6540c        	ld	a,(21516,x)
+5392  0a28 90da0000      	or	a,(_bLF_DEF,y)
+5393  0a2c d7540c        	ld	(21516,x),a
+5394  0a2f               L7571:
+5395                     ; 563 					LCD_BIT_SET(_blinkId2);
+5397  0a2f c60006        	ld	a,__blinkId2
+5398  0a32 5f            	clrw	x
+5399  0a33 97            	ld	xl,a
+5400  0a34 d60040        	ld	a,(_iLF_DEF,x)
+5401  0a37 5f            	clrw	x
+5402  0a38 97            	ld	xl,a
+5403  0a39 c60006        	ld	a,__blinkId2
+5404  0a3c 905f          	clrw	y
+5405  0a3e 9097          	ld	yl,a
+5406  0a40 d6540c        	ld	a,(21516,x)
+5407  0a43 90da0000      	or	a,(_bLF_DEF,y)
+5408  0a47 d7540c        	ld	(21516,x),a
+5409                     ; 564 					_blink2 = 1;
+5411  0a4a 35010008      	mov	__blink2,#1
+5412  0a4e               L5471:
+5413                     ; 568 		if( _blinkFlag3 == 0 )
+5415  0a4e 725d000a      	tnz	__blinkFlag3
+5416  0a52 2703          	jreq	L402
+5417  0a54 cc0b22        	jp	L1102
+5418  0a57               L402:
+5419                     ; 570 			_blinkFlag3 = 1;
+5421  0a57 3501000a      	mov	__blinkFlag3,#1
+5422                     ; 571 			if( _blinkNpos != 0 )
+5424  0a5b 725d0009      	tnz	__blinkNpos
+5425  0a5f 2603          	jrne	L602
+5426  0a61 cc0b22        	jp	L1102
+5427  0a64               L602:
+5428                     ; 573 				p = lcd_get_npos(0);
+5430  0a64 4f            	clr	a
+5431  0a65 cd0608        	call	_lcd_get_npos
+5433  0a68 1f02          	ldw	(OFST-2,sp),x
+5434                     ; 574 				p = p+(_blinkNpos-1)*7;
+5436  0a6a c60009        	ld	a,__blinkNpos
+5437  0a6d 97            	ld	xl,a
+5438  0a6e a607          	ld	a,#7
+5439  0a70 42            	mul	x,a
+5440  0a71 1d0007        	subw	x,#7
+5441  0a74 72fb02        	addw	x,(OFST-2,sp)
+5442  0a77 1f02          	ldw	(OFST-2,sp),x
+5443                     ; 575 				if( _blinkId3 != 0 )
+5445  0a79 725d000b      	tnz	__blinkId3
+5446  0a7d 274b          	jreq	L5671
+5447                     ; 577 					for( i=0; i<7; i++ )
+5449  0a7f 0f04          	clr	(OFST+0,sp)
+5450  0a81               L7671:
+5451                     ; 579 						if( p[i] != 0 )
+5453  0a81 7b02          	ld	a,(OFST-2,sp)
+5454  0a83 97            	ld	xl,a
+5455  0a84 7b03          	ld	a,(OFST-1,sp)
+5456  0a86 1b04          	add	a,(OFST+0,sp)
+5457  0a88 2401          	jrnc	L261
+5458  0a8a 5c            	incw	x
+5459  0a8b               L261:
+5460  0a8b 02            	rlwa	x,a
+5461  0a8c 7d            	tnz	(x)
+5462  0a8d 272d          	jreq	L5771
+5463                     ; 580 							LCD_BIT_CLEAR(p[i]);
+5465  0a8f 7b02          	ld	a,(OFST-2,sp)
+5466  0a91 97            	ld	xl,a
+5467  0a92 7b03          	ld	a,(OFST-1,sp)
+5468  0a94 1b04          	add	a,(OFST+0,sp)
+5469  0a96 2401          	jrnc	L461
+5470  0a98 5c            	incw	x
+5471  0a99               L461:
+5472  0a99 02            	rlwa	x,a
+5473  0a9a f6            	ld	a,(x)
+5474  0a9b 5f            	clrw	x
+5475  0a9c 97            	ld	xl,a
+5476  0a9d d60040        	ld	a,(_iLF_DEF,x)
+5477  0aa0 5f            	clrw	x
+5478  0aa1 97            	ld	xl,a
+5479  0aa2 89            	pushw	x
+5480  0aa3 7b04          	ld	a,(OFST+0,sp)
+5481  0aa5 97            	ld	xl,a
+5482  0aa6 7b05          	ld	a,(OFST+1,sp)
+5483  0aa8 1b06          	add	a,(OFST+2,sp)
+5484  0aaa 2401          	jrnc	L661
+5485  0aac 5c            	incw	x
+5486  0aad               L661:
+5487  0aad 02            	rlwa	x,a
+5488  0aae f6            	ld	a,(x)
+5489  0aaf 5f            	clrw	x
+5490  0ab0 97            	ld	xl,a
+5491  0ab1 d60000        	ld	a,(_bLF_DEF,x)
+5492  0ab4 43            	cpl	a
+5493  0ab5 85            	popw	x
+5494  0ab6 d4540c        	and	a,(21516,x)
+5495  0ab9 d7540c        	ld	(21516,x),a
+5496  0abc               L5771:
+5497                     ; 577 					for( i=0; i<7; i++ )
+5499  0abc 0c04          	inc	(OFST+0,sp)
+5502  0abe 7b04          	ld	a,(OFST+0,sp)
+5503  0ac0 a107          	cp	a,#7
+5504  0ac2 25bd          	jrult	L7671
+5505                     ; 582 					_blinkId3 = 0;
+5507  0ac4 725f000b      	clr	__blinkId3
+5509  0ac8 2058          	jra	L1102
+5510  0aca               L5671:
+5511                     ; 586 					for( i=0; i<7; i++ )
+5513  0aca 0f04          	clr	(OFST+0,sp)
+5514  0acc               L1002:
+5515                     ; 588 						if( p[i] != 0 )
+5517  0acc 7b02          	ld	a,(OFST-2,sp)
+5518  0ace 97            	ld	xl,a
+5519  0acf 7b03          	ld	a,(OFST-1,sp)
+5520  0ad1 1b04          	add	a,(OFST+0,sp)
+5521  0ad3 2401          	jrnc	L071
+5522  0ad5 5c            	incw	x
+5523  0ad6               L071:
+5524  0ad6 02            	rlwa	x,a
+5525  0ad7 7d            	tnz	(x)
+5526  0ad8 272e          	jreq	L7002
+5527                     ; 589 							LCD_BIT_SET(p[i]);
+5529  0ada 7b02          	ld	a,(OFST-2,sp)
+5530  0adc 97            	ld	xl,a
+5531  0add 7b03          	ld	a,(OFST-1,sp)
+5532  0adf 1b04          	add	a,(OFST+0,sp)
+5533  0ae1 2401          	jrnc	L271
+5534  0ae3 5c            	incw	x
+5535  0ae4               L271:
+5536  0ae4 02            	rlwa	x,a
+5537  0ae5 f6            	ld	a,(x)
+5538  0ae6 5f            	clrw	x
+5539  0ae7 97            	ld	xl,a
+5540  0ae8 d60000        	ld	a,(_bLF_DEF,x)
+5541  0aeb 6b01          	ld	(OFST-3,sp),a
+5542  0aed 7b02          	ld	a,(OFST-2,sp)
+5543  0aef 97            	ld	xl,a
+5544  0af0 7b03          	ld	a,(OFST-1,sp)
+5545  0af2 1b04          	add	a,(OFST+0,sp)
+5546  0af4 2401          	jrnc	L471
+5547  0af6 5c            	incw	x
+5548  0af7               L471:
+5549  0af7 02            	rlwa	x,a
+5550  0af8 f6            	ld	a,(x)
+5551  0af9 5f            	clrw	x
+5552  0afa 97            	ld	xl,a
+5553  0afb d60040        	ld	a,(_iLF_DEF,x)
+5554  0afe 5f            	clrw	x
+5555  0aff 97            	ld	xl,a
+5556  0b00 d6540c        	ld	a,(21516,x)
+5557  0b03 1a01          	or	a,(OFST-3,sp)
+5558  0b05 d7540c        	ld	(21516,x),a
+5559  0b08               L7002:
+5560                     ; 586 					for( i=0; i<7; i++ )
+5562  0b08 0c04          	inc	(OFST+0,sp)
+5565  0b0a 7b04          	ld	a,(OFST+0,sp)
+5566  0b0c a107          	cp	a,#7
+5567  0b0e 25bc          	jrult	L1002
+5568                     ; 591 					_blinkId3 = 1;
+5570  0b10 3501000b      	mov	__blinkId3,#1
+5571  0b14 200c          	jra	L1102
+5572  0b16               L3371:
+5573                     ; 598 		_blinkFlag = 0;
+5575  0b16 725f0002      	clr	__blinkFlag
+5576                     ; 599 		_blinkFlag2 = 0;
+5578  0b1a 725f0005      	clr	__blinkFlag2
+5579                     ; 600 		_blinkFlag3 = 0;
+5581  0b1e 725f000a      	clr	__blinkFlag3
+5582  0b22               L1102:
+5583                     ; 602 }
+5584  0b22               L671:
+5587  0b22 5b04          	addw	sp,#4
+5588  0b24 81            	ret
+6014                     	xdef	__blink3
+6015                     	xdef	__blinkId3
+6016                     	xdef	__blinkFlag3
+6017                     	xdef	__blinkNpos
+6018                     	xdef	__blink2
+6019                     	xdef	__blinkId2b
+6020                     	xdef	__blinkId2
+6021                     	xdef	__blinkFlag2
+6022                     	xdef	__blink
+6023                     	xdef	__blinkId
+6024                     	xdef	__blinkFlag
+6025                     	xdef	__blink_timer
+6026                     	xdef	_systemLcdClear
+6027                     	xref	_lcd_pwmCount
+6028                     	xdef	_lcd_init
+6029                     	xdef	___i
+6030                     	xdef	_lcd_disp_cmd
+6031                     	xdef	_lcd_get_npos
+6032                     	xdef	_lcd_clear_cnt
+6033                     	xdef	_lcd_clear_m
+6034                     	xdef	_lcd_clear_info
+6035                     	xdef	_lcd_clear_cmd
+6036                     	xdef	__lpm
+6037                     	xdef	__temp_offset
+6038                     	xdef	__po_type_pe
+6039                     	xdef	__po_type_pb
+6040                     	xdef	__po_type_xl
+6041                     	xdef	__po_type
+6042                     	xdef	__len
+6043                     	xdef	__cntl_po
+6044                     	xdef	__cntl_on
+6045                     	xdef	__cntl_op
+6046                     	xdef	__link
+6047                     	xdef	__maxValue
+6048                     	xdef	__cc
+6049                     	xdef	__hcEach
+6050                     	xdef	__hcLocal
+6051                     	xdef	__hc
+6052                     	xdef	__run
+6053                     	xdef	__cmd
+6054                     	xdef	__btn
+6055                     	xdef	__info
+6056                     	xdef	__nid
+6057                     	xdef	__n
+6058                     	xdef	__ncnt
+6059                     	xdef	__nm
+6060                     	xdef	__nerr
+6061                     	xdef	__nd
+6062                     	xdef	__nc
+6063                     	xdef	__nb
+6064                     	xdef	__na
+6065                     	xdef	_lcd_blink_npos
+6066                     	xdef	_lcd_blink_npos_clear
+6067                     	xdef	_lcd_disp_info
+6068                     	xdef	_lcd_disp_info_fire
+6069                     	xdef	_lcd_blinkCb
+6070                     	xdef	_lcd_blink_itemRoom
+6071                     	xdef	_lcd_blink_item
+6072                     	xdef	_lcd_blink_clearRoom
+6073                     	xdef	_lcd_blink_clear
+6074                     	xdef	_lcd_clear_npos
+6075                     	xdef	_lcd_disp_rid
+6076                     	xdef	_lcd_disp_err
+6077                     	xdef	_lcd_disp_n
+6078                     	xdef	_lcd_clear
+6079                     	xdef	_lcd_disp_setup_mode_type
+6080                     	xdef	_lcd_disp_setup_mode_each
+6081                     	xdef	_lcd_disp_setup_mode_local
+6082                     	xdef	_lcd_disp_setup_cnt
+6083                     	xdef	_lcd_disp_setup_m
+6084                     	xdef	_lcd_disp_setup_id
+6085                     	xdef	_lcd_disp_setup_mode
+6086                     	xdef	_lcd_disp_setup_run
+6087                     	xdef	_lcd_disp_setup_c
+6088                     	xdef	_lcd_disp_setup_maxValue
+6089                     	xdef	_lcd_disp_setup_link
+6090                     	xdef	_lcd_disp_setup_cntl_po
+6091                     	xdef	_lcd_disp_setup_cntl_on
+6092                     	xdef	_lcd_disp_setup_cntl_op
+6093                     	xdef	_lcd_disp_setup_len
+6094                     	xdef	_lcd_disp_setup_po_type_pb
+6095                     	xdef	_lcd_disp_setup_po_type_pe
+6096                     	xdef	_lcd_disp_setup_po_type_xl
+6097                     	xdef	_lcd_disp_setup_po_type
+6098                     	xdef	_lcd_disp_setup_temp_offset
+6099                     	xdef	_lcd_disp_setup_lpm
+6100                     	xdef	_lcd_clear_rid
+6101                     	xdef	_lcd_clear_run
+6102                     	xdef	_lcd_clear_mode
+6103                     	xdef	_lcd_clear_n
+6104                     	xdef	_lcd_clear_c
+6105                     	xdef	_lcd_clear_btn
+6106                     	xdef	__rid
+6107                     	xdef	_iLF_DEF
+6108                     	xdef	_bLF_DEF
+6109                     	xref	___timer100ms
+6110                     	xref	_uart1_tx_put
+6111                     	xdef	_lcd_cntl
+6112                     	xdef	_lcd_disp
+6113                     	xdef	_lcd_blink
+6114                     	xdef	_systemLcd
+6115                     	xref	_LCD_ContrastConfig
+6116                     	xref	_LCD_DeadTimeConfig
+6117                     	xref	_LCD_PulseOnDurationConfig
+6118                     	xref	_LCD_Cmd
+6119                     	xref	_LCD_PortMaskConfig
+6120                     	xref	_LCD_Init
+6121                     	xref	_CLK_PeripheralClockConfig
+6122                     	xref	_CLK_RTCClockConfig
+6123                     	xref.b	c_x
+6142                     	xref	c_idiv
+6143                     	xref	c_smodx
+6144                     	end

@@ -1,0 +1,12 @@
+/svn/ver3/r1
+	* main.c updated
+		_PLC_ defined
+
+
+
+/vc/ver2
+	DW_VENT defined
+	* cnt_wn_1 updated
+	* _DW_OKJUNG_ defined
+		skip R/C and HomeNetwork
+

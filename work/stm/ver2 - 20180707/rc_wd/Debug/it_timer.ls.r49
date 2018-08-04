@@ -1,0 +1,450 @@
+   1                     ; C Compiler for STM8 (COSMIC Software)
+   2                     ; Parser V4.10.21 - 04 Feb 2014
+   3                     ; Generator (Limited) V4.3.12 - 11 Feb 2014
+  17                     	switch	.data
+  18  0000               _timer50usCount:
+  19  0000 00            	dc.b	0
+  20  0001               _timer100usCount:
+  21  0001 00            	dc.b	0
+  22  0002               _lcd_pwmCount:
+  23  0002 09            	dc.b	9
+  24  0003               _lcd_pwmIndex:
+  25  0003 00            	dc.b	0
+  26  0004               ___iouart_Ready:
+  27  0004 00            	dc.b	0
+  28  0005               __io_head:
+  29  0005 00            	dc.b	0
+  30  0006               __io_tail:
+  31  0006 00            	dc.b	0
+  32  0007               ____k:
+  33  0007 00            	dc.b	0
+  34  0008               ____k2:
+  35  0008 00            	dc.b	0
+  36  0009               __io_rc_prev:
+  37  0009 02            	dc.b	2
+  70                     ; 32 void	timer2CiCb(void)
+  70                     ; 33 {	
+  72                     	switch	.text
+  73  0000               _timer2CiCb:
+  77                     ; 34 	if( indiIOUartIdle != 0 )
+  79  0000 725d0000      	tnz	_indiIOUartIdle
+  80  0004 2701          	jreq	L12
+  81                     ; 35 		return;
+  84  0006 81            	ret
+  85  0007               L12:
+  86                     ; 37 	if( ___k == 0 )
+  88  0007 725d0007      	tnz	____k
+  89  000b 2601          	jrne	L32
+  90                     ; 38 		return;
+  93  000d 81            	ret
+  94  000e               L32:
+  95                     ; 40 	_io_buf[_io_head++] = ___k;
+  97  000e c60005        	ld	a,__io_head
+  98  0011 97            	ld	xl,a
+  99  0012 725c0005      	inc	__io_head
+ 100  0016 9f            	ld	a,xl
+ 101  0017 5f            	clrw	x
+ 102  0018 97            	ld	xl,a
+ 103  0019 c60007        	ld	a,____k
+ 104  001c d70041        	ld	(__io_buf,x),a
+ 105                     ; 41 	if( _io_head == _IO_BUF_SIZE )
+ 107  001f c60005        	ld	a,__io_head
+ 108  0022 a148          	cp	a,#72
+ 109  0024 2604          	jrne	L52
+ 110                     ; 42 		_io_head = 0;
+ 112  0026 725f0005      	clr	__io_head
+ 113  002a               L52:
+ 114                     ; 43 	___k = 0;
+ 116  002a 725f0007      	clr	____k
+ 117                     ; 44 }
+ 120  002e 81            	ret
+ 157                     ; 48 void	timer2_UpdateCb(void)
+ 157                     ; 49 {
+ 158                     	switch	.text
+ 159  002f               _timer2_UpdateCb:
+ 161  002f 88            	push	a
+ 162       00000001      OFST:	set	1
+ 165                     ; 53 	i = GPIO_ReadInputData(D_IOUART_RX_PORT);
+ 167  0030 ae500f        	ldw	x,#20495
+ 168  0033 cd0000        	call	_GPIO_ReadInputData
+ 170  0036 6b01          	ld	(OFST+0,sp),a
+ 171                     ; 54 	i = i & D_IOUART_RX_PIN;
+ 173  0038 7b01          	ld	a,(OFST+0,sp)
+ 174  003a a420          	and	a,#32
+ 175  003c 6b01          	ld	(OFST+0,sp),a
+ 176                     ; 55 	if( i == _io_rc_prev )
+ 178  003e 7b01          	ld	a,(OFST+0,sp)
+ 179  0040 c10009        	cp	a,__io_rc_prev
+ 180  0043 2602          	jrne	L34
+ 181                     ; 56 		return;
+ 184  0045 84            	pop	a
+ 185  0046 81            	ret
+ 186  0047               L34:
+ 187                     ; 58 	_io_rc_prev = i;
+ 189  0047 7b01          	ld	a,(OFST+0,sp)
+ 190  0049 c70009        	ld	__io_rc_prev,a
+ 191                     ; 59 	if( i == 0 )
+ 193  004c 0d01          	tnz	(OFST+0,sp)
+ 194  004e 261e          	jrne	L54
+ 195                     ; 61 		_io_buf[_io_head] = ___k;
+ 197  0050 c60005        	ld	a,__io_head
+ 198  0053 5f            	clrw	x
+ 199  0054 97            	ld	xl,a
+ 200  0055 c60007        	ld	a,____k
+ 201  0058 d70041        	ld	(__io_buf,x),a
+ 202                     ; 62 		_io_head += 1;
+ 204  005b 725c0005      	inc	__io_head
+ 205                     ; 63 		if( _io_head == _IO_BUF_SIZE )
+ 207  005f c60005        	ld	a,__io_head
+ 208  0062 a148          	cp	a,#72
+ 209  0064 2604          	jrne	L74
+ 210                     ; 64 			_io_head = 0;
+ 212  0066 725f0005      	clr	__io_head
+ 213  006a               L74:
+ 214                     ; 65 		___k = 0;
+ 216  006a 725f0007      	clr	____k
+ 217  006e               L54:
+ 218                     ; 68 }
+ 221  006e 84            	pop	a
+ 222  006f 81            	ret
+ 225                     	switch	.data
+ 226  000a               __swuart_tx_head:
+ 227  000a 00            	dc.b	0
+ 228  000b               __swuart_tx_tail:
+ 229  000b 00            	dc.b	0
+ 230  000c               __sw_bit:
+ 231  000c 00            	dc.b	0
+ 232  000d               __sw_sending:
+ 233  000d 00            	dc.b	0
+ 254                     ; 96 void	_swuartCb(void)
+ 254                     ; 97 {
+ 255                     	switch	.text
+ 256  0070               __swuartCb:
+ 260                     ; 139 }
+ 263  0070 81            	ret
+ 314                     ; 141 void	swuart_Write(uint8_t *p, uint8_t size)
+ 314                     ; 142 {
+ 315                     	switch	.text
+ 316  0071               _swuart_Write:
+ 318  0071 89            	pushw	x
+ 319  0072 88            	push	a
+ 320       00000001      OFST:	set	1
+ 323                     ; 144 	for( i=0; i<size; i++ )
+ 325  0073 0f01          	clr	(OFST+0,sp)
+ 327  0075 2028          	jra	L701
+ 328  0077               L301:
+ 329                     ; 146 		swTxBuffer[_swuart_tx_head] = p[i];
+ 331  0077 c6000a        	ld	a,__swuart_tx_head
+ 332  007a 5f            	clrw	x
+ 333  007b 97            	ld	xl,a
+ 334  007c 89            	pushw	x
+ 335  007d 7b04          	ld	a,(OFST+3,sp)
+ 336  007f 97            	ld	xl,a
+ 337  0080 7b05          	ld	a,(OFST+4,sp)
+ 338  0082 1b03          	add	a,(OFST+2,sp)
+ 339  0084 2401          	jrnc	L41
+ 340  0086 5c            	incw	x
+ 341  0087               L41:
+ 342  0087 02            	rlwa	x,a
+ 343  0088 f6            	ld	a,(x)
+ 344  0089 85            	popw	x
+ 345  008a d70001        	ld	(_swTxBuffer,x),a
+ 346                     ; 147 		_swuart_tx_head = (_swuart_tx_head + 1) % SW_TX_BUFFER_SIZE;
+ 348  008d c6000a        	ld	a,__swuart_tx_head
+ 349  0090 5f            	clrw	x
+ 350  0091 97            	ld	xl,a
+ 351  0092 5c            	incw	x
+ 352  0093 a640          	ld	a,#64
+ 353  0095 cd0000        	call	c_smodx
+ 355  0098 01            	rrwa	x,a
+ 356  0099 c7000a        	ld	__swuart_tx_head,a
+ 357  009c 02            	rlwa	x,a
+ 358                     ; 144 	for( i=0; i<size; i++ )
+ 360  009d 0c01          	inc	(OFST+0,sp)
+ 361  009f               L701:
+ 364  009f 7b01          	ld	a,(OFST+0,sp)
+ 365  00a1 1106          	cp	a,(OFST+5,sp)
+ 366  00a3 25d2          	jrult	L301
+ 367                     ; 149 }
+ 370  00a5 5b03          	addw	sp,#3
+ 371  00a7 81            	ret
+ 396                     ; 152 void	_rcCb(void)
+ 396                     ; 153 {
+ 397                     	switch	.text
+ 398  00a8               __rcCb:
+ 402                     ; 154 	if( lcd_pwmIndex <= 3 )	{	PWM_HIGH;	}
+ 404  00a8 c60003        	ld	a,_lcd_pwmIndex
+ 405  00ab a104          	cp	a,#4
+ 406  00ad 2406          	jruge	L321
+ 409  00af 721c5014      	bset	20500,#6
+ 411  00b3 2004          	jra	L521
+ 412  00b5               L321:
+ 413                     ; 155 	else					{	PWM_LOW;	}
+ 415  00b5 721d5014      	bres	20500,#6
+ 416  00b9               L521:
+ 417                     ; 157 	lcd_pwmIndex++;
+ 419  00b9 725c0003      	inc	_lcd_pwmIndex
+ 420                     ; 158 	if( lcd_pwmIndex == lcd_pwmCount )
+ 422  00bd c60003        	ld	a,_lcd_pwmIndex
+ 423  00c0 c10002        	cp	a,_lcd_pwmCount
+ 424  00c3 2604          	jrne	L721
+ 425                     ; 159 		lcd_pwmIndex = 0;
+ 427  00c5 725f0003      	clr	_lcd_pwmIndex
+ 428  00c9               L721:
+ 429                     ; 160 }
+ 432  00c9 81            	ret
+ 435                     	switch	.data
+ 436  000e               __t20ms:
+ 437  000e 00            	dc.b	0
+ 438  000f               __mtCount:
+ 439  000f 14            	dc.b	20
+ 440  0010               __t2msCount:
+ 441  0010 00            	dc.b	0
+ 471                     ; 169 void	timer4_UpdateCb(void)
+ 471                     ; 170 {
+ 472                     	switch	.text
+ 473  00ca               _timer4_UpdateCb:
+ 477                     ; 171 	___k++;
+ 479  00ca 725c0007      	inc	____k
+ 480                     ; 172 	if( timer50usCount == 0 )
+ 482  00ce 725d0000      	tnz	_timer50usCount
+ 483  00d2 2641          	jrne	L141
+ 484                     ; 174 		_mtCount--;
+ 486  00d4 725a000f      	dec	__mtCount
+ 487                     ; 175 		if( _mtCount == 0 )
+ 489  00d8 725d000f      	tnz	__mtCount
+ 490  00dc 2613          	jrne	L341
+ 491                     ; 178 			_mtCount = 1;	//	10-1000us, 5-500us,, 3-300us
+ 493  00de 3501000f      	mov	__mtCount,#1
+ 494                     ; 182 			_t2msCount++;
+ 496  00e2 725c0010      	inc	__t2msCount
+ 497                     ; 183 			if( _t2msCount == 200 )
+ 499  00e6 c60010        	ld	a,__t2msCount
+ 500  00e9 a1c8          	cp	a,#200
+ 501  00eb 2604          	jrne	L341
+ 502                     ; 184 				_t2msCount = 0;
+ 504  00ed 725f0010      	clr	__t2msCount
+ 505  00f1               L341:
+ 506                     ; 186 		timer50usCount = 1;
+ 508  00f1 35010000      	mov	_timer50usCount,#1
+ 509                     ; 187 		timer100usCount++;
+ 511  00f5 725c0001      	inc	_timer100usCount
+ 512                     ; 188 		if( timer100usCount == 200 )
+ 514  00f9 c60001        	ld	a,_timer100usCount
+ 515  00fc a1c8          	cp	a,#200
+ 516  00fe 2628          	jrne	L351
+ 517                     ; 190 			_t20ms++;
+ 519  0100 725c000e      	inc	__t20ms
+ 520                     ; 191 			if( _t20ms == 100 )
+ 522  0104 c6000e        	ld	a,__t20ms
+ 523  0107 a164          	cp	a,#100
+ 524  0109 2604          	jrne	L151
+ 525                     ; 192 				_t20ms = 0;
+ 527  010b 725f000e      	clr	__t20ms
+ 528  010f               L151:
+ 529                     ; 193 			timer100usCount = 0;
+ 531  010f 725f0001      	clr	_timer100usCount
+ 532  0113 2013          	jra	L351
+ 533  0115               L141:
+ 534                     ; 202 		timer50usCount = 0;
+ 536  0115 725f0000      	clr	_timer50usCount
+ 537                     ; 205 		if( indiIOUartSendWait != 0 )
+ 539  0119 725d0000      	tnz	_indiIOUartSendWait
+ 540  011d 2706          	jreq	L551
+ 541                     ; 206 			indiIOUartSendWait--;
+ 543  011f 725a0000      	dec	_indiIOUartSendWait
+ 545  0123 2003          	jra	L351
+ 546  0125               L551:
+ 547                     ; 209 			iouart_Write();
+ 549  0125 cd0000        	call	_iouart_Write
+ 551  0128               L351:
+ 552                     ; 213 	_rcCb();
+ 554  0128 cd00a8        	call	__rcCb
+ 556                     ; 215 }
+ 559  012b 81            	ret
+ 582                     ; 217 void	timer485Cntl(void)
+ 582                     ; 218 {
+ 583                     	switch	.text
+ 584  012c               _timer485Cntl:
+ 588                     ; 240 }
+ 591  012c 81            	ret
+ 594                     	switch	.data
+ 595  0011               ___timer100ms:
+ 596  0011 00            	dc.b	0
+ 597  0012               ___timer1s:
+ 598  0012 00            	dc.b	0
+ 599  0013               ___timer1min:
+ 600  0013 00            	dc.b	0
+ 601  0014               ___timer1h:
+ 602  0014 00            	dc.b	0
+ 603  0015               ___timeri:
+ 604  0015 00            	dc.b	0
+ 605  0016               ___timeri2:
+ 606  0016 00            	dc.b	0
+ 652                     ; 249 uint8_t	timerCalc(void)
+ 652                     ; 250 {
+ 653                     	switch	.text
+ 654  012d               _timerCalc:
+ 656  012d 89            	pushw	x
+ 657       00000002      OFST:	set	2
+ 660                     ; 252 	uint8_t	r = 0;
+ 662  012e 0f02          	clr	(OFST+0,sp)
+ 663                     ; 254 	uint8_t	i = _t20ms/5;
+ 665  0130 c6000e        	ld	a,__t20ms
+ 666  0133 5f            	clrw	x
+ 667  0134 97            	ld	xl,a
+ 668  0135 a605          	ld	a,#5
+ 669  0137 62            	div	x,a
+ 670  0138 9f            	ld	a,xl
+ 671  0139 6b01          	ld	(OFST-1,sp),a
+ 672                     ; 256 	if( __timeri2 != _t2msCount )
+ 674  013b c60016        	ld	a,___timeri2
+ 675  013e c10010        	cp	a,__t2msCount
+ 676  0141 2707          	jreq	L702
+ 677                     ; 259 		__timeri2 = _t2msCount;
+ 679  0143 5500100016    	mov	___timeri2,__t2msCount
+ 680                     ; 260 		timer485Cntl();
+ 682  0148 ade2          	call	_timer485Cntl
+ 684  014a               L702:
+ 685                     ; 262 	if( __timeri != i )
+ 687  014a c60015        	ld	a,___timeri
+ 688  014d 1101          	cp	a,(OFST-1,sp)
+ 689  014f 2751          	jreq	L112
+ 690                     ; 264 		__timeri = i;
+ 692  0151 7b01          	ld	a,(OFST-1,sp)
+ 693  0153 c70015        	ld	___timeri,a
+ 694                     ; 265 		__timer100ms++;
+ 696  0156 725c0011      	inc	___timer100ms
+ 697                     ; 266 		if( __timer100ms != 10 )
+ 699  015a c60011        	ld	a,___timer100ms
+ 700  015d a10a          	cp	a,#10
+ 701  015f 2704          	jreq	L312
+ 702                     ; 267 			return r;
+ 704  0161 7b02          	ld	a,(OFST+0,sp)
+ 706  0163 2011          	jra	L62
+ 707  0165               L312:
+ 708                     ; 269 		__timer100ms = 0;
+ 710  0165 725f0011      	clr	___timer100ms
+ 711                     ; 270 		__timer1s++;
+ 713  0169 725c0012      	inc	___timer1s
+ 714                     ; 271 		if( __timer1s != 60 )
+ 716  016d c60012        	ld	a,___timer1s
+ 717  0170 a13c          	cp	a,#60
+ 718  0172 2704          	jreq	L512
+ 719                     ; 272 			return r;
+ 721  0174 7b02          	ld	a,(OFST+0,sp)
+ 723  0176               L62:
+ 725  0176 85            	popw	x
+ 726  0177 81            	ret
+ 727  0178               L512:
+ 728                     ; 274 		__timer1s = 0;
+ 730  0178 725f0012      	clr	___timer1s
+ 731                     ; 275 		__timer1min++;
+ 733  017c 725c0013      	inc	___timer1min
+ 734                     ; 276 		r = 1;
+ 736  0180 a601          	ld	a,#1
+ 737  0182 6b02          	ld	(OFST+0,sp),a
+ 738                     ; 277 		if( __timer1min != 60 )
+ 740  0184 c60013        	ld	a,___timer1min
+ 741  0187 a13c          	cp	a,#60
+ 742  0189 2704          	jreq	L712
+ 743                     ; 278 			return r;
+ 745  018b a601          	ld	a,#1
+ 747  018d 20e7          	jra	L62
+ 748  018f               L712:
+ 749                     ; 280 		__timer1min = 0;
+ 751  018f 725f0013      	clr	___timer1min
+ 752                     ; 281 		__timer1h++;
+ 754  0193 725c0014      	inc	___timer1h
+ 755                     ; 282 		if( __timer1h == 24 )
+ 757  0197 c60014        	ld	a,___timer1h
+ 758  019a a118          	cp	a,#24
+ 759  019c 2604          	jrne	L112
+ 760                     ; 283 			__timer1h = 0;
+ 762  019e 725f0014      	clr	___timer1h
+ 763  01a2               L112:
+ 764                     ; 285 	return r;
+ 766  01a2 7b02          	ld	a,(OFST+0,sp)
+ 768  01a4 20d0          	jra	L62
+ 796                     ; 295 void	systemTimer(void)
+ 796                     ; 296 {
+ 797                     	switch	.text
+ 798  01a6               _systemTimer:
+ 802                     ; 310 	CLK_PeripheralClockConfig(CLK_Peripheral_TIM4, ENABLE);
+ 804  01a6 ae0201        	ldw	x,#513
+ 805  01a9 cd0000        	call	_CLK_PeripheralClockConfig
+ 807                     ; 311 	TIM4_TimeBaseInit(TIM4_Prescaler_32, TIMER_PERIOD);
+ 809  01ac ae0518        	ldw	x,#1304
+ 810  01af cd0000        	call	_TIM4_TimeBaseInit
+ 812                     ; 312 	TIM4_ClearFlag(TIM4_FLAG_Update);
+ 814  01b2 a601          	ld	a,#1
+ 815  01b4 cd0000        	call	_TIM4_ClearFlag
+ 817                     ; 313 	TIM4_ITConfig(TIM4_IT_Update, ENABLE);
+ 819  01b7 ae0101        	ldw	x,#257
+ 820  01ba cd0000        	call	_TIM4_ITConfig
+ 822                     ; 314 	TIM4_Cmd(ENABLE);
+ 824  01bd a601          	ld	a,#1
+ 825  01bf cd0000        	call	_TIM4_Cmd
+ 827                     ; 350 }
+ 830  01c2 81            	ret
+ 862                     ; 352 void	timer2Cntl(uint8_t mode)
+ 862                     ; 353 {
+ 863                     	switch	.text
+ 864  01c3               _timer2Cntl:
+ 868                     ; 357 	return;
+ 871  01c3 81            	ret
+1122                     	xdef	___timeri2
+1123                     	xdef	___timeri
+1124                     	xdef	_timer485Cntl
+1125                     	xdef	__t2msCount
+1126                     	xdef	__mtCount
+1127                     	xdef	__rcCb
+1128                     	xdef	__swuartCb
+1129                     	xdef	__sw_sending
+1130                     	xdef	__sw_bit
+1131                     	switch	.bss
+1132  0000               __sw_data:
+1133  0000 00            	ds.b	1
+1134                     	xdef	__sw_data
+1135                     	xdef	__swuart_tx_tail
+1136                     	xdef	__swuart_tx_head
+1137  0001               _swTxBuffer:
+1138  0001 000000000000  	ds.b	64
+1139                     	xdef	_swTxBuffer
+1140                     	xdef	__io_rc_prev
+1141                     	xdef	____k2
+1142                     	xdef	____k
+1143                     	xdef	_lcd_pwmIndex
+1144                     	xdef	_lcd_pwmCount
+1145                     	xdef	_swuart_Write
+1146                     	xdef	_timerCalc
+1147                     	xdef	_timer2CiCb
+1148                     	xdef	_timer4_UpdateCb
+1149                     	xdef	_systemTimer
+1150                     	xdef	___timer1h
+1151                     	xdef	___timer1min
+1152                     	xdef	___timer1s
+1153                     	xdef	___timer100ms
+1154                     	xdef	__t20ms
+1155                     	xdef	_timer50usCount
+1156                     	xdef	_timer100usCount
+1157  0041               __io_buf:
+1158  0041 000000000000  	ds.b	72
+1159                     	xdef	__io_buf
+1160                     	xdef	__io_tail
+1161                     	xdef	__io_head
+1162                     	xref	_iouart_Write
+1163                     	xdef	_timer2Cntl
+1164                     	xref	_indiIOUartIdle
+1165                     	xdef	___iouart_Ready
+1166                     	xref	_indiIOUartSendWait
+1167                     	xdef	_timer2_UpdateCb
+1168                     	xref	_TIM4_ClearFlag
+1169                     	xref	_TIM4_ITConfig
+1170                     	xref	_TIM4_Cmd
+1171                     	xref	_TIM4_TimeBaseInit
+1172                     	xref	_GPIO_ReadInputData
+1173                     	xref	_CLK_PeripheralClockConfig
+1174                     	xref.b	c_x
+1194                     	xref	c_smodx
+1195                     	end

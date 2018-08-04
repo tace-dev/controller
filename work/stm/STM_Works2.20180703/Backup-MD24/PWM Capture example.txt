@@ -1,0 +1,237 @@
+//PWM Input capture problem
+
+
+
+#define CCR1_Val  ((uint16_t)2047)
+#define CCR2_Val  ((uint16_t)1535)
+#define CCR3_Val  ((uint16_t)1023)
+#define CCR4_Val  ((uint16_t)511)
+#define CCR_MAX_VAL_100DC       4095
+
+/* Private function prototypes -----------------------------------------------*/
+static void TIM4_Config(void);
+static void Delay(u32 nTime);
+void TimingDelay_Decrement(void);
+static void L99PM62drv_WdgAutoTrigger(u32 WdgAutoTriggerValue);
+static void CLK_Config(void);
+static void GPIO_Config(void);
+void delay_ms(uint16_t msTime);
+/* Private functions ---------------------------------------------------------*/
+/**
+  * @brief  Main program.
+  * @param  None
+  * @retval None
+  */  
+
+/**************************************************************************/
+/**
+  * @brief  Configure TIM1 to generate 7 PWM signals with 4 different duty cycles
+  * @param  None
+  * @retval None
+  */
+static void TIM1_Config(void)
+{
+  TIM1_DeInit();
+
+  /* Time Base configuration */
+  /*
+  TIM1_Period = 4095
+  TIM1_Prescaler = 0
+  TIM1_CounterMode = TIM1_COUNTERMODE_UP
+  TIM1_RepetitionCounter = 0
+  */
+
+  TIM1_TimeBaseInit(0, TIM1_COUNTERMODE_UP, CCR_MAX_VAL_100DC, 0);
+
+  /* Channel 1, 2,3 and 4 Configuration in PWM mode */
+  
+  /*
+  TIM1_OCMode = TIM1_OCMODE_PWM2
+  TIM1_OutputState = TIM1_OUTPUTSTATE_ENABLE
+  TIM1_OutputNState = TIM1_OUTPUTNSTATE_ENABLE
+  TIM1_Pulse = CCR1_Val
+  TIM1_OCPolarity = TIM1_OCPOLARITY_LOW
+  TIM1_OCNPolarity = TIM1_OCNPOLARITY_HIGH
+  TIM1_OCIdleState = TIM1_OCIDLESTATE_SET
+  TIM1_OCNIdleState = TIM1_OCIDLESTATE_RESET
+  
+  */
+  TIM1_OC1Init(TIM1_OCMODE_PWM2, TIM1_OUTPUTSTATE_ENABLE, TIM1_OUTPUTNSTATE_ENABLE,
+               CCR1_Val, TIM1_OCPOLARITY_LOW, TIM1_OCNPOLARITY_HIGH, TIM1_OCIDLESTATE_SET,
+               TIM1_OCNIDLESTATE_RESET); 
+
+  /*TIM1_Pulse = CCR2_Val*/
+  TIM1_OC2Init(TIM1_OCMODE_PWM2, TIM1_OUTPUTSTATE_ENABLE, TIM1_OUTPUTNSTATE_ENABLE, CCR2_Val,
+               TIM1_OCPOLARITY_LOW, TIM1_OCNPOLARITY_HIGH, TIM1_OCIDLESTATE_SET, 
+               TIM1_OCNIDLESTATE_RESET);
+
+  /*TIM1_Pulse = CCR3_Val*/
+  TIM1_OC3Init(TIM1_OCMODE_PWM2, TIM1_OUTPUTSTATE_ENABLE, TIM1_OUTPUTNSTATE_ENABLE,
+               CCR3_Val, TIM1_OCPOLARITY_LOW, TIM1_OCNPOLARITY_HIGH, TIM1_OCIDLESTATE_SET,
+               TIM1_OCNIDLESTATE_RESET);
+
+  /*TIM1_Pulse = CCR4_Val*/
+  TIM1_OC4Init(TIM1_OCMODE_PWM2, TIM1_OUTPUTSTATE_ENABLE, CCR4_Val, TIM1_OCPOLARITY_LOW,
+               TIM1_OCIDLESTATE_SET);
+
+  /* TIM1 counter enable */
+  TIM1_Cmd(ENABLE);
+
+  /* TIM1 Main Output Enable */
+  TIM1_CtrlPWMOutputs(ENABLE);
+  
+  
+}
+
+static void TIM2_Config(void)
+{
+  
+  TIM2_ICInit( TIM2_CHANNEL_1, TIM2_ICPOLARITY_FALLING, TIM2_ICSELECTION_DIRECTTI,
+               TIM2_ICPSC_DIV8, 0x0);
+
+  
+  /* Enable TIM2 */
+  TIM2_Cmd(ENABLE);
+
+  /* Clear CC1 Flag*/
+  TIM2_ClearFlag(TIM2_FLAG_CC1);
+   
+}
+
+static void TIM3_Config(void)
+{
+  TIM3_DeInit();
+  
+  /* Time Base configuration */
+  /*
+  TIM3_Period = 4095
+  TIM3_Prescaler = 0
+  */
+  TIM3_TimeBaseInit(0, CCR_MAX_VAL_100DC);
+  
+  /*
+  TIM3_OCMODE = TIM3_OCMODE_PWM1
+  TIM3_OUTPUTSTATE = TIM3_OUTPUTSTATE_ENABLE
+  TIM3_Pulse = CCR2_Val
+  TIM3_OCPolarity = TIM3_OCPOLARITY_LOW
+  */
+  TIM3_OC1Init(TIM3_OCMODE_PWM1, TIM3_OUTPUTSTATE_ENABLE, CCR1_Val, TIM3_OCPOLARITY_LOW);
+  
+  TIM3_ARRPreloadConfig(ENABLE);
+  
+  /* TIM3 counter enable */
+  TIM3_Cmd(ENABLE);
+  
+}
+
+
+uint16_t GetCountForDutyCycle(uint8_t dutyCycle)
+{
+  return (((uint32_t)dutyCycle * CCR_MAX_VAL_100DC)/100);
+}
+/**************************************************************************/
+
+
+
+uint16_t PWMInput2_u16;
+uint16_t PWMInput1_u16;
+uint16_t LSIClkFreq;
+void main(void)
+{
+  
+      TIM1_Config();
+      TIM2_Config();
+      TIM3_Config();
+  
+  
+  L99PM62drv_RegType reg;
+     
+  /* GPIO Configuration ---------------------------------------*/
+  //GPIO_Config();  
+  
+      /* CAN */
+    GPIO_Init(GPIOG, (GPIO_Pin_TypeDef)GPIO_PIN_0, GPIO_MODE_OUT_PP_LOW_FAST);
+    GPIO_Init(GPIOG, (GPIO_Pin_TypeDef)GPIO_PIN_1, GPIO_MODE_IN_PU_NO_IT);    
+
+        /* Init SPI peripheral pins */
+    GPIO_Init(GPIOC, (GPIO_Pin_TypeDef)(GPIO_PIN_5|GPIO_PIN_6), GPIO_MODE_OUT_PP_LOW_FAST); /* MOSI + CLK */
+    GPIO_Init(GPIOC, (GPIO_Pin_TypeDef)GPIO_PIN_7, GPIO_MODE_IN_PU_NO_IT); /* MISO */
+    GPIO_Init(GPIOE, (GPIO_Pin_TypeDef)(GPIO_PIN_5), GPIO_MODE_OUT_PP_HIGH_FAST); /* CSN */
+        
+  /* ADC configuration -------------------------------------------*/
+    //ADC_Config();
+    
+    CANMaster = TRUE;
+    
+    
+  /* Clock configuration --------------------------------------*/
+  CLK_Config();
+    
+   //SPI Init (enable communication with L99PM62)
+  SPI_DeInit();
+  SPI_Init(SPI_FIRSTBIT_MSB, SPI_BAUDRATEPRESCALER_64, SPI_MODE_MASTER, SPI_CLOCKPOLARITY_LOW,
+           SPI_CLOCKPHASE_1EDGE, SPI_DATADIRECTION_2LINES_FULLDUPLEX, SPI_NSS_SOFT,(uint8_t)0x07);
+    
+  
+  /* TIM4 configuration -----------------------------------------*/
+  TIM4_Config();  
+    
+  /* Enable SPI */
+  SPI_Cmd(ENABLE); 
+    
+  /* Enable TIM4 */
+  TIM4_Cmd(ENABLE);
+    
+
+  /* CAN configuration ----------------------------------------*/    
+  CAN_Config();
+    
+  /* Enable Interrupts*/
+  enableInterrupts();
+  
+  // Set 40ms delay before starting communication during L99PM62 long open window
+  Delay(40);
+  /* Initialization of L99PM62 CAN/LIN transceiver */ 
+  L99PM62drv_Init();
+  // Set Auto Trigger by TIM4 timer tRefresh=10ms
+  L99PM62drv_WdgAutoTrigger(L99PM62WdgTriggerRefreshValue10);
+
+
+  /* Infinite loop*/
+   
+  while(1)
+  {
+    /******************* Fro PWM ************************/
+      
+      
+      //dutyCycle_u16 += 10;
+      dutyCycle_u16 = 50;
+      TIM1_SetCompare1(GetCountForDutyCycle(dutyCycle_u16));  /*Timer1, Channel 1, PC1*/
+      //PWMInput_u16 = TIM2_GetCapture1();
+      TIM1_SetCompare2(GetCountForDutyCycle(dutyCycle_u16));  /*TIMER1, Channel 2, PC2*/
+      TIM1_SetCompare3(GetCountForDutyCycle(dutyCycle_u16));  /*TIMER1, Channel 3, PC3*/
+      TIM1_SetCompare4(GetCountForDutyCycle(dutyCycle_u16));  /*TIMER1, Channel 4, PC4*/
+      TIM3_SetCompare1(GetCountForDutyCycle(dutyCycle_u16));  /*TIMER3, Channel 1, PD2*/
+      delay_ms(1000);
+      
+      while((TIM2->SR1 & TIM2_FLAG_CC1) != TIM2_FLAG_CC1);
+      /* Get CCR1 value */
+      PWMInput1_u16 = TIM2_GetCapture1();
+      TIM2_ClearFlag(TIM2_FLAG_CC1);
+      delay_ms(10000);
+      
+      
+      //delay_ms(10000);
+      /******************************************************/
+    
+      StartupCompleted=1;
+      if (StartupCompleted==TRUE) /* To allow leds display at startup */
+      {        
+          /* CAN test mode */
+          if ((CANMaster==TRUE)||(ReceptionEnable==TRUE)) 
+          {
+            CAN_Task(PWMInput1_u16);
+          }
+      }
+  }
+}

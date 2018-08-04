@@ -1,0 +1,3749 @@
+   1                     ; C Compiler for STM8 (COSMIC Software)
+   2                     ; Parser V4.10.21 - 04 Feb 2014
+   3                     ; Generator (Limited) V4.3.12 - 11 Feb 2014
+  17                     	switch	.data
+  18  0000               ___s:
+  19  0000 00            	dc.b	0
+  20  0001               ___sUp:
+  21  0001 00            	dc.b	0
+  22  0002               ___sDn:
+  23  0002 00            	dc.b	0
+  24  0003               ___sInfo:
+  25  0003 02            	dc.b	2
+  26  0004               ___sRoom:
+  27  0004 00            	dc.b	0
+ 338                     ; 23 LPUIINFO	ui_getInfo(void)
+ 338                     ; 24 {
+ 340                     	switch	.text
+ 341  0000               _ui_getInfo:
+ 345                     ; 25 	return &uiInfo;
+ 347  0000 ae0000        	ldw	x,#_uiInfo
+ 350  0003 81            	ret
+ 390                     ; 30 void	ui_room_clear(uint8_t id, uint8_t mode)
+ 390                     ; 31 {
+ 391                     	switch	.text
+ 392  0004               _ui_room_clear:
+ 394  0004 88            	push	a
+ 395       00000001      OFST:	set	1
+ 398                     ; 33 	for( i=0; i<8; i++ )
+ 400  0005 0f01          	clr	(OFST+0,sp)
+ 401  0007               L771:
+ 402                     ; 34 		uiInfo.room[i] = 0;
+ 404  0007 7b01          	ld	a,(OFST+0,sp)
+ 405  0009 5f            	clrw	x
+ 406  000a 97            	ld	xl,a
+ 407  000b 724f0012      	clr	(_uiInfo+18,x)
+ 408                     ; 33 	for( i=0; i<8; i++ )
+ 410  000f 0c01          	inc	(OFST+0,sp)
+ 413  0011 7b01          	ld	a,(OFST+0,sp)
+ 414  0013 a108          	cp	a,#8
+ 415  0015 25f0          	jrult	L771
+ 416                     ; 35 }
+ 419  0017 84            	pop	a
+ 420  0018 81            	ret
+ 454                     ; 37 void	ui_Open(void)
+ 454                     ; 38 {
+ 455                     	switch	.text
+ 456  0019               _ui_Open:
+ 458  0019 88            	push	a
+ 459       00000001      OFST:	set	1
+ 462                     ; 41 	for( i=0; i<8; i++ )
+ 464  001a 0f01          	clr	(OFST+0,sp)
+ 465  001c               L122:
+ 466                     ; 43 		if( i==4 )
+ 468  001c 7b01          	ld	a,(OFST+0,sp)
+ 469  001e a104          	cp	a,#4
+ 470  0020 260b          	jrne	L722
+ 471                     ; 44 			uiInfo.room[i] = 1;
+ 473  0022 7b01          	ld	a,(OFST+0,sp)
+ 474  0024 5f            	clrw	x
+ 475  0025 97            	ld	xl,a
+ 476  0026 a601          	ld	a,#1
+ 477  0028 d70012        	ld	(_uiInfo+18,x),a
+ 479  002b 2010          	jra	L132
+ 480  002d               L722:
+ 481                     ; 46 			uiInfo._i[i] = uiInfo.room[i] = 0;
+ 483  002d 7b01          	ld	a,(OFST+0,sp)
+ 484  002f 5f            	clrw	x
+ 485  0030 97            	ld	xl,a
+ 486  0031 724f0012      	clr	(_uiInfo+18,x)
+ 487  0035 7b01          	ld	a,(OFST+0,sp)
+ 488  0037 5f            	clrw	x
+ 489  0038 97            	ld	xl,a
+ 490  0039 724f0032      	clr	(_uiInfo+50,x)
+ 491  003d               L132:
+ 492                     ; 47 		uiInfo.valve_rc[i] = i;
+ 494  003d 7b01          	ld	a,(OFST+0,sp)
+ 495  003f 5f            	clrw	x
+ 496  0040 97            	ld	xl,a
+ 497  0041 7b01          	ld	a,(OFST+0,sp)
+ 498  0043 d70022        	ld	(_uiInfo+34,x),a
+ 499                     ; 41 	for( i=0; i<8; i++ )
+ 501  0046 0c01          	inc	(OFST+0,sp)
+ 504  0048 7b01          	ld	a,(OFST+0,sp)
+ 505  004a a108          	cp	a,#8
+ 506  004c 25ce          	jrult	L122
+ 507                     ; 49 	uiInfo.m[0] = 100;
+ 509  004e 35640003      	mov	_uiInfo+3,#100
+ 510                     ; 50 	uiInfo.m[1] = 90;
+ 512  0052 355a0004      	mov	_uiInfo+4,#90
+ 513                     ; 51 	uiInfo.m[2] = 80;
+ 515  0056 35500005      	mov	_uiInfo+5,#80
+ 516                     ; 52 	uiInfo.m[3] = 110;
+ 518  005a 356e0006      	mov	_uiInfo+6,#110
+ 519                     ; 53 	uiInfo.m[4] = 120;
+ 521  005e 35780007      	mov	_uiInfo+7,#120
+ 522                     ; 54 	uiInfo.m[5] = 130;
+ 524  0062 35820008      	mov	_uiInfo+8,#130
+ 525                     ; 55 	uiInfo.m[6] = 140;
+ 527  0066 358c0009      	mov	_uiInfo+9,#140
+ 528                     ; 56 	uiInfo.m[7] = 150;
+ 530  006a 3596000a      	mov	_uiInfo+10,#150
+ 531                     ; 58 	uiInfo.valve_len[0] = 100;
+ 533  006e 3564001a      	mov	_uiInfo+26,#100
+ 534                     ; 59 	uiInfo.valve_len[1] = 90;
+ 536  0072 355a001b      	mov	_uiInfo+27,#90
+ 537                     ; 60 	uiInfo.valve_len[2] = 80;
+ 539  0076 3550001c      	mov	_uiInfo+28,#80
+ 540                     ; 61 	uiInfo.valve_len[3] = 70;
+ 542  007a 3546001d      	mov	_uiInfo+29,#70
+ 543                     ; 62 	uiInfo.valve_len[4] = 60;
+ 545  007e 353c001e      	mov	_uiInfo+30,#60
+ 546                     ; 63 	uiInfo.valve_len[5] = 50;
+ 548  0082 3532001f      	mov	_uiInfo+31,#50
+ 549                     ; 64 	uiInfo.valve_len[6] = 40;
+ 551  0086 35280020      	mov	_uiInfo+32,#40
+ 552                     ; 65 	uiInfo.valve_len[7] = 35;
+ 554  008a 35230021      	mov	_uiInfo+33,#35
+ 555                     ; 67 	uiInfo.link[0] = 0x01;
+ 557  008e 3501002a      	mov	_uiInfo+42,#1
+ 558                     ; 68 	uiInfo.link[1] = 0x02;
+ 560  0092 3502002b      	mov	_uiInfo+43,#2
+ 561                     ; 69 	uiInfo.link[2] = 0x04;
+ 563  0096 3504002c      	mov	_uiInfo+44,#4
+ 564                     ; 70 	uiInfo.link[3] = 0x18;
+ 566  009a 3518002d      	mov	_uiInfo+45,#24
+ 567                     ; 71 	uiInfo.link[4] = 0x60;
+ 569  009e 3560002e      	mov	_uiInfo+46,#96
+ 570                     ; 72 	uiInfo.link[5] = 0x80;
+ 572  00a2 3580002f      	mov	_uiInfo+47,#128
+ 573                     ; 73 	uiInfo.link[6] = 0x0;
+ 575  00a6 725f0030      	clr	_uiInfo+48
+ 576                     ; 74 	uiInfo.link[7] = 0x0;
+ 578  00aa 725f0031      	clr	_uiInfo+49
+ 579                     ; 76 	uiInfo.enc = 0;
+ 581  00ae 725f0000      	clr	_uiInfo
+ 582                     ; 77 	uiInfo.id = 5;
+ 584  00b2 35050001      	mov	_uiInfo+1,#5
+ 585                     ; 78 	uiInfo.cnt = 2;
+ 587  00b6 3502000b      	mov	_uiInfo+11,#2
+ 588                     ; 79 	uiInfo.mode = 1;	//	0 client, 1 host
+ 590  00ba 3501000c      	mov	_uiInfo+12,#1
+ 591                     ; 80 	uiInfo.id_rc = 0;
+ 593  00be 725f0002      	clr	_uiInfo+2
+ 594                     ; 82 	uiInfo.tOffset = 100;
+ 596  00c2 35640011      	mov	_uiInfo+17,#100
+ 597                     ; 83 	uiInfo.maxValue = 180;
+ 599  00c6 35b4003b      	mov	_uiInfo+59,#180
+ 600                     ; 84 	uiInfo.opMode = 0;
+ 602  00ca 725f003d      	clr	_uiInfo+61
+ 603                     ; 85 	uiInfo.cntlMode = 0;	//	0 local, 1 each
+ 605  00ce 725f003c      	clr	_uiInfo+60
+ 606                     ; 86 	uiInfo.houseLen = 100;	//	35 ~150
+ 608  00d2 3564003e      	mov	_uiInfo+62,#100
+ 609                     ; 87 	uiInfo.poType = 0;		//	0 xl, 1 pb, 2 pe
+ 611  00d6 725f003f      	clr	_uiInfo+63
+ 612                     ; 88 	uiInfo.tempOffset = 100;	//	60~100%
+ 614  00da 35640041      	mov	_uiInfo+65,#100
+ 615                     ; 90 	uiInfo.tCurr = 51;	//	20.5
+ 617  00de 3533000d      	mov	_uiInfo+13,#51
+ 618                     ; 91 	uiInfo.tSetup = 60;	//	30.0
+ 620  00e2 353c000e      	mov	_uiInfo+14,#60
+ 621                     ; 93 	uiInfo.repeat = 5;
+ 623  00e6 35050042      	mov	_uiInfo+66,#5
+ 624                     ; 94 	uiInfo.repeatA = 85;
+ 626  00ea 35550043      	mov	_uiInfo+67,#85
+ 627                     ; 95 	uiInfo.repeatB = 5;
+ 629  00ee 35050044      	mov	_uiInfo+68,#5
+ 630                     ; 97 	uiInfo.reserve = 24;	//	05 hour
+ 632  00f2 35180045      	mov	_uiInfo+69,#24
+ 633                     ; 99 	uiInfo.tempCurr[0] = 50;
+ 635  00f6 35320047      	mov	_uiInfo+71,#50
+ 636                     ; 100 	uiInfo.tempCurr[1] = 53;
+ 638  00fa 35350048      	mov	_uiInfo+72,#53
+ 639                     ; 101 	uiInfo.tempCurr[2] = 56;
+ 641  00fe 35380049      	mov	_uiInfo+73,#56
+ 642                     ; 102 	uiInfo.tempCurr[3] = 59;
+ 644  0102 353b004a      	mov	_uiInfo+74,#59
+ 645                     ; 103 	uiInfo.tempCurr[4] = 62;
+ 647  0106 353e004b      	mov	_uiInfo+75,#62
+ 648                     ; 104 	uiInfo.tempCurr[5] = 65;
+ 650  010a 3541004c      	mov	_uiInfo+76,#65
+ 651                     ; 105 	uiInfo.tempCurr[6] = 47;
+ 653  010e 352f004d      	mov	_uiInfo+77,#47
+ 654                     ; 106 	uiInfo.tempCurr[7] = 44;
+ 656  0112 352c004e      	mov	_uiInfo+78,#44
+ 657                     ; 108 	uiInfo.tempSetup[0] = 48;
+ 659  0116 3530004f      	mov	_uiInfo+79,#48
+ 660                     ; 109 	uiInfo.tempSetup[1] = 47;
+ 662  011a 352f0050      	mov	_uiInfo+80,#47
+ 663                     ; 110 	uiInfo.tempSetup[2] = 46;
+ 665  011e 352e0051      	mov	_uiInfo+81,#46
+ 666                     ; 111 	uiInfo.tempSetup[3] = 45;
+ 668  0122 352d0052      	mov	_uiInfo+82,#45
+ 669                     ; 112 	uiInfo.tempSetup[4] = 44;
+ 671  0126 352c0053      	mov	_uiInfo+83,#44
+ 672                     ; 113 	uiInfo.tempSetup[5] = 43;
+ 674  012a 352b0054      	mov	_uiInfo+84,#43
+ 675                     ; 114 	uiInfo.tempSetup[6] = 42;
+ 677  012e 352a0055      	mov	_uiInfo+85,#42
+ 678                     ; 115 	uiInfo.tempSetup[7] = 41;
+ 680  0132 35290056      	mov	_uiInfo+86,#41
+ 681                     ; 117 	uiInfo.remote_mode[0] = 0x01;
+ 683  0136 35010057      	mov	_uiInfo+87,#1
+ 684                     ; 118 	uiInfo.remote_mode[1] = 0x01;
+ 686  013a 35010058      	mov	_uiInfo+88,#1
+ 687                     ; 119 	uiInfo.remote_mode[2] = 0x02;
+ 689  013e 35020059      	mov	_uiInfo+89,#2
+ 690                     ; 120 	uiInfo.remote_mode[3] = 0x02;
+ 692  0142 3502005a      	mov	_uiInfo+90,#2
+ 693                     ; 121 	uiInfo.remote_mode[4] = 0x04;
+ 695  0146 3504005b      	mov	_uiInfo+91,#4
+ 696                     ; 122 	uiInfo.remote_mode[5] = 0x04;
+ 698  014a 3504005c      	mov	_uiInfo+92,#4
+ 699                     ; 123 	uiInfo.remote_mode[6] = 0x08;
+ 701  014e 3508005d      	mov	_uiInfo+93,#8
+ 702                     ; 124 	uiInfo.remote_mode[7] = 0x10;
+ 704  0152 3510005e      	mov	_uiInfo+94,#16
+ 705                     ; 126 	uiInfo.remote_time[0] = 10;
+ 707  0156 350a005f      	mov	_uiInfo+95,#10
+ 708                     ; 127 	uiInfo.remote_time[1] = 15;
+ 710  015a 350f0060      	mov	_uiInfo+96,#15
+ 711                     ; 128 	uiInfo.remote_time[2] = 20;
+ 713  015e 35140061      	mov	_uiInfo+97,#20
+ 714                     ; 129 	uiInfo.remote_time[3] = 25;
+ 716  0162 35190062      	mov	_uiInfo+98,#25
+ 717                     ; 130 	uiInfo.remote_time[4] = 30;
+ 719  0166 351e0063      	mov	_uiInfo+99,#30
+ 720                     ; 131 	uiInfo.remote_time[5] = 35;
+ 722  016a 35230064      	mov	_uiInfo+100,#35
+ 723                     ; 132 	uiInfo.remote_time[6] = 40;
+ 725  016e 35280065      	mov	_uiInfo+101,#40
+ 726                     ; 133 	uiInfo.remote_time[7] = 42;
+ 728  0172 352a0066      	mov	_uiInfo+102,#42
+ 729                     ; 135 	uiInfo.remote_banb[0] = 20;
+ 731  0176 35140067      	mov	_uiInfo+103,#20
+ 732                     ; 136 	uiInfo.remote_banb[1] = 30;
+ 734  017a 351e0068      	mov	_uiInfo+104,#30
+ 735                     ; 137 	uiInfo.remote_banb[2] = 40;
+ 737  017e 35280069      	mov	_uiInfo+105,#40
+ 738                     ; 138 	uiInfo.remote_banb[3] = 10;
+ 740  0182 350a006a      	mov	_uiInfo+106,#10
+ 741                     ; 139 	uiInfo.remote_banb[4] = 15;
+ 743  0186 350f006b      	mov	_uiInfo+107,#15
+ 744                     ; 140 	uiInfo.remote_banb[5] = 20;
+ 746  018a 3514006c      	mov	_uiInfo+108,#20
+ 747                     ; 141 	uiInfo.remote_banb[6] = 30;
+ 749  018e 351e006d      	mov	_uiInfo+109,#30
+ 750                     ; 142 	uiInfo.remote_banb[7] = 40;
+ 752  0192 3528006e      	mov	_uiInfo+110,#40
+ 753                     ; 144 	uiInfo.cntlMode = FW_GET_CNTLMODE;
+ 755  0196 a61e          	ld	a,#30
+ 756  0198 cd0000        	call	_file_read
+ 758  019b c7003c        	ld	_uiInfo+60,a
+ 759                     ; 145 	uiInfo.mode = FW_GET_MODE;
+ 761  019e a61f          	ld	a,#31
+ 762  01a0 cd0000        	call	_file_read
+ 764  01a3 c7000c        	ld	_uiInfo+12,a
+ 765                     ; 146 	uiInfo.id = FW_GET_ID;
+ 767  01a6 a620          	ld	a,#32
+ 768  01a8 cd0000        	call	_file_read
+ 770  01ab c70001        	ld	_uiInfo+1,a
+ 771                     ; 147 }
+ 774  01ae 84            	pop	a
+ 775  01af 81            	ret
+ 778                     .const:	section	.text
+ 779  0000               __keypwMaster:
+ 780  0000 04            	dc.b	4
+ 781  0001 03            	dc.b	3
+ 782  0002 04            	dc.b	4
+ 783  0003 03            	dc.b	3
+ 784  0004 01            	dc.b	1
+ 785  0005 01            	dc.b	1
+ 786  0006               __keypwMaster2:
+ 787  0006 04            	dc.b	4
+ 788  0007 03            	dc.b	3
+ 789  0008 04            	dc.b	4
+ 790  0009 03            	dc.b	3
+ 791  000a 01            	dc.b	1
+ 792  000b 02            	dc.b	2
+ 793  000c               __keypwClient:
+ 794  000c 04            	dc.b	4
+ 795  000d 03            	dc.b	3
+ 796  000e 04            	dc.b	4
+ 797  000f 03            	dc.b	3
+ 798  0010 01            	dc.b	1
+ 799  0011 03            	dc.b	3
+ 800                     	switch	.data
+ 801  0005               __keypwIndexMaster:
+ 802  0005 00            	dc.b	0
+ 803  0006               __keypwIndexMaster2:
+ 804  0006 00            	dc.b	0
+ 805  0007               __keypwIndexClient:
+ 806  0007 00            	dc.b	0
+ 807  0008               __ds:
+ 808  0008 64            	dc.b	100
+ 809  0009               __dsCount:
+ 810  0009 00            	dc.b	0
+ 811  000a               __dsPrev:
+ 812  000a 00            	dc.b	0
+ 834                     ; 162 void	clear_npos1(void)
+ 834                     ; 163 {
+ 835                     	switch	.text
+ 836  01b0               _clear_npos1:
+ 840                     ; 164 	lcd_clear_npos(0, 0);
+ 842  01b0 5f            	clrw	x
+ 843  01b1 cd0000        	call	_lcd_clear_npos
+ 845                     ; 165 	lcd_clear_npos(1, 0);
+ 847  01b4 ae0100        	ldw	x,#256
+ 848  01b7 cd0000        	call	_lcd_clear_npos
+ 850                     ; 166 }
+ 853  01ba 81            	ret
+ 877                     ; 168 void	clear_npos2(void)
+ 877                     ; 169 {
+ 878                     	switch	.text
+ 879  01bb               _clear_npos2:
+ 883                     ; 170 	lcd_clear_npos(2, 0);
+ 885  01bb ae0200        	ldw	x,#512
+ 886  01be cd0000        	call	_lcd_clear_npos
+ 888                     ; 171 	lcd_clear_npos(3, 0);
+ 890  01c1 ae0300        	ldw	x,#768
+ 891  01c4 cd0000        	call	_lcd_clear_npos
+ 893                     ; 172 }
+ 896  01c7 81            	ret
+ 948                     ; 174 void	disp_status_init(uint8_t key, uint8_t next)
+ 948                     ; 175 {
+ 949                     	switch	.text
+ 950  01c8               _disp_status_init:
+ 952  01c8 89            	pushw	x
+ 953  01c9 88            	push	a
+ 954       00000001      OFST:	set	1
+ 957                     ; 177 	if( (_t20ms%10) == 0 )
+ 959  01ca c60000        	ld	a,__t20ms
+ 960  01cd 5f            	clrw	x
+ 961  01ce 97            	ld	xl,a
+ 962  01cf a60a          	ld	a,#10
+ 963  01d1 cd0000        	call	c_smodx
+ 965  01d4 a30000        	cpw	x,#0
+ 966  01d7 2644          	jrne	L372
+ 967                     ; 179 		if( _dsPrev != 0 )
+ 969  01d9 725d000a      	tnz	__dsPrev
+ 970  01dd 2642          	jrne	L02
+ 971                     ; 180 			return;
+ 973                     ; 182 		_dsCount++;
+ 975  01df 725c0009      	inc	__dsCount
+ 976                     ; 183 		_dsPrev = 1;
+ 978  01e3 3501000a      	mov	__dsPrev,#1
+ 979                     ; 184 		lcd_clear(0);
+ 981  01e7 4f            	clr	a
+ 982  01e8 cd0000        	call	_lcd_clear
+ 984                     ; 185 		for( i=0; i<4; i++ )
+ 986  01eb 0f01          	clr	(OFST+0,sp)
+ 987  01ed               L772:
+ 988                     ; 186 			lcd_disp_n(i, _dsCount%10);
+ 990  01ed c60009        	ld	a,__dsCount
+ 991  01f0 5f            	clrw	x
+ 992  01f1 97            	ld	xl,a
+ 993  01f2 a60a          	ld	a,#10
+ 994  01f4 62            	div	x,a
+ 995  01f5 5f            	clrw	x
+ 996  01f6 97            	ld	xl,a
+ 997  01f7 9f            	ld	a,xl
+ 998  01f8 97            	ld	xl,a
+ 999  01f9 7b01          	ld	a,(OFST+0,sp)
+1000  01fb 95            	ld	xh,a
+1001  01fc cd0000        	call	_lcd_disp_n
+1003                     ; 185 		for( i=0; i<4; i++ )
+1005  01ff 0c01          	inc	(OFST+0,sp)
+1008  0201 7b01          	ld	a,(OFST+0,sp)
+1009  0203 a104          	cp	a,#4
+1010  0205 25e6          	jrult	L772
+1011                     ; 188 		if( _dsCount == 11 )
+1013  0207 c60009        	ld	a,__dsCount
+1014  020a a10b          	cp	a,#11
+1015  020c 2613          	jrne	L703
+1016                     ; 190 			STATUS_NEXT(next);
+1018  020e 7b03          	ld	a,(OFST+2,sp)
+1019  0210 c70008        	ld	__ds,a
+1022  0213 725f0009      	clr	__dsCount
+1025  0217 35ff000a      	mov	__dsPrev,#255
+1027  021b 2004          	jra	L703
+1028  021d               L372:
+1029                     ; 195 		_dsPrev = 0;
+1031  021d 725f000a      	clr	__dsPrev
+1032  0221               L703:
+1033                     ; 196 }
+1034  0221               L02:
+1037  0221 5b03          	addw	sp,#3
+1038  0223 81            	ret
+1092                     ; 198 void	disp_status_id(uint8_t key, uint8_t next)
+1092                     ; 199 {
+1093                     	switch	.text
+1094  0224               _disp_status_id:
+1096  0224 89            	pushw	x
+1097  0225 88            	push	a
+1098       00000001      OFST:	set	1
+1101                     ; 201 	if( uiInfo.mode == 1 )
+1103  0226 c6000c        	ld	a,_uiInfo+12
+1104  0229 a101          	cp	a,#1
+1105  022b 261f          	jrne	L133
+1106                     ; 204 		uiInfo.id = 0;
+1108  022d 725f0001      	clr	_uiInfo+1
+1109                     ; 205 		FW_ID(uiInfo.id);
+1111  0231 c60001        	ld	a,_uiInfo+1
+1112  0234 97            	ld	xl,a
+1113  0235 a620          	ld	a,#32
+1114  0237 95            	ld	xh,a
+1115  0238 cd0000        	call	_file_write
+1117                     ; 206 		STATUS_NEXT(next);
+1119  023b 7b03          	ld	a,(OFST+2,sp)
+1120  023d c70008        	ld	__ds,a
+1123  0240 725f0009      	clr	__dsCount
+1126  0244 35ff000a      	mov	__dsPrev,#255
+1127                     ; 207 		return;
+1130  0248 ace002e0      	jpf	L23
+1131  024c               L133:
+1132                     ; 210 	if( _dsCount == 0 )
+1134  024c 725d0009      	tnz	__dsCount
+1135  0250 2612          	jrne	L333
+1136                     ; 212 		lcd_clear(0);
+1138  0252 4f            	clr	a
+1139  0253 cd0000        	call	_lcd_clear
+1141                     ; 213 		lcd_disp_setup_id();
+1143  0256 cd0000        	call	_lcd_disp_setup_id
+1145                     ; 214 		_dsCount = 1;
+1147  0259 35010009      	mov	__dsCount,#1
+1148                     ; 215 		uiInfo._t = uiInfo.id;
+1150  025d 5500010046    	mov	_uiInfo+70,_uiInfo+1
+1152  0262 2045          	jra	L533
+1153  0264               L333:
+1154                     ; 220 		i = uiInfo.id;
+1156  0264 c60001        	ld	a,_uiInfo+1
+1157  0267 6b01          	ld	(OFST+0,sp),a
+1158                     ; 221 		if( uiInfo.enc != 0 )
+1160  0269 725d0000      	tnz	_uiInfo
+1161  026d 2724          	jreq	L733
+1162                     ; 223 			i = (i + ((uiInfo.enc & 0x40) == 0 ? 8 : 1)) % 9;
+1164  026f c60000        	ld	a,_uiInfo
+1165  0272 a540          	bcp	a,#64
+1166  0274 2605          	jrne	L42
+1167  0276 ae0008        	ldw	x,#8
+1168  0279 2003          	jra	L62
+1169  027b               L42:
+1170  027b ae0001        	ldw	x,#1
+1171  027e               L62:
+1172  027e 01            	rrwa	x,a
+1173  027f 1b01          	add	a,(OFST+0,sp)
+1174  0281 2401          	jrnc	L03
+1175  0283 5c            	incw	x
+1176  0284               L03:
+1177  0284 02            	rlwa	x,a
+1178  0285 a609          	ld	a,#9
+1179  0287 cd0000        	call	c_smodx
+1181  028a 01            	rrwa	x,a
+1182  028b 6b01          	ld	(OFST+0,sp),a
+1183  028d 02            	rlwa	x,a
+1184                     ; 224 			uiInfo.id = i;
+1186  028e 7b01          	ld	a,(OFST+0,sp)
+1187  0290 c70001        	ld	_uiInfo+1,a
+1188  0293               L733:
+1189                     ; 226 		if( _dsPrev != i )
+1191  0293 c6000a        	ld	a,__dsPrev
+1192  0296 1101          	cp	a,(OFST+0,sp)
+1193  0298 270f          	jreq	L533
+1194                     ; 228 			_dsPrev = i;
+1196  029a 7b01          	ld	a,(OFST+0,sp)
+1197  029c c7000a        	ld	__dsPrev,a
+1198                     ; 229 			lcd_disp_n(3, uiInfo.id);
+1200  029f c60001        	ld	a,_uiInfo+1
+1201  02a2 97            	ld	xl,a
+1202  02a3 a603          	ld	a,#3
+1203  02a5 95            	ld	xh,a
+1204  02a6 cd0000        	call	_lcd_disp_n
+1206  02a9               L533:
+1207                     ; 232 	if( key == 4 )		
+1209  02a9 7b02          	ld	a,(OFST+1,sp)
+1210  02ab a104          	cp	a,#4
+1211  02ad 2619          	jrne	L343
+1212                     ; 234 		FW_ID(uiInfo.id);
+1214  02af c60001        	ld	a,_uiInfo+1
+1215  02b2 97            	ld	xl,a
+1216  02b3 a620          	ld	a,#32
+1217  02b5 95            	ld	xh,a
+1218  02b6 cd0000        	call	_file_write
+1220                     ; 235 		STATUS_NEXT(next);	
+1222  02b9 7b03          	ld	a,(OFST+2,sp)
+1223  02bb c70008        	ld	__ds,a
+1226  02be 725f0009      	clr	__dsCount
+1229  02c2 35ff000a      	mov	__dsPrev,#255
+1232  02c6 2018          	jra	L543
+1233  02c8               L343:
+1234                     ; 237 	else if( key == 2 )
+1236  02c8 7b02          	ld	a,(OFST+1,sp)
+1237  02ca a102          	cp	a,#2
+1238  02cc 2612          	jrne	L543
+1239                     ; 239 		uiInfo.id = uiInfo._t;
+1241  02ce 5500460001    	mov	_uiInfo+1,_uiInfo+70
+1242                     ; 240 		STATUS_NEXT(next);
+1244  02d3 7b03          	ld	a,(OFST+2,sp)
+1245  02d5 c70008        	ld	__ds,a
+1248  02d8 725f0009      	clr	__dsCount
+1251  02dc 35ff000a      	mov	__dsPrev,#255
+1253  02e0               L543:
+1254                     ; 242 }
+1255  02e0               L23:
+1258  02e0 5b03          	addw	sp,#3
+1259  02e2 81            	ret
+1312                     ; 244 void	disp_status_cnt(uint8_t key, uint8_t next)
+1312                     ; 245 {
+1313                     	switch	.text
+1314  02e3               _disp_status_cnt:
+1316  02e3 89            	pushw	x
+1317  02e4 88            	push	a
+1318       00000001      OFST:	set	1
+1321                     ; 248 	STATUS_CLIENT
+1323  02e5 725d000c      	tnz	_uiInfo+12
+1324  02e9 2603          	jrne	L63
+1325  02eb cc0387        	jp	L153
+1326  02ee               L63:
+1329                     ; 249 	if( _dsCount == 0 )
+1331  02ee 725d0009      	tnz	__dsCount
+1332  02f2 2612          	jrne	L573
+1333                     ; 251 		lcd_clear(0);
+1335  02f4 4f            	clr	a
+1336  02f5 cd0000        	call	_lcd_clear
+1338                     ; 252 		lcd_disp_setup_cnt();
+1340  02f8 cd0000        	call	_lcd_disp_setup_cnt
+1342                     ; 253 		_dsCount = 1;
+1344  02fb 35010009      	mov	__dsCount,#1
+1345                     ; 254 		uiInfo._t = uiInfo.cnt;
+1347  02ff 55000b0046    	mov	_uiInfo+70,_uiInfo+11
+1349  0304 2061          	jra	L773
+1350  0306               L573:
+1351                     ; 258 		i = uiInfo.cnt;
+1353  0306 c6000b        	ld	a,_uiInfo+11
+1354  0309 6b01          	ld	(OFST+0,sp),a
+1355                     ; 259 		if( uiInfo.enc != 0 )
+1357  030b 725d0000      	tnz	_uiInfo
+1358  030f 272a          	jreq	L104
+1359                     ; 261 			if( (uiInfo.enc & 0x40) == 0 )
+1361  0311 c60000        	ld	a,_uiInfo
+1362  0314 a540          	bcp	a,#64
+1363  0316 2610          	jrne	L304
+1364                     ; 263 				if( i==1 )	i = 8;
+1366  0318 7b01          	ld	a,(OFST+0,sp)
+1367  031a a101          	cp	a,#1
+1368  031c 2606          	jrne	L504
+1371  031e a608          	ld	a,#8
+1372  0320 6b01          	ld	(OFST+0,sp),a
+1374  0322 2012          	jra	L114
+1375  0324               L504:
+1376                     ; 265 					i--;
+1378  0324 0a01          	dec	(OFST+0,sp)
+1379  0326 200e          	jra	L114
+1380  0328               L304:
+1381                     ; 269 				if( i==8 )	i = 1;
+1383  0328 7b01          	ld	a,(OFST+0,sp)
+1384  032a a108          	cp	a,#8
+1385  032c 2606          	jrne	L314
+1388  032e a601          	ld	a,#1
+1389  0330 6b01          	ld	(OFST+0,sp),a
+1391  0332 2002          	jra	L114
+1392  0334               L314:
+1393                     ; 271 					i++;
+1395  0334 0c01          	inc	(OFST+0,sp)
+1396  0336               L114:
+1397                     ; 273 			uiInfo.cnt = i;
+1399  0336 7b01          	ld	a,(OFST+0,sp)
+1400  0338 c7000b        	ld	_uiInfo+11,a
+1401  033b               L104:
+1402                     ; 275 		if( _dsPrev != i )
+1404  033b c6000a        	ld	a,__dsPrev
+1405  033e 1101          	cp	a,(OFST+0,sp)
+1406  0340 2725          	jreq	L773
+1407                     ; 277 			_dsPrev = i;
+1409  0342 7b01          	ld	a,(OFST+0,sp)
+1410  0344 c7000a        	ld	__dsPrev,a
+1411                     ; 278 			UI_DISP_2Digit(i);
+1413  0347 7b01          	ld	a,(OFST+0,sp)
+1414  0349 5f            	clrw	x
+1415  034a 97            	ld	xl,a
+1416  034b a60a          	ld	a,#10
+1417  034d 62            	div	x,a
+1418  034e 9f            	ld	a,xl
+1419  034f 97            	ld	xl,a
+1420  0350 a602          	ld	a,#2
+1421  0352 95            	ld	xh,a
+1422  0353 cd0000        	call	_lcd_disp_n
+1426  0356 7b01          	ld	a,(OFST+0,sp)
+1427  0358 5f            	clrw	x
+1428  0359 97            	ld	xl,a
+1429  035a a60a          	ld	a,#10
+1430  035c 62            	div	x,a
+1431  035d 5f            	clrw	x
+1432  035e 97            	ld	xl,a
+1433  035f 9f            	ld	a,xl
+1434  0360 97            	ld	xl,a
+1435  0361 a603          	ld	a,#3
+1436  0363 95            	ld	xh,a
+1437  0364 cd0000        	call	_lcd_disp_n
+1440  0367               L773:
+1441                     ; 281 	if( key == 4 )		{	STATUS_NEXT(next);	}
+1443  0367 7b02          	ld	a,(OFST+1,sp)
+1444  0369 a104          	cp	a,#4
+1445  036b 260f          	jrne	L124
+1448  036d 7b03          	ld	a,(OFST+2,sp)
+1449  036f c70008        	ld	__ds,a
+1452  0372 725f0009      	clr	__dsCount
+1455  0376 35ff000a      	mov	__dsPrev,#255
+1458  037a 2018          	jra	L324
+1459  037c               L124:
+1460                     ; 282 	else if( key == 2 )
+1462  037c 7b02          	ld	a,(OFST+1,sp)
+1463  037e a102          	cp	a,#2
+1464  0380 2612          	jrne	L324
+1465                     ; 284 		uiInfo.cnt = uiInfo._t;
+1467  0382 550046000b    	mov	_uiInfo+11,_uiInfo+70
+1468  0387               L153:
+1469                     ; 286 		STATUS_NEXT(next);
+1471  0387 7b03          	ld	a,(OFST+2,sp)
+1472  0389 c70008        	ld	__ds,a
+1475  038c 725f0009      	clr	__dsCount
+1478  0390 35ff000a      	mov	__dsPrev,#255
+1480  0394               L324:
+1481                     ; 288 }
+1484  0394 5b03          	addw	sp,#3
+1485  0396 81            	ret
+1550                     ; 290 void	disp_status_meter(uint8_t key, uint8_t next, uint8_t prev)
+1550                     ; 291 {
+1551                     	switch	.text
+1552  0397               _disp_status_meter:
+1554  0397 89            	pushw	x
+1555  0398 88            	push	a
+1556       00000001      OFST:	set	1
+1559                     ; 294 	STATUS_CLIENT
+1561  0399 725d000c      	tnz	_uiInfo+12
+1562  039d 2603          	jrne	L64
+1563  039f cc04e1        	jp	L724
+1564  03a2               L64:
+1567                     ; 295 	if( _dsCount == 0 )
+1569  03a2 725d0009      	tnz	__dsCount
+1570  03a6 2703cc0438    	jrne	L554
+1571                     ; 297 		lcd_clear(0);
+1573  03ab 4f            	clr	a
+1574  03ac cd0000        	call	_lcd_clear
+1576                     ; 298 		lcd_disp_setup_m();
+1578  03af cd0000        	call	_lcd_disp_setup_m
+1580                     ; 299 		for( i=0; i<8; i++ )
+1582  03b2 0f01          	clr	(OFST+0,sp)
+1583  03b4               L754:
+1584                     ; 301 			if( uiInfo.room[i] == 1 )
+1586  03b4 7b01          	ld	a,(OFST+0,sp)
+1587  03b6 5f            	clrw	x
+1588  03b7 97            	ld	xl,a
+1589  03b8 d60012        	ld	a,(_uiInfo+18,x)
+1590  03bb a101          	cp	a,#1
+1591  03bd 265e          	jrne	L564
+1592                     ; 303 				LCD_BIT_SET(_rid[i*2]);
+1594  03bf 7b01          	ld	a,(OFST+0,sp)
+1595  03c1 5f            	clrw	x
+1596  03c2 97            	ld	xl,a
+1597  03c3 58            	sllw	x
+1598  03c4 d60000        	ld	a,(__rid,x)
+1599  03c7 5f            	clrw	x
+1600  03c8 97            	ld	xl,a
+1601  03c9 d60000        	ld	a,(_iLF_DEF,x)
+1602  03cc 5f            	clrw	x
+1603  03cd 97            	ld	xl,a
+1604  03ce 7b01          	ld	a,(OFST+0,sp)
+1605  03d0 905f          	clrw	y
+1606  03d2 9097          	ld	yl,a
+1607  03d4 9058          	sllw	y
+1608  03d6 90d60000      	ld	a,(__rid,y)
+1609  03da 905f          	clrw	y
+1610  03dc 9097          	ld	yl,a
+1611  03de d6540c        	ld	a,(21516,x)
+1612  03e1 90da0000      	or	a,(_bLF_DEF,y)
+1613  03e5 d7540c        	ld	(21516,x),a
+1614                     ; 304 				LCD_BIT_SET(_rid[i*2+1]);
+1616  03e8 7b01          	ld	a,(OFST+0,sp)
+1617  03ea 5f            	clrw	x
+1618  03eb 97            	ld	xl,a
+1619  03ec 58            	sllw	x
+1620  03ed d60001        	ld	a,(__rid+1,x)
+1621  03f0 5f            	clrw	x
+1622  03f1 97            	ld	xl,a
+1623  03f2 d60000        	ld	a,(_iLF_DEF,x)
+1624  03f5 5f            	clrw	x
+1625  03f6 97            	ld	xl,a
+1626  03f7 7b01          	ld	a,(OFST+0,sp)
+1627  03f9 905f          	clrw	y
+1628  03fb 9097          	ld	yl,a
+1629  03fd 9058          	sllw	y
+1630  03ff 90d60001      	ld	a,(__rid+1,y)
+1631  0403 905f          	clrw	y
+1632  0405 9097          	ld	yl,a
+1633  0407 d6540c        	ld	a,(21516,x)
+1634  040a 90da0000      	or	a,(_bLF_DEF,y)
+1635  040e d7540c        	ld	(21516,x),a
+1636                     ; 305 				lcd_blink_item(_rid[UI_RID*2]);
+1638  0411 c60032        	ld	a,_uiInfo+50
+1639  0414 5f            	clrw	x
+1640  0415 97            	ld	xl,a
+1641  0416 58            	sllw	x
+1642  0417 d60000        	ld	a,(__rid,x)
+1643  041a cd0000        	call	_lcd_blink_item
+1645  041d               L564:
+1646                     ; 299 		for( i=0; i<8; i++ )
+1648  041d 0c01          	inc	(OFST+0,sp)
+1651  041f 7b01          	ld	a,(OFST+0,sp)
+1652  0421 a108          	cp	a,#8
+1653  0423 258f          	jrult	L754
+1654                     ; 308 		_dsCount = 1;
+1656  0425 35010009      	mov	__dsCount,#1
+1657                     ; 309 		uiInfo._t = uiInfo.m[UI_RID];
+1659  0429 c60032        	ld	a,_uiInfo+50
+1660  042c 5f            	clrw	x
+1661  042d 97            	ld	xl,a
+1662  042e d60003        	ld	a,(_uiInfo+3,x)
+1663  0431 c70046        	ld	_uiInfo+70,a
+1665  0434 acbb04bb      	jpf	L764
+1666  0438               L554:
+1667                     ; 313 		i = uiInfo.m[UI_RID];
+1669  0438 c60032        	ld	a,_uiInfo+50
+1670  043b 5f            	clrw	x
+1671  043c 97            	ld	xl,a
+1672  043d d60003        	ld	a,(_uiInfo+3,x)
+1673  0440 6b01          	ld	(OFST+0,sp),a
+1674                     ; 314 		if( uiInfo.enc != 0 )
+1676  0442 725d0000      	tnz	_uiInfo
+1677  0446 272b          	jreq	L174
+1678                     ; 316 			if( (uiInfo.enc & 0x40) == 0 )	i--;
+1680  0448 c60000        	ld	a,_uiInfo
+1681  044b a540          	bcp	a,#64
+1682  044d 2604          	jrne	L374
+1685  044f 0a01          	dec	(OFST+0,sp)
+1687  0451 2002          	jra	L574
+1688  0453               L374:
+1689                     ; 318 				i++;
+1691  0453 0c01          	inc	(OFST+0,sp)
+1692  0455               L574:
+1693                     ; 319 			if( i >=251 )	i = 30;
+1695  0455 7b01          	ld	a,(OFST+0,sp)
+1696  0457 a1fb          	cp	a,#251
+1697  0459 2504          	jrult	L774
+1700  045b a61e          	ld	a,#30
+1701  045d 6b01          	ld	(OFST+0,sp),a
+1702  045f               L774:
+1703                     ; 320 			if( i < 30 )	i = 250;
+1705  045f 7b01          	ld	a,(OFST+0,sp)
+1706  0461 a11e          	cp	a,#30
+1707  0463 2404          	jruge	L105
+1710  0465 a6fa          	ld	a,#250
+1711  0467 6b01          	ld	(OFST+0,sp),a
+1712  0469               L105:
+1713                     ; 321 			uiInfo.m[UI_RID] = i;
+1715  0469 c60032        	ld	a,_uiInfo+50
+1716  046c 5f            	clrw	x
+1717  046d 97            	ld	xl,a
+1718  046e 7b01          	ld	a,(OFST+0,sp)
+1719  0470 d70003        	ld	(_uiInfo+3,x),a
+1720  0473               L174:
+1721                     ; 323 		if( _dsPrev != i )
+1723  0473 c6000a        	ld	a,__dsPrev
+1724  0476 1101          	cp	a,(OFST+0,sp)
+1725  0478 2741          	jreq	L764
+1726                     ; 325 			_dsPrev = i;
+1728  047a 7b01          	ld	a,(OFST+0,sp)
+1729  047c c7000a        	ld	__dsPrev,a
+1730                     ; 326 			UI_DISP_3Digit(i);
+1732  047f 7b01          	ld	a,(OFST+0,sp)
+1733  0481 5f            	clrw	x
+1734  0482 97            	ld	xl,a
+1735  0483 a664          	ld	a,#100
+1736  0485 62            	div	x,a
+1737  0486 9f            	ld	a,xl
+1738  0487 97            	ld	xl,a
+1739  0488 a601          	ld	a,#1
+1740  048a 95            	ld	xh,a
+1741  048b cd0000        	call	_lcd_disp_n
+1745  048e 7b01          	ld	a,(OFST+0,sp)
+1746  0490 5f            	clrw	x
+1747  0491 97            	ld	xl,a
+1748  0492 a664          	ld	a,#100
+1749  0494 62            	div	x,a
+1750  0495 5f            	clrw	x
+1751  0496 97            	ld	xl,a
+1752  0497 01            	rrwa	x,a
+1753  0498 6b01          	ld	(OFST+0,sp),a
+1754  049a 02            	rlwa	x,a
+1757  049b 7b01          	ld	a,(OFST+0,sp)
+1758  049d 5f            	clrw	x
+1759  049e 97            	ld	xl,a
+1760  049f a60a          	ld	a,#10
+1761  04a1 62            	div	x,a
+1762  04a2 9f            	ld	a,xl
+1763  04a3 97            	ld	xl,a
+1764  04a4 a602          	ld	a,#2
+1765  04a6 95            	ld	xh,a
+1766  04a7 cd0000        	call	_lcd_disp_n
+1770  04aa 7b01          	ld	a,(OFST+0,sp)
+1771  04ac 5f            	clrw	x
+1772  04ad 97            	ld	xl,a
+1773  04ae a60a          	ld	a,#10
+1774  04b0 62            	div	x,a
+1775  04b1 5f            	clrw	x
+1776  04b2 97            	ld	xl,a
+1777  04b3 9f            	ld	a,xl
+1778  04b4 97            	ld	xl,a
+1779  04b5 a603          	ld	a,#3
+1780  04b7 95            	ld	xh,a
+1781  04b8 cd0000        	call	_lcd_disp_n
+1784  04bb               L764:
+1785                     ; 329 	if( key == 4 )		{	STATUS_NEXT(next);	}
+1787  04bb 7b02          	ld	a,(OFST+1,sp)
+1788  04bd a104          	cp	a,#4
+1789  04bf 260f          	jrne	L505
+1792  04c1 7b03          	ld	a,(OFST+2,sp)
+1793  04c3 c70008        	ld	__ds,a
+1796  04c6 725f0009      	clr	__dsCount
+1799  04ca 35ff000a      	mov	__dsPrev,#255
+1802  04ce 2075          	jra	L705
+1803  04d0               L505:
+1804                     ; 330 	else if( key == 2 )
+1806  04d0 7b02          	ld	a,(OFST+1,sp)
+1807  04d2 a102          	cp	a,#2
+1808  04d4 261a          	jrne	L115
+1809                     ; 332 		uiInfo.m[UI_RID] = uiInfo._t;
+1811  04d6 c60032        	ld	a,_uiInfo+50
+1812  04d9 5f            	clrw	x
+1813  04da 97            	ld	xl,a
+1814  04db c60046        	ld	a,_uiInfo+70
+1815  04de d70003        	ld	(_uiInfo+3,x),a
+1816  04e1               L724:
+1817                     ; 334 		STATUS_NEXT(next);
+1819  04e1 7b03          	ld	a,(OFST+2,sp)
+1820  04e3 c70008        	ld	__ds,a
+1823  04e6 725f0009      	clr	__dsCount
+1826  04ea 35ff000a      	mov	__dsPrev,#255
+1829  04ee 2055          	jra	L705
+1830  04f0               L115:
+1831                     ; 336 	else if( key == 3 )
+1833  04f0 7b02          	ld	a,(OFST+1,sp)
+1834  04f2 a103          	cp	a,#3
+1835  04f4 262d          	jrne	L515
+1836                     ; 340 		ui_room_clear(0, 0);
+1838  04f6 5f            	clrw	x
+1839  04f7 cd0004        	call	_ui_room_clear
+1841                     ; 341 		UI_ROOM = (UI_ROOM==0) ? 1 : 0;
+1843  04fa c60032        	ld	a,_uiInfo+50
+1844  04fd 5f            	clrw	x
+1845  04fe 97            	ld	xl,a
+1846  04ff 89            	pushw	x
+1847  0500 c60032        	ld	a,_uiInfo+50
+1848  0503 5f            	clrw	x
+1849  0504 97            	ld	xl,a
+1850  0505 724d0012      	tnz	(_uiInfo+18,x)
+1851  0509 2604          	jrne	L24
+1852  050b a601          	ld	a,#1
+1853  050d 2001          	jra	L44
+1854  050f               L24:
+1855  050f 4f            	clr	a
+1856  0510               L44:
+1857  0510 85            	popw	x
+1858  0511 d70012        	ld	(_uiInfo+18,x),a
+1859                     ; 342 		STATUS_NEXT(prev);
+1861  0514 7b06          	ld	a,(OFST+5,sp)
+1862  0516 c70008        	ld	__ds,a
+1865  0519 725f0009      	clr	__dsCount
+1868  051d 35ff000a      	mov	__dsPrev,#255
+1871  0521 2022          	jra	L705
+1872  0523               L515:
+1873                     ; 344 	else if( key == 1 )
+1875  0523 7b02          	ld	a,(OFST+1,sp)
+1876  0525 a101          	cp	a,#1
+1877  0527 261c          	jrne	L705
+1878                     ; 346 		UI_RID = (uint8_t)((UI_RID + 1) % 8);
+1880  0529 c60032        	ld	a,_uiInfo+50
+1881  052c 5f            	clrw	x
+1882  052d 97            	ld	xl,a
+1883  052e 5c            	incw	x
+1884  052f a608          	ld	a,#8
+1885  0531 cd0000        	call	c_smodx
+1887  0534 9f            	ld	a,xl
+1888  0535 c70032        	ld	_uiInfo+50,a
+1889                     ; 347 		STATUS_NEXT(prev);
+1891  0538 7b06          	ld	a,(OFST+5,sp)
+1892  053a c70008        	ld	__ds,a
+1895  053d 725f0009      	clr	__dsCount
+1898  0541 35ff000a      	mov	__dsPrev,#255
+1900  0545               L705:
+1901                     ; 349 }
+1904  0545 5b03          	addw	sp,#3
+1905  0547 81            	ret
+1960                     ; 351 void	disp_status_maxValve(uint8_t key, uint8_t next)
+1960                     ; 352 {
+1961                     	switch	.text
+1962  0548               _disp_status_maxValve:
+1964  0548 89            	pushw	x
+1965  0549 88            	push	a
+1966       00000001      OFST:	set	1
+1969                     ; 355 	STATUS_CLIENT
+1971  054a 725d000c      	tnz	_uiInfo+12
+1972  054e 2603          	jrne	L25
+1973  0550 cc0608        	jp	L325
+1974  0553               L25:
+1977                     ; 356 	if( _dsCount == 0 )
+1979  0553 725d0009      	tnz	__dsCount
+1980  0557 2616          	jrne	L745
+1981                     ; 358 		lcd_clear(0);
+1983  0559 4f            	clr	a
+1984  055a cd0000        	call	_lcd_clear
+1986                     ; 359 		lcd_disp_setup_maxValue();
+1988  055d cd0000        	call	_lcd_disp_setup_maxValue
+1990                     ; 360 		_dsCount = 1;
+1992  0560 35010009      	mov	__dsCount,#1
+1993                     ; 361 		uiInfo._t = uiInfo.maxValue;
+1995  0564 55003b0046    	mov	_uiInfo+70,_uiInfo+59
+1996                     ; 362 		lcd_blink_item(0);
+1998  0569 4f            	clr	a
+1999  056a cd0000        	call	_lcd_blink_item
+2002  056d 2079          	jra	L155
+2003  056f               L745:
+2004                     ; 366 		i = uiInfo.maxValue;
+2006  056f c6003b        	ld	a,_uiInfo+59
+2007  0572 6b01          	ld	(OFST+0,sp),a
+2008                     ; 367 		if( uiInfo.enc != 0 )
+2010  0574 725d0000      	tnz	_uiInfo
+2011  0578 2726          	jreq	L355
+2012                     ; 369 			if( (uiInfo.enc & 0x40) == 0 )	i--;
+2014  057a c60000        	ld	a,_uiInfo
+2015  057d a540          	bcp	a,#64
+2016  057f 2604          	jrne	L555
+2019  0581 0a01          	dec	(OFST+0,sp)
+2021  0583 2002          	jra	L755
+2022  0585               L555:
+2023                     ; 371 				i++;
+2025  0585 0c01          	inc	(OFST+0,sp)
+2026  0587               L755:
+2027                     ; 372 			if( i < 50 )	i = 200;
+2029  0587 7b01          	ld	a,(OFST+0,sp)
+2030  0589 a132          	cp	a,#50
+2031  058b 2404          	jruge	L165
+2034  058d a6c8          	ld	a,#200
+2035  058f 6b01          	ld	(OFST+0,sp),a
+2036  0591               L165:
+2037                     ; 373 			if( i > 200 )	i = 50;
+2039  0591 7b01          	ld	a,(OFST+0,sp)
+2040  0593 a1c9          	cp	a,#201
+2041  0595 2504          	jrult	L365
+2044  0597 a632          	ld	a,#50
+2045  0599 6b01          	ld	(OFST+0,sp),a
+2046  059b               L365:
+2047                     ; 374 			uiInfo.maxValue = i;
+2049  059b 7b01          	ld	a,(OFST+0,sp)
+2050  059d c7003b        	ld	_uiInfo+59,a
+2051  05a0               L355:
+2052                     ; 376 		if( _dsPrev != i )
+2054  05a0 c6000a        	ld	a,__dsPrev
+2055  05a3 1101          	cp	a,(OFST+0,sp)
+2056  05a5 2741          	jreq	L155
+2057                     ; 378 			_dsPrev = i;
+2059  05a7 7b01          	ld	a,(OFST+0,sp)
+2060  05a9 c7000a        	ld	__dsPrev,a
+2061                     ; 379 			UI_DISP_3Digit(i);
+2063  05ac 7b01          	ld	a,(OFST+0,sp)
+2064  05ae 5f            	clrw	x
+2065  05af 97            	ld	xl,a
+2066  05b0 a664          	ld	a,#100
+2067  05b2 62            	div	x,a
+2068  05b3 9f            	ld	a,xl
+2069  05b4 97            	ld	xl,a
+2070  05b5 a601          	ld	a,#1
+2071  05b7 95            	ld	xh,a
+2072  05b8 cd0000        	call	_lcd_disp_n
+2076  05bb 7b01          	ld	a,(OFST+0,sp)
+2077  05bd 5f            	clrw	x
+2078  05be 97            	ld	xl,a
+2079  05bf a664          	ld	a,#100
+2080  05c1 62            	div	x,a
+2081  05c2 5f            	clrw	x
+2082  05c3 97            	ld	xl,a
+2083  05c4 01            	rrwa	x,a
+2084  05c5 6b01          	ld	(OFST+0,sp),a
+2085  05c7 02            	rlwa	x,a
+2088  05c8 7b01          	ld	a,(OFST+0,sp)
+2089  05ca 5f            	clrw	x
+2090  05cb 97            	ld	xl,a
+2091  05cc a60a          	ld	a,#10
+2092  05ce 62            	div	x,a
+2093  05cf 9f            	ld	a,xl
+2094  05d0 97            	ld	xl,a
+2095  05d1 a602          	ld	a,#2
+2096  05d3 95            	ld	xh,a
+2097  05d4 cd0000        	call	_lcd_disp_n
+2101  05d7 7b01          	ld	a,(OFST+0,sp)
+2102  05d9 5f            	clrw	x
+2103  05da 97            	ld	xl,a
+2104  05db a60a          	ld	a,#10
+2105  05dd 62            	div	x,a
+2106  05de 5f            	clrw	x
+2107  05df 97            	ld	xl,a
+2108  05e0 9f            	ld	a,xl
+2109  05e1 97            	ld	xl,a
+2110  05e2 a603          	ld	a,#3
+2111  05e4 95            	ld	xh,a
+2112  05e5 cd0000        	call	_lcd_disp_n
+2115  05e8               L155:
+2116                     ; 382 	if( key == 4 )		{	STATUS_NEXT(next);	}
+2118  05e8 7b02          	ld	a,(OFST+1,sp)
+2119  05ea a104          	cp	a,#4
+2120  05ec 260f          	jrne	L765
+2123  05ee 7b03          	ld	a,(OFST+2,sp)
+2124  05f0 c70008        	ld	__ds,a
+2127  05f3 725f0009      	clr	__dsCount
+2130  05f7 35ff000a      	mov	__dsPrev,#255
+2133  05fb 2018          	jra	L175
+2134  05fd               L765:
+2135                     ; 383 	else if( key == 2 )
+2137  05fd 7b02          	ld	a,(OFST+1,sp)
+2138  05ff a102          	cp	a,#2
+2139  0601 2612          	jrne	L175
+2140                     ; 385 		uiInfo.maxValue = uiInfo._t;
+2142  0603 550046003b    	mov	_uiInfo+59,_uiInfo+70
+2143  0608               L325:
+2144                     ; 387 		STATUS_NEXT(next);
+2146  0608 7b03          	ld	a,(OFST+2,sp)
+2147  060a c70008        	ld	__ds,a
+2150  060d 725f0009      	clr	__dsCount
+2153  0611 35ff000a      	mov	__dsPrev,#255
+2155  0615               L175:
+2156                     ; 389 }
+2159  0615 5b03          	addw	sp,#3
+2160  0617 81            	ret
+2224                     ; 391 void	disp_status_toffset(uint8_t key, uint8_t next)
+2224                     ; 392 {
+2225                     	switch	.text
+2226  0618               _disp_status_toffset:
+2228  0618 89            	pushw	x
+2229  0619 88            	push	a
+2230       00000001      OFST:	set	1
+2233                     ; 394 	if( _dsCount == 0 )
+2235  061a 725d0009      	tnz	__dsCount
+2236  061e 2614          	jrne	L716
+2237                     ; 396 		lcd_clear(0);
+2239  0620 4f            	clr	a
+2240  0621 cd0000        	call	_lcd_clear
+2242                     ; 397 		lcd_disp_setup_c();
+2244  0624 cd0000        	call	_lcd_disp_setup_c
+2246                     ; 398 		_dsCount = 1;
+2248  0627 35010009      	mov	__dsCount,#1
+2249                     ; 399 		uiInfo._t = uiInfo.tOffset;
+2251  062b 5500110046    	mov	_uiInfo+70,_uiInfo+17
+2253  0630 ac0f070f      	jpf	L126
+2254  0634               L716:
+2255                     ; 403 		i = uiInfo.tOffset;
+2257  0634 c60011        	ld	a,_uiInfo+17
+2258  0637 6b01          	ld	(OFST+0,sp),a
+2259                     ; 404 		if( uiInfo.enc != 0 )
+2261  0639 725d0000      	tnz	_uiInfo
+2262  063d 2752          	jreq	L326
+2263                     ; 406 			if( (uiInfo.enc & 0x40) == 0 )
+2265  063f c60000        	ld	a,_uiInfo
+2266  0642 a540          	bcp	a,#64
+2267  0644 2624          	jrne	L526
+2268                     ; 408 				if( i > 100 )			i--;
+2270  0646 7b01          	ld	a,(OFST+0,sp)
+2271  0648 a165          	cp	a,#101
+2272  064a 2504          	jrult	L726
+2275  064c 0a01          	dec	(OFST+0,sp)
+2277  064e 203c          	jra	L146
+2278  0650               L726:
+2279                     ; 409 				else if( i == 100 )		i = 1;
+2281  0650 7b01          	ld	a,(OFST+0,sp)
+2282  0652 a164          	cp	a,#100
+2283  0654 2606          	jrne	L336
+2286  0656 a601          	ld	a,#1
+2287  0658 6b01          	ld	(OFST+0,sp),a
+2289  065a 2030          	jra	L146
+2290  065c               L336:
+2291                     ; 412 					i++;
+2293  065c 0c01          	inc	(OFST+0,sp)
+2294                     ; 413 					if( i >= 19 )		i = 19;
+2296  065e 7b01          	ld	a,(OFST+0,sp)
+2297  0660 a113          	cp	a,#19
+2298  0662 2528          	jrult	L146
+2301  0664 a613          	ld	a,#19
+2302  0666 6b01          	ld	(OFST+0,sp),a
+2303  0668 2022          	jra	L146
+2304  066a               L526:
+2305                     ; 418 				if( i >= 100 )
+2307  066a 7b01          	ld	a,(OFST+0,sp)
+2308  066c a164          	cp	a,#100
+2309  066e 250e          	jrult	L346
+2310                     ; 420 					i++;
+2312  0670 0c01          	inc	(OFST+0,sp)
+2313                     ; 421 					if( i >= 119 )		i = 119;
+2315  0672 7b01          	ld	a,(OFST+0,sp)
+2316  0674 a177          	cp	a,#119
+2317  0676 2514          	jrult	L146
+2320  0678 a677          	ld	a,#119
+2321  067a 6b01          	ld	(OFST+0,sp),a
+2322  067c 200e          	jra	L146
+2323  067e               L346:
+2324                     ; 425 					if( i == 1 )		i = 100;
+2326  067e 7b01          	ld	a,(OFST+0,sp)
+2327  0680 a101          	cp	a,#1
+2328  0682 2606          	jrne	L156
+2331  0684 a664          	ld	a,#100
+2332  0686 6b01          	ld	(OFST+0,sp),a
+2334  0688 2002          	jra	L146
+2335  068a               L156:
+2336                     ; 427 						i--;
+2338  068a 0a01          	dec	(OFST+0,sp)
+2339  068c               L146:
+2340                     ; 430 			uiInfo.tOffset = i;
+2342  068c 7b01          	ld	a,(OFST+0,sp)
+2343  068e c70011        	ld	_uiInfo+17,a
+2344  0691               L326:
+2345                     ; 432 		if( _dsPrev != i )
+2347  0691 c6000a        	ld	a,__dsPrev
+2348  0694 1101          	cp	a,(OFST+0,sp)
+2349  0696 2777          	jreq	L126
+2350                     ; 434 			_dsPrev = i;
+2352  0698 7b01          	ld	a,(OFST+0,sp)
+2353  069a c7000a        	ld	__dsPrev,a
+2354                     ; 435 			clear_npos2();
+2356  069d cd01bb        	call	_clear_npos2
+2358                     ; 436 			LCD_BIT_CLEAR(bT3);
+2360  06a0 c6003b        	ld	a,_iLF_DEF+59
+2361  06a3 5f            	clrw	x
+2362  06a4 97            	ld	xl,a
+2363  06a5 c6003b        	ld	a,_bLF_DEF+59
+2364  06a8 43            	cpl	a
+2365  06a9 d4540c        	and	a,(21516,x)
+2366  06ac d7540c        	ld	(21516,x),a
+2367                     ; 437 			LCD_BIT_CLEAR(bT4);
+2369  06af c6002b        	ld	a,_iLF_DEF+43
+2370  06b2 5f            	clrw	x
+2371  06b3 97            	ld	xl,a
+2372  06b4 c6002b        	ld	a,_bLF_DEF+43
+2373  06b7 43            	cpl	a
+2374  06b8 d4540c        	and	a,(21516,x)
+2375  06bb d7540c        	ld	(21516,x),a
+2376                     ; 438 			if( i < 100 )
+2378  06be 7b01          	ld	a,(OFST+0,sp)
+2379  06c0 a164          	cp	a,#100
+2380  06c2 240e          	jruge	L756
+2381                     ; 439 				LCD_BIT_SET(b3G);
+2383  06c4 c60028        	ld	a,_iLF_DEF+40
+2384  06c7 5f            	clrw	x
+2385  06c8 97            	ld	xl,a
+2386  06c9 d6540c        	ld	a,(21516,x)
+2387  06cc ca0028        	or	a,_bLF_DEF+40
+2388  06cf d7540c        	ld	(21516,x),a
+2389  06d2               L756:
+2390                     ; 440 			j = i%100;
+2392  06d2 7b01          	ld	a,(OFST+0,sp)
+2393  06d4 5f            	clrw	x
+2394  06d5 97            	ld	xl,a
+2395  06d6 a664          	ld	a,#100
+2396  06d8 62            	div	x,a
+2397  06d9 5f            	clrw	x
+2398  06da 97            	ld	xl,a
+2399  06db 9f            	ld	a,xl
+2400  06dc 6b01          	ld	(OFST+0,sp),a
+2401                     ; 441 			lcd_disp_n(3, j/2);
+2403  06de 7b01          	ld	a,(OFST+0,sp)
+2404  06e0 5f            	clrw	x
+2405  06e1 97            	ld	xl,a
+2406  06e2 57            	sraw	x
+2407  06e3 9f            	ld	a,xl
+2408  06e4 97            	ld	xl,a
+2409  06e5 a603          	ld	a,#3
+2410  06e7 95            	ld	xh,a
+2411  06e8 cd0000        	call	_lcd_disp_n
+2413                     ; 442 			if( (j%2) == 1 )
+2415  06eb 7b01          	ld	a,(OFST+0,sp)
+2416  06ed a401          	and	a,#1
+2417  06ef a101          	cp	a,#1
+2418  06f1 261c          	jrne	L126
+2419                     ; 444 				LCD_BIT_SET(bT3);
+2421  06f3 c6003b        	ld	a,_iLF_DEF+59
+2422  06f6 5f            	clrw	x
+2423  06f7 97            	ld	xl,a
+2424  06f8 d6540c        	ld	a,(21516,x)
+2425  06fb ca003b        	or	a,_bLF_DEF+59
+2426  06fe d7540c        	ld	(21516,x),a
+2427                     ; 445 				LCD_BIT_SET(bT4);
+2429  0701 c6002b        	ld	a,_iLF_DEF+43
+2430  0704 5f            	clrw	x
+2431  0705 97            	ld	xl,a
+2432  0706 d6540c        	ld	a,(21516,x)
+2433  0709 ca002b        	or	a,_bLF_DEF+43
+2434  070c d7540c        	ld	(21516,x),a
+2435  070f               L126:
+2436                     ; 449 	if( key == 4 )		{	STATUS_NEXT(next);	}
+2438  070f 7b02          	ld	a,(OFST+1,sp)
+2439  0711 a104          	cp	a,#4
+2440  0713 260f          	jrne	L366
+2443  0715 7b03          	ld	a,(OFST+2,sp)
+2444  0717 c70008        	ld	__ds,a
+2447  071a 725f0009      	clr	__dsCount
+2450  071e 35ff000a      	mov	__dsPrev,#255
+2453  0722 2018          	jra	L566
+2454  0724               L366:
+2455                     ; 450 	else if( key == 2 )
+2457  0724 7b02          	ld	a,(OFST+1,sp)
+2458  0726 a102          	cp	a,#2
+2459  0728 2612          	jrne	L566
+2460                     ; 452 		uiInfo.tOffset = uiInfo._t;
+2462  072a 5500460011    	mov	_uiInfo+17,_uiInfo+70
+2463                     ; 453 		STATUS_NEXT(next);
+2465  072f 7b03          	ld	a,(OFST+2,sp)
+2466  0731 c70008        	ld	__ds,a
+2469  0734 725f0009      	clr	__dsCount
+2472  0738 35ff000a      	mov	__dsPrev,#255
+2474  073c               L566:
+2475                     ; 455 }
+2478  073c 5b03          	addw	sp,#3
+2479  073e 81            	ret
+2544                     ; 457 void	disp_status_link(uint8_t key, uint8_t next, uint8_t prev)
+2544                     ; 458 {
+2545                     	switch	.text
+2546  073f               _disp_status_link:
+2548  073f 89            	pushw	x
+2549  0740 88            	push	a
+2550       00000001      OFST:	set	1
+2553                     ; 461 	STATUS_CLIENT
+2555  0741 725d000c      	tnz	_uiInfo+12
+2556  0745 2603          	jrne	L06
+2557  0747 cc0c3b        	jp	L176
+2558  074a               L06:
+2561                     ; 462 	if( _dsCount == 0 )
+2563  074a 725d0009      	tnz	__dsCount
+2564  074e 2703          	jreq	L26
+2565  0750 cc099f        	jp	L717
+2566  0753               L26:
+2567                     ; 464 		lcd_clear(0);
+2569  0753 4f            	clr	a
+2570  0754 cd0000        	call	_lcd_clear
+2572                     ; 465 		lcd_disp_setup_link();
+2574  0757 cd0000        	call	_lcd_disp_setup_link
+2576                     ; 468 		i = UI_LNBASE;
+2578  075a c60034        	ld	a,_uiInfo+52
+2579  075d 6b01          	ld	(OFST+0,sp),a
+2580                     ; 469 			if( (uiInfo.link[i] & 0x01) != 0 )		{	UI_LN_SET(0);	}
+2582  075f 7b01          	ld	a,(OFST+0,sp)
+2583  0761 5f            	clrw	x
+2584  0762 97            	ld	xl,a
+2585  0763 d6002a        	ld	a,(_uiInfo+42,x)
+2586  0766 a501          	bcp	a,#1
+2587  0768 273a          	jreq	L127
+2590  076a c60000        	ld	a,__rid
+2591  076d 5f            	clrw	x
+2592  076e 97            	ld	xl,a
+2593  076f d60000        	ld	a,(_iLF_DEF,x)
+2594  0772 5f            	clrw	x
+2595  0773 97            	ld	xl,a
+2596  0774 c60000        	ld	a,__rid
+2597  0777 905f          	clrw	y
+2598  0779 9097          	ld	yl,a
+2599  077b d6540c        	ld	a,(21516,x)
+2600  077e 90da0000      	or	a,(_bLF_DEF,y)
+2601  0782 d7540c        	ld	(21516,x),a
+2604  0785 c60001        	ld	a,__rid+1
+2605  0788 5f            	clrw	x
+2606  0789 97            	ld	xl,a
+2607  078a d60000        	ld	a,(_iLF_DEF,x)
+2608  078d 5f            	clrw	x
+2609  078e 97            	ld	xl,a
+2610  078f c60001        	ld	a,__rid+1
+2611  0792 905f          	clrw	y
+2612  0794 9097          	ld	yl,a
+2613  0796 d6540c        	ld	a,(21516,x)
+2614  0799 90da0000      	or	a,(_bLF_DEF,y)
+2615  079d d7540c        	ld	(21516,x),a
+2618  07a0 ac800980      	jpf	L327
+2619  07a4               L127:
+2620                     ; 470 			else if( (uiInfo.link[i] & 0x02) != 0 )	{	UI_LN_SET(1);	}
+2622  07a4 7b01          	ld	a,(OFST+0,sp)
+2623  07a6 5f            	clrw	x
+2624  07a7 97            	ld	xl,a
+2625  07a8 d6002a        	ld	a,(_uiInfo+42,x)
+2626  07ab a502          	bcp	a,#2
+2627  07ad 273a          	jreq	L527
+2630  07af c60002        	ld	a,__rid+2
+2631  07b2 5f            	clrw	x
+2632  07b3 97            	ld	xl,a
+2633  07b4 d60000        	ld	a,(_iLF_DEF,x)
+2634  07b7 5f            	clrw	x
+2635  07b8 97            	ld	xl,a
+2636  07b9 c60002        	ld	a,__rid+2
+2637  07bc 905f          	clrw	y
+2638  07be 9097          	ld	yl,a
+2639  07c0 d6540c        	ld	a,(21516,x)
+2640  07c3 90da0000      	or	a,(_bLF_DEF,y)
+2641  07c7 d7540c        	ld	(21516,x),a
+2644  07ca c60003        	ld	a,__rid+3
+2645  07cd 5f            	clrw	x
+2646  07ce 97            	ld	xl,a
+2647  07cf d60000        	ld	a,(_iLF_DEF,x)
+2648  07d2 5f            	clrw	x
+2649  07d3 97            	ld	xl,a
+2650  07d4 c60003        	ld	a,__rid+3
+2651  07d7 905f          	clrw	y
+2652  07d9 9097          	ld	yl,a
+2653  07db d6540c        	ld	a,(21516,x)
+2654  07de 90da0000      	or	a,(_bLF_DEF,y)
+2655  07e2 d7540c        	ld	(21516,x),a
+2658  07e5 ac800980      	jpf	L327
+2659  07e9               L527:
+2660                     ; 471 			else if( (uiInfo.link[i] & 0x04) != 0 )	{	UI_LN_SET(2);	}
+2662  07e9 7b01          	ld	a,(OFST+0,sp)
+2663  07eb 5f            	clrw	x
+2664  07ec 97            	ld	xl,a
+2665  07ed d6002a        	ld	a,(_uiInfo+42,x)
+2666  07f0 a504          	bcp	a,#4
+2667  07f2 273a          	jreq	L137
+2670  07f4 c60004        	ld	a,__rid+4
+2671  07f7 5f            	clrw	x
+2672  07f8 97            	ld	xl,a
+2673  07f9 d60000        	ld	a,(_iLF_DEF,x)
+2674  07fc 5f            	clrw	x
+2675  07fd 97            	ld	xl,a
+2676  07fe c60004        	ld	a,__rid+4
+2677  0801 905f          	clrw	y
+2678  0803 9097          	ld	yl,a
+2679  0805 d6540c        	ld	a,(21516,x)
+2680  0808 90da0000      	or	a,(_bLF_DEF,y)
+2681  080c d7540c        	ld	(21516,x),a
+2684  080f c60005        	ld	a,__rid+5
+2685  0812 5f            	clrw	x
+2686  0813 97            	ld	xl,a
+2687  0814 d60000        	ld	a,(_iLF_DEF,x)
+2688  0817 5f            	clrw	x
+2689  0818 97            	ld	xl,a
+2690  0819 c60005        	ld	a,__rid+5
+2691  081c 905f          	clrw	y
+2692  081e 9097          	ld	yl,a
+2693  0820 d6540c        	ld	a,(21516,x)
+2694  0823 90da0000      	or	a,(_bLF_DEF,y)
+2695  0827 d7540c        	ld	(21516,x),a
+2698  082a ac800980      	jpf	L327
+2699  082e               L137:
+2700                     ; 472 			else if( (uiInfo.link[i] & 0x08) != 0 )	{	UI_LN_SET(3);	}
+2702  082e 7b01          	ld	a,(OFST+0,sp)
+2703  0830 5f            	clrw	x
+2704  0831 97            	ld	xl,a
+2705  0832 d6002a        	ld	a,(_uiInfo+42,x)
+2706  0835 a508          	bcp	a,#8
+2707  0837 273a          	jreq	L537
+2710  0839 c60006        	ld	a,__rid+6
+2711  083c 5f            	clrw	x
+2712  083d 97            	ld	xl,a
+2713  083e d60000        	ld	a,(_iLF_DEF,x)
+2714  0841 5f            	clrw	x
+2715  0842 97            	ld	xl,a
+2716  0843 c60006        	ld	a,__rid+6
+2717  0846 905f          	clrw	y
+2718  0848 9097          	ld	yl,a
+2719  084a d6540c        	ld	a,(21516,x)
+2720  084d 90da0000      	or	a,(_bLF_DEF,y)
+2721  0851 d7540c        	ld	(21516,x),a
+2724  0854 c60007        	ld	a,__rid+7
+2725  0857 5f            	clrw	x
+2726  0858 97            	ld	xl,a
+2727  0859 d60000        	ld	a,(_iLF_DEF,x)
+2728  085c 5f            	clrw	x
+2729  085d 97            	ld	xl,a
+2730  085e c60007        	ld	a,__rid+7
+2731  0861 905f          	clrw	y
+2732  0863 9097          	ld	yl,a
+2733  0865 d6540c        	ld	a,(21516,x)
+2734  0868 90da0000      	or	a,(_bLF_DEF,y)
+2735  086c d7540c        	ld	(21516,x),a
+2738  086f ac800980      	jpf	L327
+2739  0873               L537:
+2740                     ; 473 			else if( (uiInfo.link[i] & 0x10) != 0 )	{	UI_LN_SET(4);	}
+2742  0873 7b01          	ld	a,(OFST+0,sp)
+2743  0875 5f            	clrw	x
+2744  0876 97            	ld	xl,a
+2745  0877 d6002a        	ld	a,(_uiInfo+42,x)
+2746  087a a510          	bcp	a,#16
+2747  087c 273a          	jreq	L147
+2750  087e c60008        	ld	a,__rid+8
+2751  0881 5f            	clrw	x
+2752  0882 97            	ld	xl,a
+2753  0883 d60000        	ld	a,(_iLF_DEF,x)
+2754  0886 5f            	clrw	x
+2755  0887 97            	ld	xl,a
+2756  0888 c60008        	ld	a,__rid+8
+2757  088b 905f          	clrw	y
+2758  088d 9097          	ld	yl,a
+2759  088f d6540c        	ld	a,(21516,x)
+2760  0892 90da0000      	or	a,(_bLF_DEF,y)
+2761  0896 d7540c        	ld	(21516,x),a
+2764  0899 c60009        	ld	a,__rid+9
+2765  089c 5f            	clrw	x
+2766  089d 97            	ld	xl,a
+2767  089e d60000        	ld	a,(_iLF_DEF,x)
+2768  08a1 5f            	clrw	x
+2769  08a2 97            	ld	xl,a
+2770  08a3 c60009        	ld	a,__rid+9
+2771  08a6 905f          	clrw	y
+2772  08a8 9097          	ld	yl,a
+2773  08aa d6540c        	ld	a,(21516,x)
+2774  08ad 90da0000      	or	a,(_bLF_DEF,y)
+2775  08b1 d7540c        	ld	(21516,x),a
+2778  08b4 ac800980      	jpf	L327
+2779  08b8               L147:
+2780                     ; 474 			else if( (uiInfo.link[i] & 0x20) != 0 )	{	UI_LN_SET(5);	}
+2782  08b8 7b01          	ld	a,(OFST+0,sp)
+2783  08ba 5f            	clrw	x
+2784  08bb 97            	ld	xl,a
+2785  08bc d6002a        	ld	a,(_uiInfo+42,x)
+2786  08bf a520          	bcp	a,#32
+2787  08c1 2739          	jreq	L547
+2790  08c3 c6000a        	ld	a,__rid+10
+2791  08c6 5f            	clrw	x
+2792  08c7 97            	ld	xl,a
+2793  08c8 d60000        	ld	a,(_iLF_DEF,x)
+2794  08cb 5f            	clrw	x
+2795  08cc 97            	ld	xl,a
+2796  08cd c6000a        	ld	a,__rid+10
+2797  08d0 905f          	clrw	y
+2798  08d2 9097          	ld	yl,a
+2799  08d4 d6540c        	ld	a,(21516,x)
+2800  08d7 90da0000      	or	a,(_bLF_DEF,y)
+2801  08db d7540c        	ld	(21516,x),a
+2804  08de c6000b        	ld	a,__rid+11
+2805  08e1 5f            	clrw	x
+2806  08e2 97            	ld	xl,a
+2807  08e3 d60000        	ld	a,(_iLF_DEF,x)
+2808  08e6 5f            	clrw	x
+2809  08e7 97            	ld	xl,a
+2810  08e8 c6000b        	ld	a,__rid+11
+2811  08eb 905f          	clrw	y
+2812  08ed 9097          	ld	yl,a
+2813  08ef d6540c        	ld	a,(21516,x)
+2814  08f2 90da0000      	or	a,(_bLF_DEF,y)
+2815  08f6 d7540c        	ld	(21516,x),a
+2818  08f9 cc0980        	jra	L327
+2819  08fc               L547:
+2820                     ; 475 			else if( (uiInfo.link[i] & 0x40) != 0 )	{	UI_LN_SET(6);	}
+2822  08fc 7b01          	ld	a,(OFST+0,sp)
+2823  08fe 5f            	clrw	x
+2824  08ff 97            	ld	xl,a
+2825  0900 d6002a        	ld	a,(_uiInfo+42,x)
+2826  0903 a540          	bcp	a,#64
+2827  0905 2738          	jreq	L157
+2830  0907 c6000c        	ld	a,__rid+12
+2831  090a 5f            	clrw	x
+2832  090b 97            	ld	xl,a
+2833  090c d60000        	ld	a,(_iLF_DEF,x)
+2834  090f 5f            	clrw	x
+2835  0910 97            	ld	xl,a
+2836  0911 c6000c        	ld	a,__rid+12
+2837  0914 905f          	clrw	y
+2838  0916 9097          	ld	yl,a
+2839  0918 d6540c        	ld	a,(21516,x)
+2840  091b 90da0000      	or	a,(_bLF_DEF,y)
+2841  091f d7540c        	ld	(21516,x),a
+2844  0922 c6000d        	ld	a,__rid+13
+2845  0925 5f            	clrw	x
+2846  0926 97            	ld	xl,a
+2847  0927 d60000        	ld	a,(_iLF_DEF,x)
+2848  092a 5f            	clrw	x
+2849  092b 97            	ld	xl,a
+2850  092c c6000d        	ld	a,__rid+13
+2851  092f 905f          	clrw	y
+2852  0931 9097          	ld	yl,a
+2853  0933 d6540c        	ld	a,(21516,x)
+2854  0936 90da0000      	or	a,(_bLF_DEF,y)
+2855  093a d7540c        	ld	(21516,x),a
+2858  093d 2041          	jra	L327
+2859  093f               L157:
+2860                     ; 476 			else if( (uiInfo.link[i] & 0x80) != 0 )	{	UI_LN_SET(7);	}
+2862  093f 7b01          	ld	a,(OFST+0,sp)
+2863  0941 5f            	clrw	x
+2864  0942 97            	ld	xl,a
+2865  0943 d6002a        	ld	a,(_uiInfo+42,x)
+2866  0946 a580          	bcp	a,#128
+2867  0948 2736          	jreq	L327
+2870  094a c6000e        	ld	a,__rid+14
+2871  094d 5f            	clrw	x
+2872  094e 97            	ld	xl,a
+2873  094f d60000        	ld	a,(_iLF_DEF,x)
+2874  0952 5f            	clrw	x
+2875  0953 97            	ld	xl,a
+2876  0954 c6000e        	ld	a,__rid+14
+2877  0957 905f          	clrw	y
+2878  0959 9097          	ld	yl,a
+2879  095b d6540c        	ld	a,(21516,x)
+2880  095e 90da0000      	or	a,(_bLF_DEF,y)
+2881  0962 d7540c        	ld	(21516,x),a
+2884  0965 c6000f        	ld	a,__rid+15
+2885  0968 5f            	clrw	x
+2886  0969 97            	ld	xl,a
+2887  096a d60000        	ld	a,(_iLF_DEF,x)
+2888  096d 5f            	clrw	x
+2889  096e 97            	ld	xl,a
+2890  096f c6000f        	ld	a,__rid+15
+2891  0972 905f          	clrw	y
+2892  0974 9097          	ld	yl,a
+2893  0976 d6540c        	ld	a,(21516,x)
+2894  0979 90da0000      	or	a,(_bLF_DEF,y)
+2895  097d d7540c        	ld	(21516,x),a
+2897  0980               L327:
+2898                     ; 478 		_dsCount = 1;
+2900  0980 35010009      	mov	__dsCount,#1
+2901                     ; 479 		uiInfo._t = UI_LN;
+2903  0984 c60033        	ld	a,_uiInfo+51
+2904  0987 5f            	clrw	x
+2905  0988 97            	ld	xl,a
+2906  0989 d6002a        	ld	a,(_uiInfo+42,x)
+2907  098c c70046        	ld	_uiInfo+70,a
+2908                     ; 480 		lcd_blink_item(_rid[UI_LNID*2]);
+2910  098f c60033        	ld	a,_uiInfo+51
+2911  0992 5f            	clrw	x
+2912  0993 97            	ld	xl,a
+2913  0994 58            	sllw	x
+2914  0995 d60000        	ld	a,(__rid,x)
+2915  0998 cd0000        	call	_lcd_blink_item
+2918  099b ac130c13      	jpf	L757
+2919  099f               L717:
+2920                     ; 496 		i = UI_LNBASE;
+2922  099f c60034        	ld	a,_uiInfo+52
+2923  09a2 6b01          	ld	(OFST+0,sp),a
+2924                     ; 497 		if( uiInfo.enc != 0 )
+2926  09a4 725d0000      	tnz	_uiInfo
+2927  09a8 272c          	jreq	L167
+2928                     ; 499 			if( (uiInfo.enc & 0x40) == 0 )
+2930  09aa c60000        	ld	a,_uiInfo
+2931  09ad a540          	bcp	a,#64
+2932  09af 2612          	jrne	L367
+2933                     ; 500 				i = (i - 1 + 8) % 8;
+2935  09b1 7b01          	ld	a,(OFST+0,sp)
+2936  09b3 5f            	clrw	x
+2937  09b4 97            	ld	xl,a
+2938  09b5 1c0007        	addw	x,#7
+2939  09b8 a608          	ld	a,#8
+2940  09ba cd0000        	call	c_smodx
+2942  09bd 01            	rrwa	x,a
+2943  09be 6b01          	ld	(OFST+0,sp),a
+2944  09c0 02            	rlwa	x,a
+2946  09c1 200e          	jra	L567
+2947  09c3               L367:
+2948                     ; 502 				i = (i + 1) % 8;
+2950  09c3 7b01          	ld	a,(OFST+0,sp)
+2951  09c5 5f            	clrw	x
+2952  09c6 97            	ld	xl,a
+2953  09c7 5c            	incw	x
+2954  09c8 a608          	ld	a,#8
+2955  09ca cd0000        	call	c_smodx
+2957  09cd 01            	rrwa	x,a
+2958  09ce 6b01          	ld	(OFST+0,sp),a
+2959  09d0 02            	rlwa	x,a
+2960  09d1               L567:
+2961                     ; 503 			UI_LNBASE = i;
+2963  09d1 7b01          	ld	a,(OFST+0,sp)
+2964  09d3 c70034        	ld	_uiInfo+52,a
+2965  09d6               L167:
+2966                     ; 505 		if( _dsPrev != i )
+2968  09d6 c6000a        	ld	a,__dsPrev
+2969  09d9 1101          	cp	a,(OFST+0,sp)
+2970  09db 2603          	jrne	L46
+2971  09dd cc0c13        	jp	L757
+2972  09e0               L46:
+2973                     ; 507 			_dsPrev = i;
+2975  09e0 7b01          	ld	a,(OFST+0,sp)
+2976  09e2 c7000a        	ld	__dsPrev,a
+2977                     ; 508 			lcd_disp_n(3, i);
+2979  09e5 7b01          	ld	a,(OFST+0,sp)
+2980  09e7 97            	ld	xl,a
+2981  09e8 a603          	ld	a,#3
+2982  09ea 95            	ld	xh,a
+2983  09eb cd0000        	call	_lcd_disp_n
+2985                     ; 509 			ui_room_clear(0, 0);
+2987  09ee 5f            	clrw	x
+2988  09ef cd0004        	call	_ui_room_clear
+2990                     ; 510 			if( (uiInfo.link[i] & 0x01) != 0 )		{	UI_LN_SET(0);	}
+2992  09f2 7b01          	ld	a,(OFST+0,sp)
+2993  09f4 5f            	clrw	x
+2994  09f5 97            	ld	xl,a
+2995  09f6 d6002a        	ld	a,(_uiInfo+42,x)
+2996  09f9 a501          	bcp	a,#1
+2997  09fb 273a          	jreq	L177
+3000  09fd c60000        	ld	a,__rid
+3001  0a00 5f            	clrw	x
+3002  0a01 97            	ld	xl,a
+3003  0a02 d60000        	ld	a,(_iLF_DEF,x)
+3004  0a05 5f            	clrw	x
+3005  0a06 97            	ld	xl,a
+3006  0a07 c60000        	ld	a,__rid
+3007  0a0a 905f          	clrw	y
+3008  0a0c 9097          	ld	yl,a
+3009  0a0e d6540c        	ld	a,(21516,x)
+3010  0a11 90da0000      	or	a,(_bLF_DEF,y)
+3011  0a15 d7540c        	ld	(21516,x),a
+3014  0a18 c60001        	ld	a,__rid+1
+3015  0a1b 5f            	clrw	x
+3016  0a1c 97            	ld	xl,a
+3017  0a1d d60000        	ld	a,(_iLF_DEF,x)
+3018  0a20 5f            	clrw	x
+3019  0a21 97            	ld	xl,a
+3020  0a22 c60001        	ld	a,__rid+1
+3021  0a25 905f          	clrw	y
+3022  0a27 9097          	ld	yl,a
+3023  0a29 d6540c        	ld	a,(21516,x)
+3024  0a2c 90da0000      	or	a,(_bLF_DEF,y)
+3025  0a30 d7540c        	ld	(21516,x),a
+3028  0a33 ac130c13      	jpf	L757
+3029  0a37               L177:
+3030                     ; 511 			else if( (uiInfo.link[i] & 0x02) != 0 )	{	UI_LN_SET(1);	}
+3032  0a37 7b01          	ld	a,(OFST+0,sp)
+3033  0a39 5f            	clrw	x
+3034  0a3a 97            	ld	xl,a
+3035  0a3b d6002a        	ld	a,(_uiInfo+42,x)
+3036  0a3e a502          	bcp	a,#2
+3037  0a40 273a          	jreq	L577
+3040  0a42 c60002        	ld	a,__rid+2
+3041  0a45 5f            	clrw	x
+3042  0a46 97            	ld	xl,a
+3043  0a47 d60000        	ld	a,(_iLF_DEF,x)
+3044  0a4a 5f            	clrw	x
+3045  0a4b 97            	ld	xl,a
+3046  0a4c c60002        	ld	a,__rid+2
+3047  0a4f 905f          	clrw	y
+3048  0a51 9097          	ld	yl,a
+3049  0a53 d6540c        	ld	a,(21516,x)
+3050  0a56 90da0000      	or	a,(_bLF_DEF,y)
+3051  0a5a d7540c        	ld	(21516,x),a
+3054  0a5d c60003        	ld	a,__rid+3
+3055  0a60 5f            	clrw	x
+3056  0a61 97            	ld	xl,a
+3057  0a62 d60000        	ld	a,(_iLF_DEF,x)
+3058  0a65 5f            	clrw	x
+3059  0a66 97            	ld	xl,a
+3060  0a67 c60003        	ld	a,__rid+3
+3061  0a6a 905f          	clrw	y
+3062  0a6c 9097          	ld	yl,a
+3063  0a6e d6540c        	ld	a,(21516,x)
+3064  0a71 90da0000      	or	a,(_bLF_DEF,y)
+3065  0a75 d7540c        	ld	(21516,x),a
+3068  0a78 ac130c13      	jpf	L757
+3069  0a7c               L577:
+3070                     ; 512 			else if( (uiInfo.link[i] & 0x04) != 0 )	{	UI_LN_SET(2);	}
+3072  0a7c 7b01          	ld	a,(OFST+0,sp)
+3073  0a7e 5f            	clrw	x
+3074  0a7f 97            	ld	xl,a
+3075  0a80 d6002a        	ld	a,(_uiInfo+42,x)
+3076  0a83 a504          	bcp	a,#4
+3077  0a85 273a          	jreq	L1001
+3080  0a87 c60004        	ld	a,__rid+4
+3081  0a8a 5f            	clrw	x
+3082  0a8b 97            	ld	xl,a
+3083  0a8c d60000        	ld	a,(_iLF_DEF,x)
+3084  0a8f 5f            	clrw	x
+3085  0a90 97            	ld	xl,a
+3086  0a91 c60004        	ld	a,__rid+4
+3087  0a94 905f          	clrw	y
+3088  0a96 9097          	ld	yl,a
+3089  0a98 d6540c        	ld	a,(21516,x)
+3090  0a9b 90da0000      	or	a,(_bLF_DEF,y)
+3091  0a9f d7540c        	ld	(21516,x),a
+3094  0aa2 c60005        	ld	a,__rid+5
+3095  0aa5 5f            	clrw	x
+3096  0aa6 97            	ld	xl,a
+3097  0aa7 d60000        	ld	a,(_iLF_DEF,x)
+3098  0aaa 5f            	clrw	x
+3099  0aab 97            	ld	xl,a
+3100  0aac c60005        	ld	a,__rid+5
+3101  0aaf 905f          	clrw	y
+3102  0ab1 9097          	ld	yl,a
+3103  0ab3 d6540c        	ld	a,(21516,x)
+3104  0ab6 90da0000      	or	a,(_bLF_DEF,y)
+3105  0aba d7540c        	ld	(21516,x),a
+3108  0abd ac130c13      	jpf	L757
+3109  0ac1               L1001:
+3110                     ; 513 			else if( (uiInfo.link[i] & 0x08) != 0 )	{	UI_LN_SET(3);	}
+3112  0ac1 7b01          	ld	a,(OFST+0,sp)
+3113  0ac3 5f            	clrw	x
+3114  0ac4 97            	ld	xl,a
+3115  0ac5 d6002a        	ld	a,(_uiInfo+42,x)
+3116  0ac8 a508          	bcp	a,#8
+3117  0aca 273a          	jreq	L5001
+3120  0acc c60006        	ld	a,__rid+6
+3121  0acf 5f            	clrw	x
+3122  0ad0 97            	ld	xl,a
+3123  0ad1 d60000        	ld	a,(_iLF_DEF,x)
+3124  0ad4 5f            	clrw	x
+3125  0ad5 97            	ld	xl,a
+3126  0ad6 c60006        	ld	a,__rid+6
+3127  0ad9 905f          	clrw	y
+3128  0adb 9097          	ld	yl,a
+3129  0add d6540c        	ld	a,(21516,x)
+3130  0ae0 90da0000      	or	a,(_bLF_DEF,y)
+3131  0ae4 d7540c        	ld	(21516,x),a
+3134  0ae7 c60007        	ld	a,__rid+7
+3135  0aea 5f            	clrw	x
+3136  0aeb 97            	ld	xl,a
+3137  0aec d60000        	ld	a,(_iLF_DEF,x)
+3138  0aef 5f            	clrw	x
+3139  0af0 97            	ld	xl,a
+3140  0af1 c60007        	ld	a,__rid+7
+3141  0af4 905f          	clrw	y
+3142  0af6 9097          	ld	yl,a
+3143  0af8 d6540c        	ld	a,(21516,x)
+3144  0afb 90da0000      	or	a,(_bLF_DEF,y)
+3145  0aff d7540c        	ld	(21516,x),a
+3148  0b02 ac130c13      	jpf	L757
+3149  0b06               L5001:
+3150                     ; 514 			else if( (uiInfo.link[i] & 0x10) != 0 )	{	UI_LN_SET(4);	}
+3152  0b06 7b01          	ld	a,(OFST+0,sp)
+3153  0b08 5f            	clrw	x
+3154  0b09 97            	ld	xl,a
+3155  0b0a d6002a        	ld	a,(_uiInfo+42,x)
+3156  0b0d a510          	bcp	a,#16
+3157  0b0f 273a          	jreq	L1101
+3160  0b11 c60008        	ld	a,__rid+8
+3161  0b14 5f            	clrw	x
+3162  0b15 97            	ld	xl,a
+3163  0b16 d60000        	ld	a,(_iLF_DEF,x)
+3164  0b19 5f            	clrw	x
+3165  0b1a 97            	ld	xl,a
+3166  0b1b c60008        	ld	a,__rid+8
+3167  0b1e 905f          	clrw	y
+3168  0b20 9097          	ld	yl,a
+3169  0b22 d6540c        	ld	a,(21516,x)
+3170  0b25 90da0000      	or	a,(_bLF_DEF,y)
+3171  0b29 d7540c        	ld	(21516,x),a
+3174  0b2c c60009        	ld	a,__rid+9
+3175  0b2f 5f            	clrw	x
+3176  0b30 97            	ld	xl,a
+3177  0b31 d60000        	ld	a,(_iLF_DEF,x)
+3178  0b34 5f            	clrw	x
+3179  0b35 97            	ld	xl,a
+3180  0b36 c60009        	ld	a,__rid+9
+3181  0b39 905f          	clrw	y
+3182  0b3b 9097          	ld	yl,a
+3183  0b3d d6540c        	ld	a,(21516,x)
+3184  0b40 90da0000      	or	a,(_bLF_DEF,y)
+3185  0b44 d7540c        	ld	(21516,x),a
+3188  0b47 ac130c13      	jpf	L757
+3189  0b4b               L1101:
+3190                     ; 515 			else if( (uiInfo.link[i] & 0x20) != 0 )	{	UI_LN_SET(5);	}
+3192  0b4b 7b01          	ld	a,(OFST+0,sp)
+3193  0b4d 5f            	clrw	x
+3194  0b4e 97            	ld	xl,a
+3195  0b4f d6002a        	ld	a,(_uiInfo+42,x)
+3196  0b52 a520          	bcp	a,#32
+3197  0b54 2739          	jreq	L5101
+3200  0b56 c6000a        	ld	a,__rid+10
+3201  0b59 5f            	clrw	x
+3202  0b5a 97            	ld	xl,a
+3203  0b5b d60000        	ld	a,(_iLF_DEF,x)
+3204  0b5e 5f            	clrw	x
+3205  0b5f 97            	ld	xl,a
+3206  0b60 c6000a        	ld	a,__rid+10
+3207  0b63 905f          	clrw	y
+3208  0b65 9097          	ld	yl,a
+3209  0b67 d6540c        	ld	a,(21516,x)
+3210  0b6a 90da0000      	or	a,(_bLF_DEF,y)
+3211  0b6e d7540c        	ld	(21516,x),a
+3214  0b71 c6000b        	ld	a,__rid+11
+3215  0b74 5f            	clrw	x
+3216  0b75 97            	ld	xl,a
+3217  0b76 d60000        	ld	a,(_iLF_DEF,x)
+3218  0b79 5f            	clrw	x
+3219  0b7a 97            	ld	xl,a
+3220  0b7b c6000b        	ld	a,__rid+11
+3221  0b7e 905f          	clrw	y
+3222  0b80 9097          	ld	yl,a
+3223  0b82 d6540c        	ld	a,(21516,x)
+3224  0b85 90da0000      	or	a,(_bLF_DEF,y)
+3225  0b89 d7540c        	ld	(21516,x),a
+3228  0b8c cc0c13        	jra	L757
+3229  0b8f               L5101:
+3230                     ; 516 			else if( (uiInfo.link[i] & 0x40) != 0 )	{	UI_LN_SET(6);	}
+3232  0b8f 7b01          	ld	a,(OFST+0,sp)
+3233  0b91 5f            	clrw	x
+3234  0b92 97            	ld	xl,a
+3235  0b93 d6002a        	ld	a,(_uiInfo+42,x)
+3236  0b96 a540          	bcp	a,#64
+3237  0b98 2738          	jreq	L1201
+3240  0b9a c6000c        	ld	a,__rid+12
+3241  0b9d 5f            	clrw	x
+3242  0b9e 97            	ld	xl,a
+3243  0b9f d60000        	ld	a,(_iLF_DEF,x)
+3244  0ba2 5f            	clrw	x
+3245  0ba3 97            	ld	xl,a
+3246  0ba4 c6000c        	ld	a,__rid+12
+3247  0ba7 905f          	clrw	y
+3248  0ba9 9097          	ld	yl,a
+3249  0bab d6540c        	ld	a,(21516,x)
+3250  0bae 90da0000      	or	a,(_bLF_DEF,y)
+3251  0bb2 d7540c        	ld	(21516,x),a
+3254  0bb5 c6000d        	ld	a,__rid+13
+3255  0bb8 5f            	clrw	x
+3256  0bb9 97            	ld	xl,a
+3257  0bba d60000        	ld	a,(_iLF_DEF,x)
+3258  0bbd 5f            	clrw	x
+3259  0bbe 97            	ld	xl,a
+3260  0bbf c6000d        	ld	a,__rid+13
+3261  0bc2 905f          	clrw	y
+3262  0bc4 9097          	ld	yl,a
+3263  0bc6 d6540c        	ld	a,(21516,x)
+3264  0bc9 90da0000      	or	a,(_bLF_DEF,y)
+3265  0bcd d7540c        	ld	(21516,x),a
+3268  0bd0 2041          	jra	L757
+3269  0bd2               L1201:
+3270                     ; 517 			else if( (uiInfo.link[i] & 0x80) != 0 )	{	UI_LN_SET(7);	}
+3272  0bd2 7b01          	ld	a,(OFST+0,sp)
+3273  0bd4 5f            	clrw	x
+3274  0bd5 97            	ld	xl,a
+3275  0bd6 d6002a        	ld	a,(_uiInfo+42,x)
+3276  0bd9 a580          	bcp	a,#128
+3277  0bdb 2736          	jreq	L757
+3280  0bdd c6000e        	ld	a,__rid+14
+3281  0be0 5f            	clrw	x
+3282  0be1 97            	ld	xl,a
+3283  0be2 d60000        	ld	a,(_iLF_DEF,x)
+3284  0be5 5f            	clrw	x
+3285  0be6 97            	ld	xl,a
+3286  0be7 c6000e        	ld	a,__rid+14
+3287  0bea 905f          	clrw	y
+3288  0bec 9097          	ld	yl,a
+3289  0bee d6540c        	ld	a,(21516,x)
+3290  0bf1 90da0000      	or	a,(_bLF_DEF,y)
+3291  0bf5 d7540c        	ld	(21516,x),a
+3294  0bf8 c6000f        	ld	a,__rid+15
+3295  0bfb 5f            	clrw	x
+3296  0bfc 97            	ld	xl,a
+3297  0bfd d60000        	ld	a,(_iLF_DEF,x)
+3298  0c00 5f            	clrw	x
+3299  0c01 97            	ld	xl,a
+3300  0c02 c6000f        	ld	a,__rid+15
+3301  0c05 905f          	clrw	y
+3302  0c07 9097          	ld	yl,a
+3303  0c09 d6540c        	ld	a,(21516,x)
+3304  0c0c 90da0000      	or	a,(_bLF_DEF,y)
+3305  0c10 d7540c        	ld	(21516,x),a
+3307  0c13               L757:
+3308                     ; 520 	if( key == 4 )		{	STATUS_NEXT(next);	}
+3310  0c13 7b02          	ld	a,(OFST+1,sp)
+3311  0c15 a104          	cp	a,#4
+3312  0c17 2611          	jrne	L7201
+3315  0c19 7b03          	ld	a,(OFST+2,sp)
+3316  0c1b c70008        	ld	__ds,a
+3319  0c1e 725f0009      	clr	__dsCount
+3322  0c22 35ff000a      	mov	__dsPrev,#255
+3325  0c26 ac250d25      	jpf	L1301
+3326  0c2a               L7201:
+3327                     ; 521 	else if( key == 2 )
+3329  0c2a 7b02          	ld	a,(OFST+1,sp)
+3330  0c2c a102          	cp	a,#2
+3331  0c2e 261c          	jrne	L3301
+3332                     ; 523 		uiInfo.m[UI_RID] = uiInfo._t;
+3334  0c30 c60032        	ld	a,_uiInfo+50
+3335  0c33 5f            	clrw	x
+3336  0c34 97            	ld	xl,a
+3337  0c35 c60046        	ld	a,_uiInfo+70
+3338  0c38 d70003        	ld	(_uiInfo+3,x),a
+3339  0c3b               L176:
+3340                     ; 525 		STATUS_NEXT(next);
+3342  0c3b 7b03          	ld	a,(OFST+2,sp)
+3343  0c3d c70008        	ld	__ds,a
+3346  0c40 725f0009      	clr	__dsCount
+3349  0c44 35ff000a      	mov	__dsPrev,#255
+3352  0c48 ac250d25      	jpf	L1301
+3353  0c4c               L3301:
+3354                     ; 527 	else if( key == 3 )
+3356  0c4c 7b02          	ld	a,(OFST+1,sp)
+3357  0c4e a103          	cp	a,#3
+3358  0c50 2703          	jreq	L66
+3359  0c52 cc0d03        	jp	L7301
+3360  0c55               L66:
+3361                     ; 529 		if( UI_LNID == 0 )		UI_LN ^= 0x01;
+3363  0c55 725d0033      	tnz	_uiInfo+51
+3364  0c59 260d          	jrne	L1401
+3367  0c5b c60033        	ld	a,_uiInfo+51
+3368  0c5e 5f            	clrw	x
+3369  0c5f 97            	ld	xl,a
+3370  0c60 d6002a        	ld	a,(_uiInfo+42,x)
+3371  0c63 a801          	xor	a,	#1
+3372  0c65 d7002a        	ld	(_uiInfo+42,x),a
+3373  0c68               L1401:
+3374                     ; 530 		if( UI_LNID == 1 )		UI_LN ^= 0x02;
+3376  0c68 c60033        	ld	a,_uiInfo+51
+3377  0c6b a101          	cp	a,#1
+3378  0c6d 260d          	jrne	L3401
+3381  0c6f c60033        	ld	a,_uiInfo+51
+3382  0c72 5f            	clrw	x
+3383  0c73 97            	ld	xl,a
+3384  0c74 d6002a        	ld	a,(_uiInfo+42,x)
+3385  0c77 a802          	xor	a,	#2
+3386  0c79 d7002a        	ld	(_uiInfo+42,x),a
+3387  0c7c               L3401:
+3388                     ; 531 		if( UI_LNID == 2 )		UI_LN ^= 0x04;
+3390  0c7c c60033        	ld	a,_uiInfo+51
+3391  0c7f a102          	cp	a,#2
+3392  0c81 260d          	jrne	L5401
+3395  0c83 c60033        	ld	a,_uiInfo+51
+3396  0c86 5f            	clrw	x
+3397  0c87 97            	ld	xl,a
+3398  0c88 d6002a        	ld	a,(_uiInfo+42,x)
+3399  0c8b a804          	xor	a,	#4
+3400  0c8d d7002a        	ld	(_uiInfo+42,x),a
+3401  0c90               L5401:
+3402                     ; 532 		if( UI_LNID == 3 )		UI_LN ^= 0x08;
+3404  0c90 c60033        	ld	a,_uiInfo+51
+3405  0c93 a103          	cp	a,#3
+3406  0c95 260d          	jrne	L7401
+3409  0c97 c60033        	ld	a,_uiInfo+51
+3410  0c9a 5f            	clrw	x
+3411  0c9b 97            	ld	xl,a
+3412  0c9c d6002a        	ld	a,(_uiInfo+42,x)
+3413  0c9f a808          	xor	a,	#8
+3414  0ca1 d7002a        	ld	(_uiInfo+42,x),a
+3415  0ca4               L7401:
+3416                     ; 533 		if( UI_LNID == 4 )		UI_LN ^= 0x10;
+3418  0ca4 c60033        	ld	a,_uiInfo+51
+3419  0ca7 a104          	cp	a,#4
+3420  0ca9 260d          	jrne	L1501
+3423  0cab c60033        	ld	a,_uiInfo+51
+3424  0cae 5f            	clrw	x
+3425  0caf 97            	ld	xl,a
+3426  0cb0 d6002a        	ld	a,(_uiInfo+42,x)
+3427  0cb3 a810          	xor	a,	#16
+3428  0cb5 d7002a        	ld	(_uiInfo+42,x),a
+3429  0cb8               L1501:
+3430                     ; 534 		if( UI_LNID == 5 )		UI_LN ^= 0x20;
+3432  0cb8 c60033        	ld	a,_uiInfo+51
+3433  0cbb a105          	cp	a,#5
+3434  0cbd 260d          	jrne	L3501
+3437  0cbf c60033        	ld	a,_uiInfo+51
+3438  0cc2 5f            	clrw	x
+3439  0cc3 97            	ld	xl,a
+3440  0cc4 d6002a        	ld	a,(_uiInfo+42,x)
+3441  0cc7 a820          	xor	a,	#32
+3442  0cc9 d7002a        	ld	(_uiInfo+42,x),a
+3443  0ccc               L3501:
+3444                     ; 535 		if( UI_LNID == 6 )		UI_LN ^= 0x40;
+3446  0ccc c60033        	ld	a,_uiInfo+51
+3447  0ccf a106          	cp	a,#6
+3448  0cd1 260d          	jrne	L5501
+3451  0cd3 c60033        	ld	a,_uiInfo+51
+3452  0cd6 5f            	clrw	x
+3453  0cd7 97            	ld	xl,a
+3454  0cd8 d6002a        	ld	a,(_uiInfo+42,x)
+3455  0cdb a840          	xor	a,	#64
+3456  0cdd d7002a        	ld	(_uiInfo+42,x),a
+3457  0ce0               L5501:
+3458                     ; 536 		if( UI_LNID == 7 )		UI_LN ^= 0x80;
+3460  0ce0 c60033        	ld	a,_uiInfo+51
+3461  0ce3 a107          	cp	a,#7
+3462  0ce5 260d          	jrne	L7501
+3465  0ce7 c60033        	ld	a,_uiInfo+51
+3466  0cea 5f            	clrw	x
+3467  0ceb 97            	ld	xl,a
+3468  0cec d6002a        	ld	a,(_uiInfo+42,x)
+3469  0cef a880          	xor	a,	#128
+3470  0cf1 d7002a        	ld	(_uiInfo+42,x),a
+3471  0cf4               L7501:
+3472                     ; 537 		STATUS_NEXT(prev);
+3474  0cf4 7b06          	ld	a,(OFST+5,sp)
+3475  0cf6 c70008        	ld	__ds,a
+3478  0cf9 725f0009      	clr	__dsCount
+3481  0cfd 35ff000a      	mov	__dsPrev,#255
+3484  0d01 2022          	jra	L1301
+3485  0d03               L7301:
+3486                     ; 539 	else if( key == 1 )
+3488  0d03 7b02          	ld	a,(OFST+1,sp)
+3489  0d05 a101          	cp	a,#1
+3490  0d07 261c          	jrne	L1301
+3491                     ; 541 		UI_LNID = (uint8_t)((UI_LNID + 1) % 8);
+3493  0d09 c60033        	ld	a,_uiInfo+51
+3494  0d0c 5f            	clrw	x
+3495  0d0d 97            	ld	xl,a
+3496  0d0e 5c            	incw	x
+3497  0d0f a608          	ld	a,#8
+3498  0d11 cd0000        	call	c_smodx
+3500  0d14 9f            	ld	a,xl
+3501  0d15 c70033        	ld	_uiInfo+51,a
+3502                     ; 542 		STATUS_NEXT(prev);
+3504  0d18 7b06          	ld	a,(OFST+5,sp)
+3505  0d1a c70008        	ld	__ds,a
+3508  0d1d 725f0009      	clr	__dsCount
+3511  0d21 35ff000a      	mov	__dsPrev,#255
+3513  0d25               L1301:
+3514                     ; 544 }
+3517  0d25 5b03          	addw	sp,#3
+3518  0d27 81            	ret
+3573                     ; 546 void	disp_status_run_op(uint8_t key, uint8_t next)
+3573                     ; 547 {
+3574                     	switch	.text
+3575  0d28               _disp_status_run_op:
+3577  0d28 89            	pushw	x
+3578  0d29 88            	push	a
+3579       00000001      OFST:	set	1
+3582                     ; 549 	if( _dsCount == 0 )
+3584  0d2a 725d0009      	tnz	__dsCount
+3585  0d2e 2612          	jrne	L5011
+3586                     ; 551 		lcd_clear(0);
+3588  0d30 4f            	clr	a
+3589  0d31 cd0000        	call	_lcd_clear
+3591                     ; 552 		lcd_disp_setup_cntl_op();
+3593  0d34 cd0000        	call	_lcd_disp_setup_cntl_op
+3595                     ; 553 		_dsCount = 1;
+3597  0d37 35010009      	mov	__dsCount,#1
+3598                     ; 554 		uiInfo._t = uiInfo.opMode;
+3600  0d3b 55003d0046    	mov	_uiInfo+70,_uiInfo+61
+3602  0d40 2050          	jra	L7011
+3603  0d42               L5011:
+3604                     ; 558 		i = uiInfo.opMode;
+3606  0d42 c6003d        	ld	a,_uiInfo+61
+3607  0d45 6b01          	ld	(OFST+0,sp),a
+3608                     ; 559 		if( uiInfo.enc != 0 )
+3610  0d47 725d0000      	tnz	_uiInfo
+3611  0d4b 272a          	jreq	L1111
+3612                     ; 561 			if( (uiInfo.enc & 0x40) == 0 )
+3614  0d4d c60000        	ld	a,_uiInfo
+3615  0d50 a540          	bcp	a,#64
+3616  0d52 2610          	jrne	L3111
+3617                     ; 562 				i = (i+2-1)%2;
+3619  0d54 7b01          	ld	a,(OFST+0,sp)
+3620  0d56 5f            	clrw	x
+3621  0d57 97            	ld	xl,a
+3622  0d58 5c            	incw	x
+3623  0d59 a602          	ld	a,#2
+3624  0d5b cd0000        	call	c_smodx
+3626  0d5e 01            	rrwa	x,a
+3627  0d5f 6b01          	ld	(OFST+0,sp),a
+3628  0d61 02            	rlwa	x,a
+3630  0d62 200e          	jra	L5111
+3631  0d64               L3111:
+3632                     ; 564 				i = (i+1)%2;
+3634  0d64 7b01          	ld	a,(OFST+0,sp)
+3635  0d66 5f            	clrw	x
+3636  0d67 97            	ld	xl,a
+3637  0d68 5c            	incw	x
+3638  0d69 a602          	ld	a,#2
+3639  0d6b cd0000        	call	c_smodx
+3641  0d6e 01            	rrwa	x,a
+3642  0d6f 6b01          	ld	(OFST+0,sp),a
+3643  0d71 02            	rlwa	x,a
+3644  0d72               L5111:
+3645                     ; 565 			uiInfo.opMode = i;
+3647  0d72 7b01          	ld	a,(OFST+0,sp)
+3648  0d74 c7003d        	ld	_uiInfo+61,a
+3649  0d77               L1111:
+3650                     ; 567 		if( _dsPrev != i )
+3652  0d77 c6000a        	ld	a,__dsPrev
+3653  0d7a 1101          	cp	a,(OFST+0,sp)
+3654  0d7c 2714          	jreq	L7011
+3655                     ; 569 			_dsPrev = i;
+3657  0d7e 7b01          	ld	a,(OFST+0,sp)
+3658  0d80 c7000a        	ld	__dsPrev,a
+3659                     ; 570 			clear_npos2();
+3661  0d83 cd01bb        	call	_clear_npos2
+3663                     ; 571 			if( i==0 )
+3665  0d86 0d01          	tnz	(OFST+0,sp)
+3666  0d88 2605          	jrne	L1211
+3667                     ; 572 				lcd_disp_setup_cntl_on();
+3669  0d8a cd0000        	call	_lcd_disp_setup_cntl_on
+3672  0d8d 2003          	jra	L7011
+3673  0d8f               L1211:
+3674                     ; 574 				lcd_disp_setup_cntl_po();
+3676  0d8f cd0000        	call	_lcd_disp_setup_cntl_po
+3678  0d92               L7011:
+3679                     ; 577 	if( key == 4 )		
+3681  0d92 7b02          	ld	a,(OFST+1,sp)
+3682  0d94 a104          	cp	a,#4
+3683  0d96 260f          	jrne	L5211
+3684                     ; 579 		STATUS_NEXT(next);	
+3686  0d98 7b03          	ld	a,(OFST+2,sp)
+3687  0d9a c70008        	ld	__ds,a
+3690  0d9d 725f0009      	clr	__dsCount
+3693  0da1 35ff000a      	mov	__dsPrev,#255
+3696  0da5 2018          	jra	L7211
+3697  0da7               L5211:
+3698                     ; 581 	else if( key == 2 )
+3700  0da7 7b02          	ld	a,(OFST+1,sp)
+3701  0da9 a102          	cp	a,#2
+3702  0dab 2612          	jrne	L7211
+3703                     ; 583 		uiInfo.opMode = uiInfo._t;
+3705  0dad 550046003d    	mov	_uiInfo+61,_uiInfo+70
+3706                     ; 584 		STATUS_NEXT(next);
+3708  0db2 7b03          	ld	a,(OFST+2,sp)
+3709  0db4 c70008        	ld	__ds,a
+3712  0db7 725f0009      	clr	__dsCount
+3715  0dbb 35ff000a      	mov	__dsPrev,#255
+3717  0dbf               L7211:
+3718                     ; 586 }
+3721  0dbf 5b03          	addw	sp,#3
+3722  0dc1 81            	ret
+3779                     ; 588 void	disp_status_cntl_op(uint8_t key, uint8_t next)
+3779                     ; 589 {
+3780                     	switch	.text
+3781  0dc2               _disp_status_cntl_op:
+3783  0dc2 89            	pushw	x
+3784  0dc3 88            	push	a
+3785       00000001      OFST:	set	1
+3788                     ; 591 	if( _dsCount == 0 )
+3790  0dc4 725d0009      	tnz	__dsCount
+3791  0dc8 2612          	jrne	L3511
+3792                     ; 593 		lcd_clear(0);
+3794  0dca 4f            	clr	a
+3795  0dcb cd0000        	call	_lcd_clear
+3797                     ; 594 		lcd_disp_setup_mode();
+3799  0dce cd0000        	call	_lcd_disp_setup_mode
+3801                     ; 595 		_dsCount = 1;
+3803  0dd1 35010009      	mov	__dsCount,#1
+3804                     ; 596 		uiInfo._t = uiInfo.cntlMode;
+3806  0dd5 55003c0046    	mov	_uiInfo+70,_uiInfo+60
+3808  0dda 2050          	jra	L5511
+3809  0ddc               L3511:
+3810                     ; 600 		i = uiInfo.cntlMode;
+3812  0ddc c6003c        	ld	a,_uiInfo+60
+3813  0ddf 6b01          	ld	(OFST+0,sp),a
+3814                     ; 601 		if( uiInfo.enc != 0 )
+3816  0de1 725d0000      	tnz	_uiInfo
+3817  0de5 272a          	jreq	L7511
+3818                     ; 603 			if( (uiInfo.enc & 0x40) == 0 )
+3820  0de7 c60000        	ld	a,_uiInfo
+3821  0dea a540          	bcp	a,#64
+3822  0dec 2610          	jrne	L1611
+3823                     ; 604 				i = (i+2-1)%2;
+3825  0dee 7b01          	ld	a,(OFST+0,sp)
+3826  0df0 5f            	clrw	x
+3827  0df1 97            	ld	xl,a
+3828  0df2 5c            	incw	x
+3829  0df3 a602          	ld	a,#2
+3830  0df5 cd0000        	call	c_smodx
+3832  0df8 01            	rrwa	x,a
+3833  0df9 6b01          	ld	(OFST+0,sp),a
+3834  0dfb 02            	rlwa	x,a
+3836  0dfc 200e          	jra	L3611
+3837  0dfe               L1611:
+3838                     ; 606 				i = (i+1)%2;
+3840  0dfe 7b01          	ld	a,(OFST+0,sp)
+3841  0e00 5f            	clrw	x
+3842  0e01 97            	ld	xl,a
+3843  0e02 5c            	incw	x
+3844  0e03 a602          	ld	a,#2
+3845  0e05 cd0000        	call	c_smodx
+3847  0e08 01            	rrwa	x,a
+3848  0e09 6b01          	ld	(OFST+0,sp),a
+3849  0e0b 02            	rlwa	x,a
+3850  0e0c               L3611:
+3851                     ; 607 			uiInfo.cntlMode = i;
+3853  0e0c 7b01          	ld	a,(OFST+0,sp)
+3854  0e0e c7003c        	ld	_uiInfo+60,a
+3855  0e11               L7511:
+3856                     ; 609 		if( _dsPrev != i )
+3858  0e11 c6000a        	ld	a,__dsPrev
+3859  0e14 1101          	cp	a,(OFST+0,sp)
+3860  0e16 2714          	jreq	L5511
+3861                     ; 611 			_dsPrev = i;
+3863  0e18 7b01          	ld	a,(OFST+0,sp)
+3864  0e1a c7000a        	ld	__dsPrev,a
+3865                     ; 612 			clear_npos2();
+3867  0e1d cd01bb        	call	_clear_npos2
+3869                     ; 613 			if( i == 0 )
+3871  0e20 0d01          	tnz	(OFST+0,sp)
+3872  0e22 2605          	jrne	L7611
+3873                     ; 614 				lcd_disp_setup_mode_local();
+3875  0e24 cd0000        	call	_lcd_disp_setup_mode_local
+3878  0e27 2003          	jra	L5511
+3879  0e29               L7611:
+3880                     ; 616 				lcd_disp_setup_mode_each();
+3882  0e29 cd0000        	call	_lcd_disp_setup_mode_each
+3884  0e2c               L5511:
+3885                     ; 619 	if( key == 4 )		
+3887  0e2c 7b02          	ld	a,(OFST+1,sp)
+3888  0e2e a104          	cp	a,#4
+3889  0e30 2619          	jrne	L3711
+3890                     ; 631 		FW_CNTLMODE(uiInfo.cntlMode);
+3892  0e32 c6003c        	ld	a,_uiInfo+60
+3893  0e35 97            	ld	xl,a
+3894  0e36 a61e          	ld	a,#30
+3895  0e38 95            	ld	xh,a
+3896  0e39 cd0000        	call	_file_write
+3898                     ; 632 		STATUS_NEXT(next);	
+3900  0e3c 7b03          	ld	a,(OFST+2,sp)
+3901  0e3e c70008        	ld	__ds,a
+3904  0e41 725f0009      	clr	__dsCount
+3907  0e45 35ff000a      	mov	__dsPrev,#255
+3910  0e49 2018          	jra	L5711
+3911  0e4b               L3711:
+3912                     ; 634 	else if( key == 2 )
+3914  0e4b 7b02          	ld	a,(OFST+1,sp)
+3915  0e4d a102          	cp	a,#2
+3916  0e4f 2612          	jrne	L5711
+3917                     ; 636 		uiInfo.cntlMode = uiInfo._t;
+3919  0e51 550046003c    	mov	_uiInfo+60,_uiInfo+70
+3920                     ; 637 		STATUS_NEXT(next);
+3922  0e56 7b03          	ld	a,(OFST+2,sp)
+3923  0e58 c70008        	ld	__ds,a
+3926  0e5b 725f0009      	clr	__dsCount
+3929  0e5f 35ff000a      	mov	__dsPrev,#255
+3931  0e63               L5711:
+3932                     ; 639 }
+3935  0e63 5b03          	addw	sp,#3
+3936  0e65 81            	ret
+3989                     ; 641 void	disp_status_len(uint8_t key, uint8_t next)
+3989                     ; 642 {
+3990                     	switch	.text
+3991  0e66               _disp_status_len:
+3993  0e66 89            	pushw	x
+3994  0e67 88            	push	a
+3995       00000001      OFST:	set	1
+3998                     ; 645 	STATUS_CLIENT
+4000  0e68 725d000c      	tnz	_uiInfo+12
+4001  0e6c 2603          	jrne	L67
+4002  0e6e cc0f22        	jp	L1021
+4003  0e71               L67:
+4006                     ; 646 	if( _dsCount == 0 )
+4008  0e71 725d0009      	tnz	__dsCount
+4009  0e75 2612          	jrne	L5221
+4010                     ; 648 		lcd_clear(0);
+4012  0e77 4f            	clr	a
+4013  0e78 cd0000        	call	_lcd_clear
+4015                     ; 649 		lcd_disp_setup_len();
+4017  0e7b cd0000        	call	_lcd_disp_setup_len
+4019                     ; 650 		_dsCount = 1;
+4021  0e7e 35010009      	mov	__dsCount,#1
+4022                     ; 651 		uiInfo._t = uiInfo.houseLen;
+4024  0e82 55003e0046    	mov	_uiInfo+70,_uiInfo+62
+4026  0e87 2079          	jra	L7221
+4027  0e89               L5221:
+4028                     ; 655 		i = uiInfo.houseLen;
+4030  0e89 c6003e        	ld	a,_uiInfo+62
+4031  0e8c 6b01          	ld	(OFST+0,sp),a
+4032                     ; 656 		if( uiInfo.enc != 0 )
+4034  0e8e 725d0000      	tnz	_uiInfo
+4035  0e92 2726          	jreq	L1321
+4036                     ; 658 			if( (uiInfo.enc & 0x40) == 0 )	i--;
+4038  0e94 c60000        	ld	a,_uiInfo
+4039  0e97 a540          	bcp	a,#64
+4040  0e99 2604          	jrne	L3321
+4043  0e9b 0a01          	dec	(OFST+0,sp)
+4045  0e9d 2002          	jra	L5321
+4046  0e9f               L3321:
+4047                     ; 660 				i++;
+4049  0e9f 0c01          	inc	(OFST+0,sp)
+4050  0ea1               L5321:
+4051                     ; 661 			if( i < 35 )	i = 150;
+4053  0ea1 7b01          	ld	a,(OFST+0,sp)
+4054  0ea3 a123          	cp	a,#35
+4055  0ea5 2404          	jruge	L7321
+4058  0ea7 a696          	ld	a,#150
+4059  0ea9 6b01          	ld	(OFST+0,sp),a
+4060  0eab               L7321:
+4061                     ; 662 			if( i > 150 )	i = 35;
+4063  0eab 7b01          	ld	a,(OFST+0,sp)
+4064  0ead a197          	cp	a,#151
+4065  0eaf 2504          	jrult	L1421
+4068  0eb1 a623          	ld	a,#35
+4069  0eb3 6b01          	ld	(OFST+0,sp),a
+4070  0eb5               L1421:
+4071                     ; 663 			uiInfo.houseLen = i;
+4073  0eb5 7b01          	ld	a,(OFST+0,sp)
+4074  0eb7 c7003e        	ld	_uiInfo+62,a
+4075  0eba               L1321:
+4076                     ; 665 		if( _dsPrev != i )
+4078  0eba c6000a        	ld	a,__dsPrev
+4079  0ebd 1101          	cp	a,(OFST+0,sp)
+4080  0ebf 2741          	jreq	L7221
+4081                     ; 667 			_dsPrev = i;
+4083  0ec1 7b01          	ld	a,(OFST+0,sp)
+4084  0ec3 c7000a        	ld	__dsPrev,a
+4085                     ; 668 			UI_DISP_3Digit(i);
+4087  0ec6 7b01          	ld	a,(OFST+0,sp)
+4088  0ec8 5f            	clrw	x
+4089  0ec9 97            	ld	xl,a
+4090  0eca a664          	ld	a,#100
+4091  0ecc 62            	div	x,a
+4092  0ecd 9f            	ld	a,xl
+4093  0ece 97            	ld	xl,a
+4094  0ecf a601          	ld	a,#1
+4095  0ed1 95            	ld	xh,a
+4096  0ed2 cd0000        	call	_lcd_disp_n
+4100  0ed5 7b01          	ld	a,(OFST+0,sp)
+4101  0ed7 5f            	clrw	x
+4102  0ed8 97            	ld	xl,a
+4103  0ed9 a664          	ld	a,#100
+4104  0edb 62            	div	x,a
+4105  0edc 5f            	clrw	x
+4106  0edd 97            	ld	xl,a
+4107  0ede 01            	rrwa	x,a
+4108  0edf 6b01          	ld	(OFST+0,sp),a
+4109  0ee1 02            	rlwa	x,a
+4112  0ee2 7b01          	ld	a,(OFST+0,sp)
+4113  0ee4 5f            	clrw	x
+4114  0ee5 97            	ld	xl,a
+4115  0ee6 a60a          	ld	a,#10
+4116  0ee8 62            	div	x,a
+4117  0ee9 9f            	ld	a,xl
+4118  0eea 97            	ld	xl,a
+4119  0eeb a602          	ld	a,#2
+4120  0eed 95            	ld	xh,a
+4121  0eee cd0000        	call	_lcd_disp_n
+4125  0ef1 7b01          	ld	a,(OFST+0,sp)
+4126  0ef3 5f            	clrw	x
+4127  0ef4 97            	ld	xl,a
+4128  0ef5 a60a          	ld	a,#10
+4129  0ef7 62            	div	x,a
+4130  0ef8 5f            	clrw	x
+4131  0ef9 97            	ld	xl,a
+4132  0efa 9f            	ld	a,xl
+4133  0efb 97            	ld	xl,a
+4134  0efc a603          	ld	a,#3
+4135  0efe 95            	ld	xh,a
+4136  0eff cd0000        	call	_lcd_disp_n
+4139  0f02               L7221:
+4140                     ; 671 	if( key == 4 )		{	STATUS_NEXT(next);	}
+4142  0f02 7b02          	ld	a,(OFST+1,sp)
+4143  0f04 a104          	cp	a,#4
+4144  0f06 260f          	jrne	L5421
+4147  0f08 7b03          	ld	a,(OFST+2,sp)
+4148  0f0a c70008        	ld	__ds,a
+4151  0f0d 725f0009      	clr	__dsCount
+4154  0f11 35ff000a      	mov	__dsPrev,#255
+4157  0f15 2018          	jra	L7421
+4158  0f17               L5421:
+4159                     ; 672 	else if( key == 2 )
+4161  0f17 7b02          	ld	a,(OFST+1,sp)
+4162  0f19 a102          	cp	a,#2
+4163  0f1b 2612          	jrne	L7421
+4164                     ; 674 		uiInfo.houseLen = uiInfo._t;
+4166  0f1d 550046003e    	mov	_uiInfo+62,_uiInfo+70
+4167  0f22               L1021:
+4168                     ; 676 		STATUS_NEXT(next);
+4170  0f22 7b03          	ld	a,(OFST+2,sp)
+4171  0f24 c70008        	ld	__ds,a
+4174  0f27 725f0009      	clr	__dsCount
+4177  0f2b 35ff000a      	mov	__dsPrev,#255
+4179  0f2f               L7421:
+4180                     ; 678 }
+4183  0f2f 5b03          	addw	sp,#3
+4184  0f31 81            	ret
+4241                     ; 680 void	disp_status_po_type(uint8_t key, uint8_t next)
+4241                     ; 681 {
+4242                     	switch	.text
+4243  0f32               _disp_status_po_type:
+4245  0f32 89            	pushw	x
+4246  0f33 88            	push	a
+4247       00000001      OFST:	set	1
+4250                     ; 683 	if( _dsCount == 0 )
+4252  0f34 725d0009      	tnz	__dsCount
+4253  0f38 2612          	jrne	L3721
+4254                     ; 685 		lcd_clear(0);
+4256  0f3a 4f            	clr	a
+4257  0f3b cd0000        	call	_lcd_clear
+4259                     ; 686 		lcd_disp_setup_po_type();
+4261  0f3e cd0000        	call	_lcd_disp_setup_po_type
+4263                     ; 687 		_dsCount = 1;
+4265  0f41 35010009      	mov	__dsCount,#1
+4266                     ; 688 		uiInfo._t = uiInfo.poType;
+4268  0f45 55003f0046    	mov	_uiInfo+70,_uiInfo+63
+4270  0f4a 2057          	jra	L5721
+4271  0f4c               L3721:
+4272                     ; 692 		i = uiInfo.poType;
+4274  0f4c c6003f        	ld	a,_uiInfo+63
+4275  0f4f 6b01          	ld	(OFST+0,sp),a
+4276                     ; 693 		if( uiInfo.enc != 0 )
+4278  0f51 725d0000      	tnz	_uiInfo
+4279  0f55 2726          	jreq	L7721
+4280                     ; 695 			if( (uiInfo.enc & 0x40) == 0 )
+4282  0f57 c60000        	ld	a,_uiInfo
+4283  0f5a a540          	bcp	a,#64
+4284  0f5c 260e          	jrne	L1031
+4285                     ; 697 				if( i==0 )	i = 2;
+4287  0f5e 0d01          	tnz	(OFST+0,sp)
+4288  0f60 2606          	jrne	L3031
+4291  0f62 a602          	ld	a,#2
+4292  0f64 6b01          	ld	(OFST+0,sp),a
+4294  0f66 2010          	jra	L7031
+4295  0f68               L3031:
+4296                     ; 699 					i--;
+4298  0f68 0a01          	dec	(OFST+0,sp)
+4299  0f6a 200c          	jra	L7031
+4300  0f6c               L1031:
+4301                     ; 703 				if( i==2 )	i = 0;
+4303  0f6c 7b01          	ld	a,(OFST+0,sp)
+4304  0f6e a102          	cp	a,#2
+4305  0f70 2604          	jrne	L1131
+4308  0f72 0f01          	clr	(OFST+0,sp)
+4310  0f74 2002          	jra	L7031
+4311  0f76               L1131:
+4312                     ; 705 					i++;
+4314  0f76 0c01          	inc	(OFST+0,sp)
+4315  0f78               L7031:
+4316                     ; 707 			uiInfo.poType = i;
+4318  0f78 7b01          	ld	a,(OFST+0,sp)
+4319  0f7a c7003f        	ld	_uiInfo+63,a
+4320  0f7d               L7721:
+4321                     ; 709 		if( _dsPrev != i )
+4323  0f7d c6000a        	ld	a,__dsPrev
+4324  0f80 1101          	cp	a,(OFST+0,sp)
+4325  0f82 271f          	jreq	L5721
+4326                     ; 711 			_dsPrev = i;
+4328  0f84 7b01          	ld	a,(OFST+0,sp)
+4329  0f86 c7000a        	ld	__dsPrev,a
+4330                     ; 712 			clear_npos2();
+4332  0f89 cd01bb        	call	_clear_npos2
+4334                     ; 713 			if( i==0 )		lcd_disp_setup_po_type_xl();
+4336  0f8c 0d01          	tnz	(OFST+0,sp)
+4337  0f8e 2605          	jrne	L7131
+4340  0f90 cd0000        	call	_lcd_disp_setup_po_type_xl
+4343  0f93 200e          	jra	L5721
+4344  0f95               L7131:
+4345                     ; 714 			else if( i==1 )	lcd_disp_setup_po_type_pb();
+4347  0f95 7b01          	ld	a,(OFST+0,sp)
+4348  0f97 a101          	cp	a,#1
+4349  0f99 2605          	jrne	L3231
+4352  0f9b cd0000        	call	_lcd_disp_setup_po_type_pb
+4355  0f9e 2003          	jra	L5721
+4356  0fa0               L3231:
+4357                     ; 716 				lcd_disp_setup_po_type_pe();
+4359  0fa0 cd0000        	call	_lcd_disp_setup_po_type_pe
+4361  0fa3               L5721:
+4362                     ; 719 	if( key == 4 )		
+4364  0fa3 7b02          	ld	a,(OFST+1,sp)
+4365  0fa5 a104          	cp	a,#4
+4366  0fa7 260f          	jrne	L7231
+4367                     ; 721 		STATUS_NEXT(next);	
+4369  0fa9 7b03          	ld	a,(OFST+2,sp)
+4370  0fab c70008        	ld	__ds,a
+4373  0fae 725f0009      	clr	__dsCount
+4376  0fb2 35ff000a      	mov	__dsPrev,#255
+4379  0fb6 2018          	jra	L1331
+4380  0fb8               L7231:
+4381                     ; 723 	else if( key == 2 )
+4383  0fb8 7b02          	ld	a,(OFST+1,sp)
+4384  0fba a102          	cp	a,#2
+4385  0fbc 2612          	jrne	L1331
+4386                     ; 725 		uiInfo.poType = uiInfo._t;
+4388  0fbe 550046003f    	mov	_uiInfo+63,_uiInfo+70
+4389                     ; 726 		STATUS_NEXT(next);
+4391  0fc3 7b03          	ld	a,(OFST+2,sp)
+4392  0fc5 c70008        	ld	__ds,a
+4395  0fc8 725f0009      	clr	__dsCount
+4398  0fcc 35ff000a      	mov	__dsPrev,#255
+4400  0fd0               L1331:
+4401                     ; 728 }
+4404  0fd0 5b03          	addw	sp,#3
+4405  0fd2 81            	ret
+4459                     ; 730 void	disp_status_lpm(uint8_t key, uint8_t next)
+4459                     ; 731 {
+4460                     	switch	.text
+4461  0fd3               _disp_status_lpm:
+4463  0fd3 89            	pushw	x
+4464  0fd4 88            	push	a
+4465       00000001      OFST:	set	1
+4468                     ; 733 	if( _dsCount == 0 )
+4470  0fd5 725d0009      	tnz	__dsCount
+4471  0fd9 2614          	jrne	L5531
+4472                     ; 735 		lcd_clear(0);
+4474  0fdb 4f            	clr	a
+4475  0fdc cd0000        	call	_lcd_clear
+4477                     ; 736 		lcd_disp_setup_lpm();
+4479  0fdf cd0000        	call	_lcd_disp_setup_lpm
+4481                     ; 737 		_dsCount = 1;
+4483  0fe2 35010009      	mov	__dsCount,#1
+4484                     ; 738 		uiInfo._t = uiInfo.lpmType;
+4486  0fe6 5500400046    	mov	_uiInfo+70,_uiInfo+64
+4488  0feb ac751075      	jpf	L7531
+4489  0fef               L5531:
+4490                     ; 742 		i = uiInfo.lpmType;
+4492  0fef c60040        	ld	a,_uiInfo+64
+4493  0ff2 6b01          	ld	(OFST+0,sp),a
+4494                     ; 743 		if( uiInfo.enc != 0 )
+4496  0ff4 725d0000      	tnz	_uiInfo
+4497  0ff8 2726          	jreq	L1631
+4498                     ; 745 			if( (uiInfo.enc & 0x40) == 0 )
+4500  0ffa c60000        	ld	a,_uiInfo
+4501  0ffd a540          	bcp	a,#64
+4502  0fff 260e          	jrne	L3631
+4503                     ; 747 				if( i==0 )	i = 3;
+4505  1001 0d01          	tnz	(OFST+0,sp)
+4506  1003 2606          	jrne	L5631
+4509  1005 a603          	ld	a,#3
+4510  1007 6b01          	ld	(OFST+0,sp),a
+4512  1009 2010          	jra	L1731
+4513  100b               L5631:
+4514                     ; 749 					i--;
+4516  100b 0a01          	dec	(OFST+0,sp)
+4517  100d 200c          	jra	L1731
+4518  100f               L3631:
+4519                     ; 753 				if( i==3 )	i = 0;
+4521  100f 7b01          	ld	a,(OFST+0,sp)
+4522  1011 a103          	cp	a,#3
+4523  1013 2604          	jrne	L3731
+4526  1015 0f01          	clr	(OFST+0,sp)
+4528  1017 2002          	jra	L1731
+4529  1019               L3731:
+4530                     ; 755 					i++;
+4532  1019 0c01          	inc	(OFST+0,sp)
+4533  101b               L1731:
+4534                     ; 757 			uiInfo.lpmType = i;
+4536  101b 7b01          	ld	a,(OFST+0,sp)
+4537  101d c70040        	ld	_uiInfo+64,a
+4538  1020               L1631:
+4539                     ; 759 		if( _dsPrev != i )
+4541  1020 c6000a        	ld	a,__dsPrev
+4542  1023 1101          	cp	a,(OFST+0,sp)
+4543  1025 274e          	jreq	L7531
+4544                     ; 761 			_dsPrev = i;
+4546  1027 7b01          	ld	a,(OFST+0,sp)
+4547  1029 c7000a        	ld	__dsPrev,a
+4548                     ; 762 			clear_npos2();
+4550  102c cd01bb        	call	_clear_npos2
+4552                     ; 763 			if( i==0 )		{	UI_DISP_2Digit(0);}
+4554  102f 0d01          	tnz	(OFST+0,sp)
+4555  1031 260e          	jrne	L1041
+4558  1033 ae0200        	ldw	x,#512
+4559  1036 cd0000        	call	_lcd_disp_n
+4563  1039 ae0300        	ldw	x,#768
+4564  103c cd0000        	call	_lcd_disp_n
+4568  103f 2034          	jra	L7531
+4569  1041               L1041:
+4570                     ; 764 			else if( i==1 )	{	UI_DISP_2Digit(10);}
+4572  1041 7b01          	ld	a,(OFST+0,sp)
+4573  1043 a101          	cp	a,#1
+4574  1045 260e          	jrne	L5041
+4577  1047 ae0201        	ldw	x,#513
+4578  104a cd0000        	call	_lcd_disp_n
+4582  104d ae0300        	ldw	x,#768
+4583  1050 cd0000        	call	_lcd_disp_n
+4587  1053 2020          	jra	L7531
+4588  1055               L5041:
+4589                     ; 765 			else if( i==2 )	{	UI_DISP_2Digit(20);}
+4591  1055 7b01          	ld	a,(OFST+0,sp)
+4592  1057 a102          	cp	a,#2
+4593  1059 260e          	jrne	L1141
+4596  105b ae0202        	ldw	x,#514
+4597  105e cd0000        	call	_lcd_disp_n
+4601  1061 ae0300        	ldw	x,#768
+4602  1064 cd0000        	call	_lcd_disp_n
+4606  1067 200c          	jra	L7531
+4607  1069               L1141:
+4608                     ; 768 				UI_DISP_2Digit(30);
+4610  1069 ae0203        	ldw	x,#515
+4611  106c cd0000        	call	_lcd_disp_n
+4615  106f ae0300        	ldw	x,#768
+4616  1072 cd0000        	call	_lcd_disp_n
+4619  1075               L7531:
+4620                     ; 772 	if( key == 4 )		
+4622  1075 7b02          	ld	a,(OFST+1,sp)
+4623  1077 a104          	cp	a,#4
+4624  1079 260f          	jrne	L5141
+4625                     ; 774 		STATUS_NEXT(next);	
+4627  107b 7b03          	ld	a,(OFST+2,sp)
+4628  107d c70008        	ld	__ds,a
+4631  1080 725f0009      	clr	__dsCount
+4634  1084 35ff000a      	mov	__dsPrev,#255
+4637  1088 2018          	jra	L7141
+4638  108a               L5141:
+4639                     ; 776 	else if( key == 2 )
+4641  108a 7b02          	ld	a,(OFST+1,sp)
+4642  108c a102          	cp	a,#2
+4643  108e 2612          	jrne	L7141
+4644                     ; 778 		uiInfo.lpmType = uiInfo._t;
+4646  1090 5500460040    	mov	_uiInfo+64,_uiInfo+70
+4647                     ; 779 		STATUS_NEXT(next);
+4649  1095 7b03          	ld	a,(OFST+2,sp)
+4650  1097 c70008        	ld	__ds,a
+4653  109a 725f0009      	clr	__dsCount
+4656  109e 35ff000a      	mov	__dsPrev,#255
+4658  10a2               L7141:
+4659                     ; 781 }
+4662  10a2 5b03          	addw	sp,#3
+4663  10a4 81            	ret
+4717                     ; 783 void	disp_status_temp_offset(uint8_t key, uint8_t next)
+4717                     ; 784 {
+4718                     	switch	.text
+4719  10a5               _disp_status_temp_offset:
+4721  10a5 89            	pushw	x
+4722  10a6 88            	push	a
+4723       00000001      OFST:	set	1
+4726                     ; 787 	STATUS_CLIENT
+4728  10a7 725d000c      	tnz	_uiInfo+12
+4729  10ab 2603          	jrne	L601
+4730  10ad cc1161        	jp	L3241
+4731  10b0               L601:
+4734                     ; 788 	if( _dsCount == 0 )
+4736  10b0 725d0009      	tnz	__dsCount
+4737  10b4 2612          	jrne	L7441
+4738                     ; 790 		lcd_clear(0);
+4740  10b6 4f            	clr	a
+4741  10b7 cd0000        	call	_lcd_clear
+4743                     ; 791 		lcd_disp_setup_temp_offset();
+4745  10ba cd0000        	call	_lcd_disp_setup_temp_offset
+4747                     ; 792 		_dsCount = 1;
+4749  10bd 35010009      	mov	__dsCount,#1
+4750                     ; 793 		uiInfo._t = uiInfo.tempOffset;
+4752  10c1 5500410046    	mov	_uiInfo+70,_uiInfo+65
+4754  10c6 2079          	jra	L1541
+4755  10c8               L7441:
+4756                     ; 797 		i = uiInfo.tempOffset;
+4758  10c8 c60041        	ld	a,_uiInfo+65
+4759  10cb 6b01          	ld	(OFST+0,sp),a
+4760                     ; 798 		if( uiInfo.enc != 0 )
+4762  10cd 725d0000      	tnz	_uiInfo
+4763  10d1 2726          	jreq	L3541
+4764                     ; 800 			if( (uiInfo.enc & 0x40) == 0 )	i--;
+4766  10d3 c60000        	ld	a,_uiInfo
+4767  10d6 a540          	bcp	a,#64
+4768  10d8 2604          	jrne	L5541
+4771  10da 0a01          	dec	(OFST+0,sp)
+4773  10dc 2002          	jra	L7541
+4774  10de               L5541:
+4775                     ; 802 				i++;
+4777  10de 0c01          	inc	(OFST+0,sp)
+4778  10e0               L7541:
+4779                     ; 803 			if( i < 60 )	i = 100;
+4781  10e0 7b01          	ld	a,(OFST+0,sp)
+4782  10e2 a13c          	cp	a,#60
+4783  10e4 2404          	jruge	L1641
+4786  10e6 a664          	ld	a,#100
+4787  10e8 6b01          	ld	(OFST+0,sp),a
+4788  10ea               L1641:
+4789                     ; 804 			if( i > 100 )	i = 60;
+4791  10ea 7b01          	ld	a,(OFST+0,sp)
+4792  10ec a165          	cp	a,#101
+4793  10ee 2504          	jrult	L3641
+4796  10f0 a63c          	ld	a,#60
+4797  10f2 6b01          	ld	(OFST+0,sp),a
+4798  10f4               L3641:
+4799                     ; 805 			uiInfo.tempOffset = i;
+4801  10f4 7b01          	ld	a,(OFST+0,sp)
+4802  10f6 c70041        	ld	_uiInfo+65,a
+4803  10f9               L3541:
+4804                     ; 807 		if( _dsPrev != i )
+4806  10f9 c6000a        	ld	a,__dsPrev
+4807  10fc 1101          	cp	a,(OFST+0,sp)
+4808  10fe 2741          	jreq	L1541
+4809                     ; 809 			_dsPrev = i;
+4811  1100 7b01          	ld	a,(OFST+0,sp)
+4812  1102 c7000a        	ld	__dsPrev,a
+4813                     ; 810 			UI_DISP_3Digit(i);
+4815  1105 7b01          	ld	a,(OFST+0,sp)
+4816  1107 5f            	clrw	x
+4817  1108 97            	ld	xl,a
+4818  1109 a664          	ld	a,#100
+4819  110b 62            	div	x,a
+4820  110c 9f            	ld	a,xl
+4821  110d 97            	ld	xl,a
+4822  110e a601          	ld	a,#1
+4823  1110 95            	ld	xh,a
+4824  1111 cd0000        	call	_lcd_disp_n
+4828  1114 7b01          	ld	a,(OFST+0,sp)
+4829  1116 5f            	clrw	x
+4830  1117 97            	ld	xl,a
+4831  1118 a664          	ld	a,#100
+4832  111a 62            	div	x,a
+4833  111b 5f            	clrw	x
+4834  111c 97            	ld	xl,a
+4835  111d 01            	rrwa	x,a
+4836  111e 6b01          	ld	(OFST+0,sp),a
+4837  1120 02            	rlwa	x,a
+4840  1121 7b01          	ld	a,(OFST+0,sp)
+4841  1123 5f            	clrw	x
+4842  1124 97            	ld	xl,a
+4843  1125 a60a          	ld	a,#10
+4844  1127 62            	div	x,a
+4845  1128 9f            	ld	a,xl
+4846  1129 97            	ld	xl,a
+4847  112a a602          	ld	a,#2
+4848  112c 95            	ld	xh,a
+4849  112d cd0000        	call	_lcd_disp_n
+4853  1130 7b01          	ld	a,(OFST+0,sp)
+4854  1132 5f            	clrw	x
+4855  1133 97            	ld	xl,a
+4856  1134 a60a          	ld	a,#10
+4857  1136 62            	div	x,a
+4858  1137 5f            	clrw	x
+4859  1138 97            	ld	xl,a
+4860  1139 9f            	ld	a,xl
+4861  113a 97            	ld	xl,a
+4862  113b a603          	ld	a,#3
+4863  113d 95            	ld	xh,a
+4864  113e cd0000        	call	_lcd_disp_n
+4867  1141               L1541:
+4868                     ; 813 	if( key == 4 )		{	STATUS_NEXT(next);	}
+4870  1141 7b02          	ld	a,(OFST+1,sp)
+4871  1143 a104          	cp	a,#4
+4872  1145 260f          	jrne	L7641
+4875  1147 7b03          	ld	a,(OFST+2,sp)
+4876  1149 c70008        	ld	__ds,a
+4879  114c 725f0009      	clr	__dsCount
+4882  1150 35ff000a      	mov	__dsPrev,#255
+4885  1154 2018          	jra	L1741
+4886  1156               L7641:
+4887                     ; 814 	else if( key == 2 )
+4889  1156 7b02          	ld	a,(OFST+1,sp)
+4890  1158 a102          	cp	a,#2
+4891  115a 2612          	jrne	L1741
+4892                     ; 816 		uiInfo.tempOffset = uiInfo._t;
+4894  115c 5500460041    	mov	_uiInfo+65,_uiInfo+70
+4895  1161               L3241:
+4896                     ; 818 		STATUS_NEXT(next);
+4898  1161 7b03          	ld	a,(OFST+2,sp)
+4899  1163 c70008        	ld	__ds,a
+4902  1166 725f0009      	clr	__dsCount
+4905  116a 35ff000a      	mov	__dsPrev,#255
+4907  116e               L1741:
+4908                     ; 820 }
+4911  116e 5b03          	addw	sp,#3
+4912  1170 81            	ret
+4975                     ; 823 void	disp_status_valveinfo(uint8_t key, uint8_t next, uint8_t prev)
+4975                     ; 824 {
+4976                     	switch	.text
+4977  1171               _disp_status_valveinfo:
+4979  1171 89            	pushw	x
+4980  1172 88            	push	a
+4981       00000001      OFST:	set	1
+4984                     ; 827 	STATUS_CLIENT
+4986  1173 725d000c      	tnz	_uiInfo+12
+4987  1177 2603          	jrne	L211
+4988  1179 cc126f        	jp	L5741
+4989  117c               L211:
+4992                     ; 828 	if( _dsCount == 0 )
+4994  117c 725d0009      	tnz	__dsCount
+4995  1180 2640          	jrne	L3251
+4996                     ; 830 		lcd_clear(0);
+4998  1182 4f            	clr	a
+4999  1183 cd0000        	call	_lcd_clear
+5001                     ; 831 		lcd_disp_n(0, UI_RID+1);
+5003  1186 c60032        	ld	a,_uiInfo+50
+5004  1189 4c            	inc	a
+5005  118a 97            	ld	xl,a
+5006  118b 4f            	clr	a
+5007  118c 95            	ld	xh,a
+5008  118d cd0000        	call	_lcd_disp_n
+5010                     ; 832 		lcd_blink_npos(UI_RID+1);
+5012  1190 c60032        	ld	a,_uiInfo+50
+5013  1193 4c            	inc	a
+5014  1194 cd0000        	call	_lcd_blink_npos
+5016                     ; 833 		UI_RPOS = uiInfo.valve_rc[UI_RID];
+5018  1197 c60032        	ld	a,_uiInfo+50
+5019  119a 5f            	clrw	x
+5020  119b 97            	ld	xl,a
+5021  119c d60022        	ld	a,(_uiInfo+34,x)
+5022  119f c70035        	ld	_uiInfo+53,a
+5023                     ; 834 		lcd_disp_rid(UI_RPOS, 1, 0);
+5025  11a2 4b00          	push	#0
+5026  11a4 ae0001        	ldw	x,#1
+5027  11a7 c60035        	ld	a,_uiInfo+53
+5028  11aa 95            	ld	xh,a
+5029  11ab cd0000        	call	_lcd_disp_rid
+5031  11ae 84            	pop	a
+5032                     ; 835 		_dsCount = 1;
+5034  11af 35010009      	mov	__dsCount,#1
+5035                     ; 837 		uiInfo._t = uiInfo.valve_len[UI_RID];
+5037  11b3 c60032        	ld	a,_uiInfo+50
+5038  11b6 5f            	clrw	x
+5039  11b7 97            	ld	xl,a
+5040  11b8 d6001a        	ld	a,(_uiInfo+26,x)
+5041  11bb c70046        	ld	_uiInfo+70,a
+5043  11be ac451245      	jpf	L5251
+5044  11c2               L3251:
+5045                     ; 841 		i = uiInfo.valve_len[UI_RID];
+5047  11c2 c60032        	ld	a,_uiInfo+50
+5048  11c5 5f            	clrw	x
+5049  11c6 97            	ld	xl,a
+5050  11c7 d6001a        	ld	a,(_uiInfo+26,x)
+5051  11ca 6b01          	ld	(OFST+0,sp),a
+5052                     ; 842 		if( uiInfo.enc != 0 )
+5054  11cc 725d0000      	tnz	_uiInfo
+5055  11d0 272b          	jreq	L7251
+5056                     ; 844 			if( (uiInfo.enc & 0x40) == 0 )	i--;
+5058  11d2 c60000        	ld	a,_uiInfo
+5059  11d5 a540          	bcp	a,#64
+5060  11d7 2604          	jrne	L1351
+5063  11d9 0a01          	dec	(OFST+0,sp)
+5065  11db 2002          	jra	L3351
+5066  11dd               L1351:
+5067                     ; 846 				i++;
+5069  11dd 0c01          	inc	(OFST+0,sp)
+5070  11df               L3351:
+5071                     ; 847 			if( i > 150 )	i = 35;
+5073  11df 7b01          	ld	a,(OFST+0,sp)
+5074  11e1 a197          	cp	a,#151
+5075  11e3 2504          	jrult	L5351
+5078  11e5 a623          	ld	a,#35
+5079  11e7 6b01          	ld	(OFST+0,sp),a
+5080  11e9               L5351:
+5081                     ; 848 			if( i < 35 )	i = 150;
+5083  11e9 7b01          	ld	a,(OFST+0,sp)
+5084  11eb a123          	cp	a,#35
+5085  11ed 2404          	jruge	L7351
+5088  11ef a696          	ld	a,#150
+5089  11f1 6b01          	ld	(OFST+0,sp),a
+5090  11f3               L7351:
+5091                     ; 849 			uiInfo.valve_len[UI_RID] = i;
+5093  11f3 c60032        	ld	a,_uiInfo+50
+5094  11f6 5f            	clrw	x
+5095  11f7 97            	ld	xl,a
+5096  11f8 7b01          	ld	a,(OFST+0,sp)
+5097  11fa d7001a        	ld	(_uiInfo+26,x),a
+5098  11fd               L7251:
+5099                     ; 851 		if( _dsPrev != i )
+5101  11fd c6000a        	ld	a,__dsPrev
+5102  1200 1101          	cp	a,(OFST+0,sp)
+5103  1202 2741          	jreq	L5251
+5104                     ; 853 			_dsPrev = i;
+5106  1204 7b01          	ld	a,(OFST+0,sp)
+5107  1206 c7000a        	ld	__dsPrev,a
+5108                     ; 854 			UI_DISP_3Digit(i);
+5110  1209 7b01          	ld	a,(OFST+0,sp)
+5111  120b 5f            	clrw	x
+5112  120c 97            	ld	xl,a
+5113  120d a664          	ld	a,#100
+5114  120f 62            	div	x,a
+5115  1210 9f            	ld	a,xl
+5116  1211 97            	ld	xl,a
+5117  1212 a601          	ld	a,#1
+5118  1214 95            	ld	xh,a
+5119  1215 cd0000        	call	_lcd_disp_n
+5123  1218 7b01          	ld	a,(OFST+0,sp)
+5124  121a 5f            	clrw	x
+5125  121b 97            	ld	xl,a
+5126  121c a664          	ld	a,#100
+5127  121e 62            	div	x,a
+5128  121f 5f            	clrw	x
+5129  1220 97            	ld	xl,a
+5130  1221 01            	rrwa	x,a
+5131  1222 6b01          	ld	(OFST+0,sp),a
+5132  1224 02            	rlwa	x,a
+5135  1225 7b01          	ld	a,(OFST+0,sp)
+5136  1227 5f            	clrw	x
+5137  1228 97            	ld	xl,a
+5138  1229 a60a          	ld	a,#10
+5139  122b 62            	div	x,a
+5140  122c 9f            	ld	a,xl
+5141  122d 97            	ld	xl,a
+5142  122e a602          	ld	a,#2
+5143  1230 95            	ld	xh,a
+5144  1231 cd0000        	call	_lcd_disp_n
+5148  1234 7b01          	ld	a,(OFST+0,sp)
+5149  1236 5f            	clrw	x
+5150  1237 97            	ld	xl,a
+5151  1238 a60a          	ld	a,#10
+5152  123a 62            	div	x,a
+5153  123b 5f            	clrw	x
+5154  123c 97            	ld	xl,a
+5155  123d 9f            	ld	a,xl
+5156  123e 97            	ld	xl,a
+5157  123f a603          	ld	a,#3
+5158  1241 95            	ld	xh,a
+5159  1242 cd0000        	call	_lcd_disp_n
+5162  1245               L5251:
+5163                     ; 857 	if( key == 4 )		
+5165  1245 7b02          	ld	a,(OFST+1,sp)
+5166  1247 a104          	cp	a,#4
+5167  1249 2613          	jrne	L3451
+5168                     ; 859 		lcd_blink_npos_clear();
+5170  124b cd0000        	call	_lcd_blink_npos_clear
+5172                     ; 860 		STATUS_NEXT(next);	
+5174  124e 7b03          	ld	a,(OFST+2,sp)
+5175  1250 c70008        	ld	__ds,a
+5178  1253 725f0009      	clr	__dsCount
+5181  1257 35ff000a      	mov	__dsPrev,#255
+5184  125b cc12e2        	jra	L5451
+5185  125e               L3451:
+5186                     ; 862 	else if( key == 2 )
+5188  125e 7b02          	ld	a,(OFST+1,sp)
+5189  1260 a102          	cp	a,#2
+5190  1262 261d          	jrne	L7451
+5191                     ; 864 		uiInfo.valve_len[UI_RID] = uiInfo._t;
+5193  1264 c60032        	ld	a,_uiInfo+50
+5194  1267 5f            	clrw	x
+5195  1268 97            	ld	xl,a
+5196  1269 c60046        	ld	a,_uiInfo+70
+5197  126c d7001a        	ld	(_uiInfo+26,x),a
+5198  126f               L5741:
+5199                     ; 865 next:
+5199                     ; 866 		lcd_blink_npos_clear();
+5201  126f cd0000        	call	_lcd_blink_npos_clear
+5203                     ; 867 		STATUS_NEXT(next);
+5205  1272 7b03          	ld	a,(OFST+2,sp)
+5206  1274 c70008        	ld	__ds,a
+5209  1277 725f0009      	clr	__dsCount
+5212  127b 35ff000a      	mov	__dsPrev,#255
+5215  127f 2061          	jra	L5451
+5216  1281               L7451:
+5217                     ; 869 	else if( key == 3 )
+5219  1281 7b02          	ld	a,(OFST+1,sp)
+5220  1283 a103          	cp	a,#3
+5221  1285 2630          	jrne	L3551
+5222                     ; 871 		UI_RPOS = (UI_RPOS+1) % uiInfo.cnt;
+5224  1287 c60035        	ld	a,_uiInfo+53
+5225  128a 5f            	clrw	x
+5226  128b 97            	ld	xl,a
+5227  128c 5c            	incw	x
+5228  128d c6000b        	ld	a,_uiInfo+11
+5229  1290 905f          	clrw	y
+5230  1292 9097          	ld	yl,a
+5231  1294 cd0000        	call	c_idiv
+5233  1297 51            	exgw	x,y
+5234  1298 01            	rrwa	x,a
+5235  1299 c70035        	ld	_uiInfo+53,a
+5236  129c 02            	rlwa	x,a
+5237                     ; 872 		lcd_disp_rid(UI_RPOS, 1, 0);
+5239  129d 4b00          	push	#0
+5240  129f ae0001        	ldw	x,#1
+5241  12a2 c60035        	ld	a,_uiInfo+53
+5242  12a5 95            	ld	xh,a
+5243  12a6 cd0000        	call	_lcd_disp_rid
+5245  12a9 84            	pop	a
+5246                     ; 873 		uiInfo.valve_rc[UI_RID] = UI_RPOS; 
+5248  12aa c60032        	ld	a,_uiInfo+50
+5249  12ad 5f            	clrw	x
+5250  12ae 97            	ld	xl,a
+5251  12af c60035        	ld	a,_uiInfo+53
+5252  12b2 d70022        	ld	(_uiInfo+34,x),a
+5254  12b5 202b          	jra	L5451
+5255  12b7               L3551:
+5256                     ; 875 	else if( key == 1 )
+5258  12b7 7b02          	ld	a,(OFST+1,sp)
+5259  12b9 a101          	cp	a,#1
+5260  12bb 2625          	jrne	L5451
+5261                     ; 877 		lcd_blink_npos_clear();
+5263  12bd cd0000        	call	_lcd_blink_npos_clear
+5265                     ; 878 		UI_RID = (uint8_t)((UI_RID + 1) % uiInfo.cnt);
+5267  12c0 c60032        	ld	a,_uiInfo+50
+5268  12c3 5f            	clrw	x
+5269  12c4 97            	ld	xl,a
+5270  12c5 5c            	incw	x
+5271  12c6 c6000b        	ld	a,_uiInfo+11
+5272  12c9 905f          	clrw	y
+5273  12cb 9097          	ld	yl,a
+5274  12cd cd0000        	call	c_idiv
+5276  12d0 51            	exgw	x,y
+5277  12d1 9f            	ld	a,xl
+5278  12d2 c70032        	ld	_uiInfo+50,a
+5279                     ; 879 		STATUS_NEXT(prev);
+5281  12d5 7b06          	ld	a,(OFST+5,sp)
+5282  12d7 c70008        	ld	__ds,a
+5285  12da 725f0009      	clr	__dsCount
+5288  12de 35ff000a      	mov	__dsPrev,#255
+5290  12e2               L5451:
+5291                     ; 881 }
+5294  12e2 5b03          	addw	sp,#3
+5295  12e4 81            	ret
+5346                     ; 883 void	disp_status_run(uint8_t key, uint8_t next, uint8_t prev)
+5346                     ; 884 {
+5347                     	switch	.text
+5348  12e5               _disp_status_run:
+5350  12e5 89            	pushw	x
+5351       00000000      OFST:	set	0
+5354                     ; 886 	if( _dsCount == 0 )
+5356  12e6 725d0009      	tnz	__dsCount
+5357  12ea 260b          	jrne	L3061
+5358                     ; 888 		lcd_clear(0);
+5360  12ec 4f            	clr	a
+5361  12ed cd0000        	call	_lcd_clear
+5363                     ; 889 		lcd_disp_setup_run();
+5365  12f0 cd0000        	call	_lcd_disp_setup_run
+5367                     ; 890 		_dsCount = 1;
+5369  12f3 35010009      	mov	__dsCount,#1
+5371  12f7               L3061:
+5372                     ; 895 	if( key == 4 )	{	STATUS_NEXT(next);	}
+5374  12f7 7b01          	ld	a,(OFST+1,sp)
+5375  12f9 a104          	cp	a,#4
+5376  12fb 260f          	jrne	L5061
+5379  12fd 7b02          	ld	a,(OFST+2,sp)
+5380  12ff c70008        	ld	__ds,a
+5383  1302 725f0009      	clr	__dsCount
+5386  1306 35ff000a      	mov	__dsPrev,#255
+5389  130a 2013          	jra	L7061
+5390  130c               L5061:
+5391                     ; 896 	else if( key == 2 )
+5393  130c 7b01          	ld	a,(OFST+1,sp)
+5394  130e a102          	cp	a,#2
+5395  1310 260d          	jrne	L7061
+5396                     ; 898 		STATUS_NEXT(prev);
+5398  1312 7b05          	ld	a,(OFST+5,sp)
+5399  1314 c70008        	ld	__ds,a
+5402  1317 725f0009      	clr	__dsCount
+5405  131b 35ff000a      	mov	__dsPrev,#255
+5407  131f               L7061:
+5408                     ; 900 }
+5411  131f 85            	popw	x
+5412  1320 81            	ret
+5457                     ; 902 void	disp_status_exit(uint8_t key)
+5457                     ; 903 {
+5458                     	switch	.text
+5459  1321               _disp_status_exit:
+5461  1321 88            	push	a
+5462       00000001      OFST:	set	1
+5465                     ; 905 	if( (_t20ms%10) == 0 )
+5467  1322 c60000        	ld	a,__t20ms
+5468  1325 5f            	clrw	x
+5469  1326 97            	ld	xl,a
+5470  1327 a60a          	ld	a,#10
+5471  1329 cd0000        	call	c_smodx
+5473  132c a30000        	cpw	x,#0
+5474  132f 2645          	jrne	L1361
+5475                     ; 907 		if( _dsPrev != 0 )
+5477  1331 725d000a      	tnz	__dsPrev
+5478  1335 2702          	jreq	L3361
+5479                     ; 908 			return;
+5482  1337 84            	pop	a
+5483  1338 81            	ret
+5484  1339               L3361:
+5485                     ; 910 		_dsCount++;
+5487  1339 725c0009      	inc	__dsCount
+5488                     ; 911 		_dsPrev = 1;
+5490  133d 3501000a      	mov	__dsPrev,#1
+5491                     ; 912 		lcd_clear(0);
+5493  1341 4f            	clr	a
+5494  1342 cd0000        	call	_lcd_clear
+5496                     ; 913 		for( i=0; i<4; i++ )
+5498  1345 0f01          	clr	(OFST+0,sp)
+5499  1347               L5361:
+5500                     ; 914 			lcd_disp_n(i, _dsCount%10);
+5502  1347 c60009        	ld	a,__dsCount
+5503  134a 5f            	clrw	x
+5504  134b 97            	ld	xl,a
+5505  134c a60a          	ld	a,#10
+5506  134e 62            	div	x,a
+5507  134f 5f            	clrw	x
+5508  1350 97            	ld	xl,a
+5509  1351 9f            	ld	a,xl
+5510  1352 97            	ld	xl,a
+5511  1353 7b01          	ld	a,(OFST+0,sp)
+5512  1355 95            	ld	xh,a
+5513  1356 cd0000        	call	_lcd_disp_n
+5515                     ; 913 		for( i=0; i<4; i++ )
+5517  1359 0c01          	inc	(OFST+0,sp)
+5520  135b 7b01          	ld	a,(OFST+0,sp)
+5521  135d a104          	cp	a,#4
+5522  135f 25e6          	jrult	L5361
+5523                     ; 916 		if( _dsCount == 11 )
+5525  1361 c60009        	ld	a,__dsCount
+5526  1364 a10b          	cp	a,#11
+5527  1366 2612          	jrne	L5461
+5528                     ; 918 			STATUS_NEXT(99);
+5530  1368 35630008      	mov	__ds,#99
+5533  136c 725f0009      	clr	__dsCount
+5536  1370 35ff000a      	mov	__dsPrev,#255
+5538  1374 2004          	jra	L5461
+5539  1376               L1361:
+5540                     ; 922 		_dsPrev = 0;
+5542  1376 725f000a      	clr	__dsPrev
+5543  137a               L5461:
+5544                     ; 923 }
+5547  137a 84            	pop	a
+5548  137b 81            	ret
+5584                     ; 925 void	disp_status_loop_message(uint8_t i)
+5584                     ; 926 {
+5585                     	switch	.text
+5586  137c               _disp_status_loop_message:
+5588  137c 88            	push	a
+5589       00000000      OFST:	set	0
+5592                     ; 927 	lcd_clear_btn();
+5594  137d cd0000        	call	_lcd_clear_btn
+5596                     ; 928 	if( i == 0 )		{	LCD_BIT_SET(bS6);	/*	(0)난방*/	}
+5598  1380 0d01          	tnz	(OFST+1,sp)
+5599  1382 2610          	jrne	L3661
+5602  1384 c60011        	ld	a,_iLF_DEF+17
+5603  1387 5f            	clrw	x
+5604  1388 97            	ld	xl,a
+5605  1389 d6540c        	ld	a,(21516,x)
+5606  138c ca0011        	or	a,_bLF_DEF+17
+5607  138f d7540c        	ld	(21516,x),a
+5609  1392 202a          	jra	L5661
+5610  1394               L3661:
+5611                     ; 929 	else if( i == 1 )	{	LCD_BIT_SET(bS7);	/*	(1)예약*/	}
+5613  1394 7b01          	ld	a,(OFST+1,sp)
+5614  1396 a101          	cp	a,#1
+5615  1398 2610          	jrne	L7661
+5618  139a c60021        	ld	a,_iLF_DEF+33
+5619  139d 5f            	clrw	x
+5620  139e 97            	ld	xl,a
+5621  139f d6540c        	ld	a,(21516,x)
+5622  13a2 ca0021        	or	a,_bLF_DEF+33
+5623  13a5 d7540c        	ld	(21516,x),a
+5625  13a8 2014          	jra	L5661
+5626  13aa               L7661:
+5627                     ; 930 	else if( i == 2 )	{	LCD_BIT_SET(bS8);	/*	(2)반복*/	}
+5629  13aa 7b01          	ld	a,(OFST+1,sp)
+5630  13ac a102          	cp	a,#2
+5631  13ae 260e          	jrne	L5661
+5634  13b0 c60031        	ld	a,_iLF_DEF+49
+5635  13b3 5f            	clrw	x
+5636  13b4 97            	ld	xl,a
+5637  13b5 d6540c        	ld	a,(21516,x)
+5638  13b8 ca0031        	or	a,_bLF_DEF+49
+5639  13bb d7540c        	ld	(21516,x),a
+5640  13be               L5661:
+5641                     ; 931 }
+5644  13be 84            	pop	a
+5645  13bf 81            	ret
+5680                     ; 934 void	disp_status_loop_init(void)
+5680                     ; 935 {
+5681                     	switch	.text
+5682  13c0               _disp_status_loop_init:
+5686                     ; 937 	lcd_clear(0);
+5688  13c0 4f            	clr	a
+5689  13c1 cd0000        	call	_lcd_clear
+5691                     ; 939 	ui_disp_temp_mark(1);
+5693  13c4 a601          	ld	a,#1
+5694  13c6 cd0000        	call	_ui_disp_temp_mark
+5696                     ; 940 	ui_disp_temp_curr(uiInfo.tCurr);
+5698  13c9 c6000d        	ld	a,_uiInfo+13
+5699  13cc cd0000        	call	_ui_disp_temp_curr
+5701                     ; 941 	ui_disp_temp_setup(uiInfo.tSetup);
+5703  13cf c6000e        	ld	a,_uiInfo+14
+5704  13d2 cd0000        	call	_ui_disp_temp_setup
+5706                     ; 942 	disp_status_loop_message(__sUp);
+5708  13d5 c60001        	ld	a,___sUp
+5709  13d8 ada2          	call	_disp_status_loop_message
+5711                     ; 943 	lcd_blink_clear();
+5713  13da cd0000        	call	_lcd_blink_clear
+5715                     ; 944 	lcd_disp_info_fire(_boiler_fire != 0 ? 1 : 0);
+5717  13dd 725d0000      	tnz	__boiler_fire
+5718  13e1 2704          	jreq	L421
+5719  13e3 a601          	ld	a,#1
+5720  13e5 2001          	jra	L621
+5721  13e7               L421:
+5722  13e7 4f            	clr	a
+5723  13e8               L621:
+5724  13e8 cd0000        	call	_lcd_disp_info_fire
+5726                     ; 946 	lcd_disp_rid(uiInfo.id, 1, 0);
+5728  13eb 4b00          	push	#0
+5729  13ed ae0001        	ldw	x,#1
+5730  13f0 c60001        	ld	a,_uiInfo+1
+5731  13f3 95            	ld	xh,a
+5732  13f4 cd0000        	call	_lcd_disp_rid
+5734  13f7 84            	pop	a
+5735                     ; 947 }
+5738  13f8 81            	ret
+5767                     ; 949 void	disp_status_curr_only(void)
+5767                     ; 950 {
+5768                     	switch	.text
+5769  13f9               _disp_status_curr_only:
+5773                     ; 951 	ui_disp_clear_tSetup(0);
+5775  13f9 4f            	clr	a
+5776  13fa cd0000        	call	_ui_disp_clear_tSetup
+5778                     ; 952 	LCD_BIT_SET(bS1);
+5780  13fd c60003        	ld	a,_iLF_DEF+3
+5781  1400 5f            	clrw	x
+5782  1401 97            	ld	xl,a
+5783  1402 d6540c        	ld	a,(21516,x)
+5784  1405 ca0003        	or	a,_bLF_DEF+3
+5785  1408 d7540c        	ld	(21516,x),a
+5786                     ; 953 	LCD_BIT_SET(bC1);
+5788  140b c60006        	ld	a,_iLF_DEF+6
+5789  140e 5f            	clrw	x
+5790  140f 97            	ld	xl,a
+5791  1410 d6540c        	ld	a,(21516,x)
+5792  1413 ca0006        	or	a,_bLF_DEF+6
+5793  1416 d7540c        	ld	(21516,x),a
+5794                     ; 954 	LCD_BIT_CLEAR(bCOL);
+5796  1419 c60016        	ld	a,_iLF_DEF+22
+5797  141c 5f            	clrw	x
+5798  141d 97            	ld	xl,a
+5799  141e c60016        	ld	a,_bLF_DEF+22
+5800  1421 43            	cpl	a
+5801  1422 d4540c        	and	a,(21516,x)
+5802  1425 d7540c        	ld	(21516,x),a
+5803                     ; 955 	ui_disp_temp_curr(uiInfo.tCurr);
+5805  1428 c6000d        	ld	a,_uiInfo+13
+5806  142b cd0000        	call	_ui_disp_temp_curr
+5808                     ; 956 }
+5811  142e 81            	ret
+5864                     ; 958 void	disp_status_op_disp(uint8_t key, uint8_t next)
+5864                     ; 959 {
+5865                     	switch	.text
+5866  142f               _disp_status_op_disp:
+5868  142f 89            	pushw	x
+5869  1430 88            	push	a
+5870       00000001      OFST:	set	1
+5873                     ; 961 	if( (_t20ms%10) == 0 )
+5875  1431 c60000        	ld	a,__t20ms
+5876  1434 5f            	clrw	x
+5877  1435 97            	ld	xl,a
+5878  1436 a60a          	ld	a,#10
+5879  1438 cd0000        	call	c_smodx
+5881  143b a30000        	cpw	x,#0
+5882  143e 2644          	jrne	L5371
+5883                     ; 963 		if( _dsPrev != 0 )
+5885  1440 725d000a      	tnz	__dsPrev
+5886  1444 2642          	jrne	L431
+5887                     ; 964 			return;
+5889                     ; 966 		_dsCount++;
+5891  1446 725c0009      	inc	__dsCount
+5892                     ; 967 		_dsPrev = 1;
+5894  144a 3501000a      	mov	__dsPrev,#1
+5895                     ; 968 		lcd_clear(0);
+5897  144e 4f            	clr	a
+5898  144f cd0000        	call	_lcd_clear
+5900                     ; 969 		for( i=0; i<4; i++ )
+5902  1452 0f01          	clr	(OFST+0,sp)
+5903  1454               L1471:
+5904                     ; 970 			lcd_disp_n(i, _dsCount%10);
+5906  1454 c60009        	ld	a,__dsCount
+5907  1457 5f            	clrw	x
+5908  1458 97            	ld	xl,a
+5909  1459 a60a          	ld	a,#10
+5910  145b 62            	div	x,a
+5911  145c 5f            	clrw	x
+5912  145d 97            	ld	xl,a
+5913  145e 9f            	ld	a,xl
+5914  145f 97            	ld	xl,a
+5915  1460 7b01          	ld	a,(OFST+0,sp)
+5916  1462 95            	ld	xh,a
+5917  1463 cd0000        	call	_lcd_disp_n
+5919                     ; 969 		for( i=0; i<4; i++ )
+5921  1466 0c01          	inc	(OFST+0,sp)
+5924  1468 7b01          	ld	a,(OFST+0,sp)
+5925  146a a104          	cp	a,#4
+5926  146c 25e6          	jrult	L1471
+5927                     ; 972 		if( _dsCount == 11 )
+5929  146e c60009        	ld	a,__dsCount
+5930  1471 a10b          	cp	a,#11
+5931  1473 2613          	jrne	L1571
+5932                     ; 974 			STATUS_NEXT(next);
+5934  1475 7b03          	ld	a,(OFST+2,sp)
+5935  1477 c70008        	ld	__ds,a
+5938  147a 725f0009      	clr	__dsCount
+5941  147e 35ff000a      	mov	__dsPrev,#255
+5943  1482 2004          	jra	L1571
+5944  1484               L5371:
+5945                     ; 979 		_dsPrev = 0;
+5947  1484 725f000a      	clr	__dsPrev
+5948  1488               L1571:
+5949                     ; 980 }
+5950  1488               L431:
+5953  1488 5b03          	addw	sp,#3
+5954  148a 81            	ret
+5986                     ; 982 void	disp_status_2nd(uint8_t key, uint8_t next)
+5986                     ; 983 {
+5987                     	switch	.text
+5988  148b               _disp_status_2nd:
+5992                     ; 984 }
+5995  148b 81            	ret
+6071                     ; 992 void	disp_status(uint8_t key)
+6071                     ; 993 {
+6072                     	switch	.text
+6073  148c               _disp_status:
+6075  148c 88            	push	a
+6076  148d 88            	push	a
+6077       00000001      OFST:	set	1
+6080                     ; 995 	if( _ds == 0 )			disp_status_init(key, 1);
+6082  148e 725d0008      	tnz	__ds
+6083  1492 260b          	jrne	L5002
+6086  1494 ae0001        	ldw	x,#1
+6087  1497 95            	ld	xh,a
+6088  1498 cd01c8        	call	_disp_status_init
+6091  149b aca116a1      	jpf	L7002
+6092  149f               L5002:
+6093                     ; 996 	else if( _ds == 1 )		disp_status_id(key, 36);
+6095  149f c60008        	ld	a,__ds
+6096  14a2 a101          	cp	a,#1
+6097  14a4 260d          	jrne	L1102
+6100  14a6 ae0024        	ldw	x,#36
+6101  14a9 7b02          	ld	a,(OFST+1,sp)
+6102  14ab 95            	ld	xh,a
+6103  14ac cd0224        	call	_disp_status_id
+6106  14af aca116a1      	jpf	L7002
+6107  14b3               L1102:
+6108                     ; 997 	else if( _ds == 3 )		disp_status_meter(key, 4, 3);
+6110  14b3 c60008        	ld	a,__ds
+6111  14b6 a103          	cp	a,#3
+6112  14b8 2610          	jrne	L5102
+6115  14ba 4b03          	push	#3
+6116  14bc ae0004        	ldw	x,#4
+6117  14bf 7b03          	ld	a,(OFST+2,sp)
+6118  14c1 95            	ld	xh,a
+6119  14c2 cd0397        	call	_disp_status_meter
+6121  14c5 84            	pop	a
+6123  14c6 aca116a1      	jpf	L7002
+6124  14ca               L5102:
+6125                     ; 998 	else if( _ds == 4 )		disp_status_maxValve(key, 6);
+6127  14ca c60008        	ld	a,__ds
+6128  14cd a104          	cp	a,#4
+6129  14cf 260d          	jrne	L1202
+6132  14d1 ae0006        	ldw	x,#6
+6133  14d4 7b02          	ld	a,(OFST+1,sp)
+6134  14d6 95            	ld	xh,a
+6135  14d7 cd0548        	call	_disp_status_maxValve
+6138  14da aca116a1      	jpf	L7002
+6139  14de               L1202:
+6140                     ; 1003 	else if( _ds == 6 )		disp_status_toffset(key, 10);
+6142  14de c60008        	ld	a,__ds
+6143  14e1 a106          	cp	a,#6
+6144  14e3 260d          	jrne	L5202
+6147  14e5 ae000a        	ldw	x,#10
+6148  14e8 7b02          	ld	a,(OFST+1,sp)
+6149  14ea 95            	ld	xh,a
+6150  14eb cd0618        	call	_disp_status_toffset
+6153  14ee aca116a1      	jpf	L7002
+6154  14f2               L5202:
+6155                     ; 1004 	else if( _ds == 7 )		disp_status_link(key, 9, 7);
+6157  14f2 c60008        	ld	a,__ds
+6158  14f5 a107          	cp	a,#7
+6159  14f7 2610          	jrne	L1302
+6162  14f9 4b07          	push	#7
+6163  14fb ae0009        	ldw	x,#9
+6164  14fe 7b03          	ld	a,(OFST+2,sp)
+6165  1500 95            	ld	xh,a
+6166  1501 cd073f        	call	_disp_status_link
+6168  1504 84            	pop	a
+6170  1505 aca116a1      	jpf	L7002
+6171  1509               L1302:
+6172                     ; 1006 	else if( _ds == 20 )	disp_status_2nd(key, 10);
+6174  1509 c60008        	ld	a,__ds
+6175  150c a114          	cp	a,#20
+6176  150e 260d          	jrne	L5302
+6179  1510 ae000a        	ldw	x,#10
+6180  1513 7b02          	ld	a,(OFST+1,sp)
+6181  1515 95            	ld	xh,a
+6182  1516 cd148b        	call	_disp_status_2nd
+6185  1519 aca116a1      	jpf	L7002
+6186  151d               L5302:
+6187                     ; 1008 	else if( _ds == 9 )		disp_status_run_op(key, 61);
+6189  151d c60008        	ld	a,__ds
+6190  1520 a109          	cp	a,#9
+6191  1522 260d          	jrne	L1402
+6194  1524 ae003d        	ldw	x,#61
+6195  1527 7b02          	ld	a,(OFST+1,sp)
+6196  1529 95            	ld	xh,a
+6197  152a cd0d28        	call	_disp_status_run_op
+6200  152d aca116a1      	jpf	L7002
+6201  1531               L1402:
+6202                     ; 1009 	else if( _ds == 61 )	disp_status_cntl_op(key, 62);
+6204  1531 c60008        	ld	a,__ds
+6205  1534 a13d          	cp	a,#61
+6206  1536 260d          	jrne	L5402
+6209  1538 ae003e        	ldw	x,#62
+6210  153b 7b02          	ld	a,(OFST+1,sp)
+6211  153d 95            	ld	xh,a
+6212  153e cd0dc2        	call	_disp_status_cntl_op
+6215  1541 aca116a1      	jpf	L7002
+6216  1545               L5402:
+6217                     ; 1010 	else if( _ds == 62 )	disp_status_cnt(key, 63);
+6219  1545 c60008        	ld	a,__ds
+6220  1548 a13e          	cp	a,#62
+6221  154a 260d          	jrne	L1502
+6224  154c ae003f        	ldw	x,#63
+6225  154f 7b02          	ld	a,(OFST+1,sp)
+6226  1551 95            	ld	xh,a
+6227  1552 cd02e3        	call	_disp_status_cnt
+6230  1555 aca116a1      	jpf	L7002
+6231  1559               L1502:
+6232                     ; 1011 	else if( _ds == 63 )	disp_status_len(key, 64);
+6234  1559 c60008        	ld	a,__ds
+6235  155c a13f          	cp	a,#63
+6236  155e 260d          	jrne	L5502
+6239  1560 ae0040        	ldw	x,#64
+6240  1563 7b02          	ld	a,(OFST+1,sp)
+6241  1565 95            	ld	xh,a
+6242  1566 cd0e66        	call	_disp_status_len
+6245  1569 aca116a1      	jpf	L7002
+6246  156d               L5502:
+6247                     ; 1012 	else if( _ds == 64 )	disp_status_po_type(key, 65);
+6249  156d c60008        	ld	a,__ds
+6250  1570 a140          	cp	a,#64
+6251  1572 260d          	jrne	L1602
+6254  1574 ae0041        	ldw	x,#65
+6255  1577 7b02          	ld	a,(OFST+1,sp)
+6256  1579 95            	ld	xh,a
+6257  157a cd0f32        	call	_disp_status_po_type
+6260  157d aca116a1      	jpf	L7002
+6261  1581               L1602:
+6262                     ; 1013 	else if( _ds == 65 )	disp_status_lpm(key, 66);
+6264  1581 c60008        	ld	a,__ds
+6265  1584 a141          	cp	a,#65
+6266  1586 260d          	jrne	L5602
+6269  1588 ae0042        	ldw	x,#66
+6270  158b 7b02          	ld	a,(OFST+1,sp)
+6271  158d 95            	ld	xh,a
+6272  158e cd0fd3        	call	_disp_status_lpm
+6275  1591 aca116a1      	jpf	L7002
+6276  1595               L5602:
+6277                     ; 1014 	else if( _ds == 66 )	disp_status_temp_offset(key, 67);
+6279  1595 c60008        	ld	a,__ds
+6280  1598 a142          	cp	a,#66
+6281  159a 260d          	jrne	L1702
+6284  159c ae0043        	ldw	x,#67
+6285  159f 7b02          	ld	a,(OFST+1,sp)
+6286  15a1 95            	ld	xh,a
+6287  15a2 cd10a5        	call	_disp_status_temp_offset
+6290  15a5 aca116a1      	jpf	L7002
+6291  15a9               L1702:
+6292                     ; 1015 	else if( _ds == 67 )	disp_status_valveinfo(key, 10, 67);
+6294  15a9 c60008        	ld	a,__ds
+6295  15ac a143          	cp	a,#67
+6296  15ae 2610          	jrne	L5702
+6299  15b0 4b43          	push	#67
+6300  15b2 ae000a        	ldw	x,#10
+6301  15b5 7b03          	ld	a,(OFST+2,sp)
+6302  15b7 95            	ld	xh,a
+6303  15b8 cd1171        	call	_disp_status_valveinfo
+6305  15bb 84            	pop	a
+6307  15bc aca116a1      	jpf	L7002
+6308  15c0               L5702:
+6309                     ; 1017 	else if( _ds == 10 )	disp_status_run(key, 11, 1);
+6311  15c0 c60008        	ld	a,__ds
+6312  15c3 a10a          	cp	a,#10
+6313  15c5 2610          	jrne	L1012
+6316  15c7 4b01          	push	#1
+6317  15c9 ae000b        	ldw	x,#11
+6318  15cc 7b03          	ld	a,(OFST+2,sp)
+6319  15ce 95            	ld	xh,a
+6320  15cf cd12e5        	call	_disp_status_run
+6322  15d2 84            	pop	a
+6324  15d3 aca116a1      	jpf	L7002
+6325  15d7               L1012:
+6326                     ; 1018 	else if( _ds == 11 )	disp_status_exit(key);
+6328  15d7 c60008        	ld	a,__ds
+6329  15da a10b          	cp	a,#11
+6330  15dc 2609          	jrne	L5012
+6333  15de 7b02          	ld	a,(OFST+1,sp)
+6334  15e0 cd1321        	call	_disp_status_exit
+6337  15e3 aca116a1      	jpf	L7002
+6338  15e7               L5012:
+6339                     ; 1019 	else if( _ds == 36 )	disp_status_toffset(key, 10);
+6341  15e7 c60008        	ld	a,__ds
+6342  15ea a124          	cp	a,#36
+6343  15ec 260d          	jrne	L1112
+6346  15ee ae000a        	ldw	x,#10
+6347  15f1 7b02          	ld	a,(OFST+1,sp)
+6348  15f3 95            	ld	xh,a
+6349  15f4 cd0618        	call	_disp_status_toffset
+6352  15f7 aca116a1      	jpf	L7002
+6353  15fb               L1112:
+6354                     ; 1020 	else if( _ds == 100 )	
+6356  15fb c60008        	ld	a,__ds
+6357  15fe a164          	cp	a,#100
+6358  1600 260b          	jrne	L5112
+6359                     ; 1023 		ui_Open();
+6361  1602 cd0019        	call	_ui_Open
+6363                     ; 1024 		_ds = 98;
+6365  1605 35620008      	mov	__ds,#98
+6367  1609 aca116a1      	jpf	L7002
+6368  160d               L5112:
+6369                     ; 1026 	else if( _ds == 98 )
+6371  160d c60008        	ld	a,__ds
+6372  1610 a162          	cp	a,#98
+6373  1612 2608          	jrne	L1212
+6374                     ; 1028 		config_disp(0, 0);
+6376  1614 5f            	clrw	x
+6377  1615 cd0000        	call	_config_disp
+6380  1618 aca116a1      	jpf	L7002
+6381  161c               L1212:
+6382                     ; 1030 	else if( _ds == 99 )
+6384  161c c60008        	ld	a,__ds
+6385  161f a163          	cp	a,#99
+6386  1621 2631          	jrne	L5212
+6387                     ; 1032 		t = getCurrTemp();
+6389  1623 cd0000        	call	_getCurrTemp
+6391  1626 6b01          	ld	(OFST+0,sp),a
+6392                     ; 1033 		if( uiInfo.tCurr != t )
+6394  1628 c6000d        	ld	a,_uiInfo+13
+6395  162b 1101          	cp	a,(OFST+0,sp)
+6396  162d 2711          	jreq	L7212
+6397                     ; 1035 			uiInfo.tCurr = t;
+6399  162f 7b01          	ld	a,(OFST+0,sp)
+6400  1631 c7000d        	ld	_uiInfo+13,a
+6401                     ; 1036 			if( _remote == 0 )
+6403  1634 725d0000      	tnz	__remote
+6404  1638 2606          	jrne	L7212
+6405                     ; 1038 				ui_disp_temp_curr(uiInfo.tCurr);
+6407  163a c6000d        	ld	a,_uiInfo+13
+6408  163d cd0000        	call	_ui_disp_temp_curr
+6410  1640               L7212:
+6411                     ; 1042 		if( uiInfo.mode == 0 )	disp_status_loop_client(key);
+6413  1640 725d000c      	tnz	_uiInfo+12
+6414  1644 2607          	jrne	L3312
+6417  1646 7b02          	ld	a,(OFST+1,sp)
+6418  1648 cd0000        	call	_disp_status_loop_client
+6421  164b 2054          	jra	L7002
+6422  164d               L3312:
+6423                     ; 1044 			disp_status_loop_host(key);
+6425  164d 7b02          	ld	a,(OFST+1,sp)
+6426  164f cd0000        	call	_disp_status_loop_host
+6428  1652 204d          	jra	L7002
+6429  1654               L5212:
+6430                     ; 1046 	else if( _ds == 122 )
+6432  1654 c60008        	ld	a,__ds
+6433  1657 a17a          	cp	a,#122
+6434  1659 2611          	jrne	L1412
+6435                     ; 1048 		lcd_blink_clear();
+6437  165b cd0000        	call	_lcd_blink_clear
+6439                     ; 1049 		STATUS_NEXT(1);
+6441  165e 35010008      	mov	__ds,#1
+6444  1662 725f0009      	clr	__dsCount
+6447  1666 35ff000a      	mov	__dsPrev,#255
+6450  166a 2035          	jra	L7002
+6451  166c               L1412:
+6452                     ; 1051 	else if( _ds == 121 )
+6454  166c c60008        	ld	a,__ds
+6455  166f a179          	cp	a,#121
+6456  1671 2611          	jrne	L5412
+6457                     ; 1053 		lcd_blink_clear();
+6459  1673 cd0000        	call	_lcd_blink_clear
+6461                     ; 1054 		STATUS_NEXT(20);
+6463  1676 35140008      	mov	__ds,#20
+6466  167a 725f0009      	clr	__dsCount
+6469  167e 35ff000a      	mov	__dsPrev,#255
+6472  1682 201d          	jra	L7002
+6473  1684               L5412:
+6474                     ; 1056 	else if( _ds == 120 )
+6476  1684 c60008        	ld	a,__ds
+6477  1687 a178          	cp	a,#120
+6478  1689 2611          	jrne	L1512
+6479                     ; 1058 		lcd_blink_clear();
+6481  168b cd0000        	call	_lcd_blink_clear
+6483                     ; 1059 		STATUS_NEXT(9);	//	OP
+6485  168e 35090008      	mov	__ds,#9
+6488  1692 725f0009      	clr	__dsCount
+6491  1696 35ff000a      	mov	__dsPrev,#255
+6494  169a 2005          	jra	L7002
+6495  169c               L1512:
+6496                     ; 1061 	else if( _ds == 50 )
+6498  169c c60008        	ld	a,__ds
+6499  169f a132          	cp	a,#50
+6500  16a1               L7002:
+6501                     ; 1068 	lcd_blinkCb();
+6503  16a1 cd0000        	call	_lcd_blinkCb
+6505                     ; 1071 	uiInfo.enc = 0;
+6507  16a4 725f0000      	clr	_uiInfo
+6508                     ; 1073 	if( key == 0 )
+6510  16a8 0d02          	tnz	(OFST+1,sp)
+6511  16aa 2602          	jrne	L7512
+6512                     ; 1074 		return;
+6515  16ac 85            	popw	x
+6516  16ad 81            	ret
+6517  16ae               L7512:
+6518                     ; 1076 	if( key == _keypwMaster[_keypwIndexMaster] )
+6520  16ae c60005        	ld	a,__keypwIndexMaster
+6521  16b1 5f            	clrw	x
+6522  16b2 97            	ld	xl,a
+6523  16b3 d60000        	ld	a,(__keypwMaster,x)
+6524  16b6 1102          	cp	a,(OFST+1,sp)
+6525  16b8 2631          	jrne	L1612
+6526                     ; 1078 		_keypwIndexMaster++;
+6528  16ba 725c0005      	inc	__keypwIndexMaster
+6529                     ; 1079 		if( _keypwIndexMaster == 6 )
+6531  16be c60005        	ld	a,__keypwIndexMaster
+6532  16c1 a106          	cp	a,#6
+6533  16c3 262a          	jrne	L5612
+6534                     ; 1081 			_ds = 120;
+6536  16c5 35780008      	mov	__ds,#120
+6537                     ; 1082 			_keypwIndexMaster = 0;
+6539  16c9 725f0005      	clr	__keypwIndexMaster
+6540                     ; 1083 			uiInfo.mode = 1;
+6542  16cd 3501000c      	mov	_uiInfo+12,#1
+6543                     ; 1084 			uiInfo.id = 0;
+6545  16d1 725f0001      	clr	_uiInfo+1
+6546                     ; 1085 			FW_ID(uiInfo.id);
+6548  16d5 c60001        	ld	a,_uiInfo+1
+6549  16d8 97            	ld	xl,a
+6550  16d9 a620          	ld	a,#32
+6551  16db 95            	ld	xh,a
+6552  16dc cd0000        	call	_file_write
+6554                     ; 1086 			FW_MODE(uiInfo.mode);
+6556  16df c6000c        	ld	a,_uiInfo+12
+6557  16e2 97            	ld	xl,a
+6558  16e3 a61f          	ld	a,#31
+6559  16e5 95            	ld	xh,a
+6560  16e6 cd0000        	call	_file_write
+6562  16e9 2004          	jra	L5612
+6563  16eb               L1612:
+6564                     ; 1090 		_keypwIndexMaster = 0;
+6566  16eb 725f0005      	clr	__keypwIndexMaster
+6567  16ef               L5612:
+6568                     ; 1092 	if( key == _keypwMaster2[_keypwIndexMaster2] )
+6570  16ef c60006        	ld	a,__keypwIndexMaster2
+6571  16f2 5f            	clrw	x
+6572  16f3 97            	ld	xl,a
+6573  16f4 d60006        	ld	a,(__keypwMaster2,x)
+6574  16f7 1102          	cp	a,(OFST+1,sp)
+6575  16f9 2631          	jrne	L7612
+6576                     ; 1094 		_keypwIndexMaster2++;
+6578  16fb 725c0006      	inc	__keypwIndexMaster2
+6579                     ; 1095 		if( _keypwIndexMaster2 == 6 )
+6581  16ff c60006        	ld	a,__keypwIndexMaster2
+6582  1702 a106          	cp	a,#6
+6583  1704 262a          	jrne	L3712
+6584                     ; 1097 			_ds = 121;
+6586  1706 35790008      	mov	__ds,#121
+6587                     ; 1098 			_keypwIndexMaster2 = 0;
+6589  170a 725f0006      	clr	__keypwIndexMaster2
+6590                     ; 1099 			uiInfo.mode = 1;
+6592  170e 3501000c      	mov	_uiInfo+12,#1
+6593                     ; 1100 			uiInfo.id = 0;
+6595  1712 725f0001      	clr	_uiInfo+1
+6596                     ; 1101 			FW_ID(uiInfo.id);
+6598  1716 c60001        	ld	a,_uiInfo+1
+6599  1719 97            	ld	xl,a
+6600  171a a620          	ld	a,#32
+6601  171c 95            	ld	xh,a
+6602  171d cd0000        	call	_file_write
+6604                     ; 1102 			FW_MODE(uiInfo.mode);
+6606  1720 c6000c        	ld	a,_uiInfo+12
+6607  1723 97            	ld	xl,a
+6608  1724 a61f          	ld	a,#31
+6609  1726 95            	ld	xh,a
+6610  1727 cd0000        	call	_file_write
+6612  172a 2004          	jra	L3712
+6613  172c               L7612:
+6614                     ; 1106 		_keypwIndexMaster2 = 0;
+6616  172c 725f0006      	clr	__keypwIndexMaster2
+6617  1730               L3712:
+6618                     ; 1108 	if( key == _keypwClient[_keypwIndexClient] )
+6620  1730 c60007        	ld	a,__keypwIndexClient
+6621  1733 5f            	clrw	x
+6622  1734 97            	ld	xl,a
+6623  1735 d6000c        	ld	a,(__keypwClient,x)
+6624  1738 1102          	cp	a,(OFST+1,sp)
+6625  173a 2631          	jrne	L5712
+6626                     ; 1110 		_keypwIndexClient++;
+6628  173c 725c0007      	inc	__keypwIndexClient
+6629                     ; 1111 		if( _keypwIndexClient == 6 )
+6631  1740 c60007        	ld	a,__keypwIndexClient
+6632  1743 a106          	cp	a,#6
+6633  1745 262a          	jrne	L1022
+6634                     ; 1113 			_ds = 122;
+6636  1747 357a0008      	mov	__ds,#122
+6637                     ; 1114 			_keypwIndexClient = 0;
+6639  174b 725f0007      	clr	__keypwIndexClient
+6640                     ; 1115 			uiInfo.mode = 0;
+6642  174f 725f000c      	clr	_uiInfo+12
+6643                     ; 1116 			uiInfo.id = 1;
+6645  1753 35010001      	mov	_uiInfo+1,#1
+6646                     ; 1117 			FW_ID(uiInfo.id);
+6648  1757 c60001        	ld	a,_uiInfo+1
+6649  175a 97            	ld	xl,a
+6650  175b a620          	ld	a,#32
+6651  175d 95            	ld	xh,a
+6652  175e cd0000        	call	_file_write
+6654                     ; 1118 			FW_MODE(uiInfo.mode);
+6656  1761 c6000c        	ld	a,_uiInfo+12
+6657  1764 97            	ld	xl,a
+6658  1765 a61f          	ld	a,#31
+6659  1767 95            	ld	xh,a
+6660  1768 cd0000        	call	_file_write
+6662  176b 2004          	jra	L1022
+6663  176d               L5712:
+6664                     ; 1122 		_keypwIndexClient = 0;
+6666  176d 725f0007      	clr	__keypwIndexClient
+6667  1771               L1022:
+6668                     ; 1123 }
+6671  1771 85            	popw	x
+6672  1772 81            	ret
+6804                     	xref	_config_disp
+6805                     	xref	__remote
+6806                     	xref	_getCurrTemp
+6807                     	xref	__boiler_fire
+6808                     	xdef	__keypwIndexClient
+6809                     	xdef	__keypwIndexMaster2
+6810                     	xdef	__keypwIndexMaster
+6811                     	xdef	__keypwClient
+6812                     	xdef	__keypwMaster2
+6813                     	xdef	__keypwMaster
+6814                     	xref	_file_read
+6815                     	xref	_file_write
+6816                     	xdef	_disp_status_2nd
+6817                     	xdef	_disp_status_op_disp
+6818                     	xdef	_disp_status_curr_only
+6819                     	xdef	_disp_status_loop_init
+6820                     	xdef	_disp_status_loop_message
+6821                     	xdef	_disp_status_exit
+6822                     	xdef	_disp_status_run
+6823                     	xdef	_disp_status_valveinfo
+6824                     	xdef	_disp_status_temp_offset
+6825                     	xdef	_disp_status_lpm
+6826                     	xdef	_disp_status_po_type
+6827                     	xdef	_disp_status_len
+6828                     	xdef	_disp_status_cntl_op
+6829                     	xdef	_disp_status_run_op
+6830                     	xdef	_disp_status_link
+6831                     	xdef	_disp_status_toffset
+6832                     	xdef	_disp_status_maxValve
+6833                     	xdef	_disp_status_meter
+6834                     	xdef	_disp_status_cnt
+6835                     	xdef	_disp_status_id
+6836                     	xdef	_disp_status_init
+6837                     	xdef	_clear_npos2
+6838                     	xdef	_clear_npos1
+6839                     	xdef	__dsPrev
+6840                     	xdef	__dsCount
+6841                     	xdef	__ds
+6842                     	xdef	_ui_Open
+6843                     	xdef	_ui_room_clear
+6844                     	xref	_disp_status_loop_client
+6845                     	xref	_disp_status_loop_host
+6846                     	xdef	_ui_getInfo
+6847                     	xdef	___sRoom
+6848                     	xdef	___sInfo
+6849                     	xdef	___sDn
+6850                     	xdef	___sUp
+6851                     	xdef	___s
+6852                     	xref	_lcd_blink_npos
+6853                     	xref	_lcd_blink_npos_clear
+6854                     	xref	_lcd_disp_info_fire
+6855                     	xref	_ui_disp_clear_tSetup
+6856                     	xref	_ui_disp_temp_mark
+6857                     	xref	_ui_disp_temp_curr
+6858                     	xref	_ui_disp_temp_setup
+6859                     	xref	_lcd_blinkCb
+6860                     	xref	_lcd_blink_item
+6861                     	xref	_lcd_blink_clear
+6862                     	xdef	_disp_status
+6863                     	xref	_lcd_clear_npos
+6864                     	xref	_lcd_disp_rid
+6865                     	xref	_lcd_disp_n
+6866                     	xref	_lcd_clear
+6867                     	xref	_lcd_disp_setup_mode_each
+6868                     	xref	_lcd_disp_setup_mode_local
+6869                     	xref	_lcd_disp_setup_cnt
+6870                     	xref	_lcd_disp_setup_m
+6871                     	xref	_lcd_disp_setup_id
+6872                     	xref	_lcd_disp_setup_mode
+6873                     	xref	_lcd_disp_setup_run
+6874                     	xref	_lcd_disp_setup_c
+6875                     	xref	_lcd_disp_setup_maxValue
+6876                     	xref	_lcd_disp_setup_link
+6877                     	xref	_lcd_disp_setup_cntl_po
+6878                     	xref	_lcd_disp_setup_cntl_on
+6879                     	xref	_lcd_disp_setup_cntl_op
+6880                     	xref	_lcd_disp_setup_len
+6881                     	xref	_lcd_disp_setup_po_type_pb
+6882                     	xref	_lcd_disp_setup_po_type_pe
+6883                     	xref	_lcd_disp_setup_po_type_xl
+6884                     	xref	_lcd_disp_setup_po_type
+6885                     	xref	_lcd_disp_setup_temp_offset
+6886                     	xref	_lcd_disp_setup_lpm
+6887                     	xref	_lcd_clear_btn
+6888                     	xref	__rid
+6889                     	xref	_iLF_DEF
+6890                     	xref	_bLF_DEF
+6891                     	switch	.bss
+6892  0000               _uiInfo:
+6893  0000 000000000000  	ds.b	111
+6894                     	xdef	_uiInfo
+6895                     	xref	__t20ms
+6896                     	xref.b	c_x
+6916                     	xref	c_idiv
+6917                     	xref	c_smodx
+6918                     	end
